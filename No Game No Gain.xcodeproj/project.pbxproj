@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */; };
+		DB0938E72C98352700BC3505 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0938E62C98352700BC3505 /* Extension.swift */; };
+		DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13E7C42C8DA489002A5EED /* StatsView.swift */; };
+		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
+		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
+		DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E922C635971001C9D59 /* ProgressBarView.swift */; };
+		DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */; };
+		DB8D4EA42C5A21C000F84C41 /* No_Game_No_GainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D4EA32C5A21C000F84C41 /* No_Game_No_GainApp.swift */; };
+		DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D4EA52C5A21C000F84C41 /* ContentView.swift */; };
+		DB8D4EA82C5A21C000F84C41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8D4EA72C5A21C000F84C41 /* Assets.xcassets */; };
+		DB8D4EAB2C5A21C000F84C41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8D4EAA2C5A21C000F84C41 /* Preview Assets.xcassets */; };
+		DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97BC052C75B85D007970CD /* WorkoutView.swift */; };
+		DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0677D2CB97250001B76FD /* StopwatchView.swift */; };
+		DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8624D2CC3D52B0052E651 /* UserAccount.swift */; };
+		DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */; };
+		DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */; };
+		DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */; };
+		DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */; };
+		DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */; };
+		DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */; };
+		DBDBF34D2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */; };
+		DBE408712C649AA000F8F825 /* TrainingStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE408702C649AA000F8F825 /* TrainingStreakView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		DB0938E62C98352700BC3505 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		DB13E7C42C8DA489002A5EED /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
+		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		DB7F6E922C635971001C9D59 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayActivitiesView.swift; sourceTree = "<group>"; };
+		DB8D4EA02C5A21C000F84C41 /* No Game No Gain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Game No Gain.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB8D4EA32C5A21C000F84C41 /* No_Game_No_GainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = No_Game_No_GainApp.swift; sourceTree = "<group>"; };
+		DB8D4EA52C5A21C000F84C41 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DB8D4EA72C5A21C000F84C41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DB8D4EAA2C5A21C000F84C41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DB97BC052C75B85D007970CD /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		DBA0677D2CB97250001B76FD /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
+		DBA8624D2CC3D52B0052E651 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreator.swift; sourceTree = "<group>"; };
+		DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
+		DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
+		DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsView.swift; sourceTree = "<group>"; };
+		DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
+		DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
+		DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutView-ViewModel.swift"; sourceTree = "<group>"; };
+		DBE408702C649AA000F8F825 /* TrainingStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStreakView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DB8D4E9D2C5A21BF00F84C41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DB0938E52C981D7600BC3505 /* StatsView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StatsView;
+			sourceTree = "<group>";
+		};
+		DB7F6E8E2C63582B001C9D59 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		DB7F6E912C635960001C9D59 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DB7F6E922C635971001C9D59 /* ProgressBarView.swift */,
+				DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */,
+				DBE408702C649AA000F8F825 /* TrainingStreakView.swift */,
+				DB13E7C42C8DA489002A5EED /* StatsView.swift */,
+				DB0938E62C98352700BC3505 /* Extension.swift */,
+				DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */,
+				DB7F6E8E2C63582B001C9D59 /* HomeScreen */,
+				DBCEE1A82C9B0F1200808BC0 /* DataStructures */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DB8D4E972C5A21BF00F84C41 = {
+			isa = PBXGroup;
+			children = (
+				DB8D4EA22C5A21C000F84C41 /* No Game No Gain */,
+				DB8D4EA12C5A21C000F84C41 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DB8D4EA12C5A21C000F84C41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB8D4EA02C5A21C000F84C41 /* No Game No Gain.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB8D4EA22C5A21C000F84C41 /* No Game No Gain */ = {
+			isa = PBXGroup;
+			children = (
+				DBD1E82B2C9C235100D419C6 /* WorkoutsCreator */,
+				DB0938E52C981D7600BC3505 /* StatsView */,
+				DB97BC042C75B83D007970CD /* WorkoutSession */,
+				DB7F6E912C635960001C9D59 /* Components */,
+				DB8D4EA32C5A21C000F84C41 /* No_Game_No_GainApp.swift */,
+				DB8D4EA52C5A21C000F84C41 /* ContentView.swift */,
+				DB8D4EA72C5A21C000F84C41 /* Assets.xcassets */,
+				DB8D4EA92C5A21C000F84C41 /* Preview Content */,
+			);
+			path = "No Game No Gain";
+			sourceTree = "<group>";
+		};
+		DB8D4EA92C5A21C000F84C41 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				DB8D4EAA2C5A21C000F84C41 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DB97BC042C75B83D007970CD /* WorkoutSession */ = {
+			isa = PBXGroup;
+			children = (
+				DB97BC052C75B85D007970CD /* WorkoutView.swift */,
+				DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */,
+				DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */,
+				DBA0677D2CB97250001B76FD /* StopwatchView.swift */,
+			);
+			path = WorkoutSession;
+			sourceTree = "<group>";
+		};
+		DBCEE1A82C9B0F1200808BC0 /* DataStructures */ = {
+			isa = PBXGroup;
+			children = (
+				DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */,
+				DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */,
+				DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */,
+				DBA8624D2CC3D52B0052E651 /* UserAccount.swift */,
+			);
+			path = DataStructures;
+			sourceTree = "<group>";
+		};
+		DBD1E82B2C9C235100D419C6 /* WorkoutsCreator */ = {
+			isa = PBXGroup;
+			children = (
+				DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */,
+				DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */,
+				DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */,
+			);
+			path = WorkoutsCreator;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB8D4EAE2C5A21C000F84C41 /* Build configuration list for PBXNativeTarget "No Game No Gain" */;
+			buildPhases = (
+				DB8D4E9C2C5A21BF00F84C41 /* Sources */,
+				DB8D4E9D2C5A21BF00F84C41 /* Frameworks */,
+				DB8D4E9E2C5A21BF00F84C41 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "No Game No Gain";
+			productName = "No Game No Gain";
+			productReference = DB8D4EA02C5A21C000F84C41 /* No Game No Gain.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DB8D4E982C5A21BF00F84C41 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					DB8D4E9F2C5A21BF00F84C41 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = DB8D4E9B2C5A21BF00F84C41 /* Build configuration list for PBXProject "No Game No Gain" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DB8D4E972C5A21BF00F84C41;
+			productRefGroup = DB8D4EA12C5A21C000F84C41 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DB8D4E9E2C5A21BF00F84C41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB8D4EAB2C5A21C000F84C41 /* Preview Assets.xcassets in Resources */,
+				DB8D4EA82C5A21C000F84C41 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DB8D4E9C2C5A21BF00F84C41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */,
+				DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */,
+				DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */,
+				DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */,
+				DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */,
+				DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */,
+				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,
+				DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */,
+				DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */,
+				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,
+				DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */,
+				DB0938E72C98352700BC3505 /* Extension.swift in Sources */,
+				DBDBF34D2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift in Sources */,
+				DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */,
+				DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */,
+				DBE408712C649AA000F8F825 /* TrainingStreakView.swift in Sources */,
+				DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */,
+				DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */,
+				DB8D4EA42C5A21C000F84C41 /* No_Game_No_GainApp.swift in Sources */,
+				DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DB8D4EAC2C5A21C000F84C41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DB8D4EAD2C5A21C000F84C41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DB8D4EAF2C5A21C000F84C41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"No Game No Gain/Preview Content\"";
+				DEVELOPMENT_TEAM = FC3RG2JLGW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Boost.No-Game-No-Gain";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DB8D4EB02C5A21C000F84C41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"No Game No Gain/Preview Content\"";
+				DEVELOPMENT_TEAM = FC3RG2JLGW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Boost.No-Game-No-Gain";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DB8D4E9B2C5A21BF00F84C41 /* Build configuration list for PBXProject "No Game No Gain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB8D4EAC2C5A21C000F84C41 /* Debug */,
+				DB8D4EAD2C5A21C000F84C41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB8D4EAE2C5A21C000F84C41 /* Build configuration list for PBXNativeTarget "No Game No Gain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB8D4EAF2C5A21C000F84C41 /* Debug */,
+				DB8D4EB02C5A21C000F84C41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DB8D4E982C5A21BF00F84C41 /* Project object */;
+}

@@ -80,10 +80,12 @@ struct WorkoutView: View {
                             VStack {
                                 Spacer()
                                 // time between rests, put on clock
+                                
                                 Text(stopwatch.formattedTimeMS)
                                     .font(.system(size: stopwatch.timeElapsedMSMs > 3600 ? 72 : 92, weight: .ultraLight))
                                     .monospacedDigit()
-//                                    .fixedSize(horizontal: true, vertical: false)
+                                
+                                //                                    .fixedSize(horizontal: true, vertical: false)
                                 Spacer()
                             }
 
@@ -332,11 +334,13 @@ struct WorkoutView: View {
         .onChange(of: viewModel.exerciseNotes) {
             viewModel.updateExerciseNotes()
         }
-        .onChange(of: stopwatch.timeElapsedMSMs) {
-            if stopwatch.timeElapsedMSMs >= viewModel.restTime && stopwatch.timeElapsedMSMs <= viewModel.restTime + 0.1 {
+        .onChange(of: stopwatch.timeElapsedMSMs) {old, new in
+            if new >= viewModel.restTime && old <= viewModel.restTime {
                 AudioServicesPlaySystemSound(1026)
             }
-            
+        }
+        .onChange(of: viewModel.userAccount.notes) {
+            saveUserAccountToFile(viewModel.userAccount)
         }
     }
 }

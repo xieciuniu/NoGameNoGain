@@ -43,7 +43,7 @@ class Exercise: Comparable {
 }
 
 @Model
-class Workout {
+class Workout: Hashable {
     var id = UUID()
     var name: String
     var exercises: [Exercise]

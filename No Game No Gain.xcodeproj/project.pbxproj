@@ -10,6 +10,7 @@
 		DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */; };
 		DB0938E72C98352700BC3505 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0938E62C98352700BC3505 /* Extension.swift */; };
 		DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13E7C42C8DA489002A5EED /* StatsView.swift */; };
+		DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */; };
 		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
 		DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E922C635971001C9D59 /* ProgressBarView.swift */; };
@@ -35,6 +36,7 @@
 		DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DB0938E62C98352700BC3505 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DB13E7C42C8DA489002A5EED /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsView.swift; sourceTree = "<group>"; };
 		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		DB7F6E922C635971001C9D59 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		DB7F6E912C635960001C9D59 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */,
 				DB7F6E922C635971001C9D59 /* ProgressBarView.swift */,
 				DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */,
 				DBE408702C649AA000F8F825 /* TrainingStreakView.swift */,
@@ -243,6 +246,7 @@
 				DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */,
 				DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */,
 				DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */,
+				DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */,
 				DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */,
 				DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */,
 				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,

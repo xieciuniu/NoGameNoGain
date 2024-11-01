@@ -54,6 +54,8 @@ struct HomeScreenView: View {
                         getData()
                     }
                     
+//                    NavigationLink(
+                    
                     Button(action: { deleteSessions() } ) { Text("Delete all sessions")}
                     
                     Text(workouts.count.description)

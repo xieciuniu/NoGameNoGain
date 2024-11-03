@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0469D42CD606EC0082CCF8 /* LevelRanks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */; };
 		DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */; };
 		DB0938E72C98352700BC3505 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0938E62C98352700BC3505 /* Extension.swift */; };
 		DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13E7C42C8DA489002A5EED /* StatsView.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelRanks.swift; sourceTree = "<group>"; };
 		DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DB0938E62C98352700BC3505 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DB13E7C42C8DA489002A5EED /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */,
 				DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */,
 				DBA8624D2CC3D52B0052E651 /* UserAccount.swift */,
+				DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */,
 			);
 			path = DataStructures;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */,
 				DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */,
 				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,
+				DB0469D42CD606EC0082CCF8 /* LevelRanks.swift in Sources */,
 				DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */,
 				DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */,
 				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,

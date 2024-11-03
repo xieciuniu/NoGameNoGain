@@ -23,7 +23,12 @@ struct HomeScreenView: View {
         NavigationStack(path: $path) {
             VStack {
                 VStack{
-                    ProgressBarView()
+//                    ProgressBarView()
+                    
+                    NavigationLink(destination: LevelsView()) {
+                        ProgressBarView()
+                            .foregroundStyle(.white)
+                    }
                     
                     Spacer()
                     

@@ -15,12 +15,18 @@ struct SelectWorkoutView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
+    @State private var showingAlert = false
+    
     var body: some View {
         VStack{
             List {
                 ForEach(workouts) { workout in
                     Button(action: {
-                        selectedWorkout(workout)
+                        if !workout.exercises.isEmpty {
+                            selectedWorkout(workout)
+                        } else {
+                            showingAlert = true
+                        }
                     }) {
                         Text(workout.name)
                         Text(workout.id.uuidString)
@@ -42,6 +48,9 @@ struct SelectWorkoutView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .navigationTitle("Select Workout")
+            .alert("This Workout is empty", isPresented: $showingAlert) {
+                Button("OK", role: .cancel) {}
+            }
         }
         .navigationBarBackButtonHidden(true)
     }

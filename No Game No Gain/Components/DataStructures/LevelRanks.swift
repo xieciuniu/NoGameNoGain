@@ -11,7 +11,7 @@ struct Ranks: Identifiable {
     var id = UUID()
     var title: String
     var description: String
-    let levels: Int
+    let levels: Double
 }
 
 var ranks: [Ranks] = [

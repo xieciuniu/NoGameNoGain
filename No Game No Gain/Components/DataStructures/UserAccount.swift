@@ -10,44 +10,58 @@ import Foundation
 class UserAccount: Codable {
     var notes: String = ""
     var name: String = ""
-    var exp = 0
-    var level = 0
-    var levelName: String {
-        switch exp {
-        case _ where exp > 14841:
-            level = 10
-            return "Fitness Deity"
-        case _ where exp > 9001:
-            level = 9
-            return "Gym Legend"
-        case _ where exp > 5459:
-            level = 8
-            return "Ultimate Beast"
-        case _ where exp > 3311:
-            level = 7
-            return "Gains God"
-        case _ where exp > 2008:
-            level = 6
-            return "GymBeast"
-        case _ where exp > 1218:
-            level = 5
-            return "Swole Legend"
-        case _ where exp > 738:
-            level = 4
-            return "Gains Master"
-        case _ where exp > 448:
-            level = 3
-            return "Iron Warrior"
-        case _ where exp > 271:
-            level = 2
-            return "Gym Bro"
-        case _ where exp > 164:
-            level = 1
-            return "Gum Newbie"
-        default:
-            return "Rookie Lifter"
-        }
-    }
+    var exp: Double = 0
+    var expMultiplier: Double = 1
+//    var level: Int = 1
+//    var expToNextLevel: Double = 164
+//    var rank: String {
+//        switch exp {
+//        case _ where exp > 14841:
+//            level = 11
+//            expToNextLevel = 99999
+//            return "Fitness Deity"
+//        case _ where exp > 9001:
+//            level = 10
+//            expToNextLevel = 14841
+//            return "Gym Legend"
+//        case _ where exp > 5459:
+//            level = 9
+//            expToNextLevel = 9001
+//            return "Ultimate Beast"
+//        case _ where exp > 3311:
+//            level = 8
+//            expToNextLevel = 5459
+//            return "Gains God"
+//        case _ where exp > 2008:
+//            level = 7
+//            expToNextLevel = 3311
+//            return "GymBeast"
+//        case _ where exp > 1218:
+//            level = 6
+//            expToNextLevel = 2008
+//            return "Swole Legend"
+//        case _ where exp > 738:
+//            level = 5
+//            expToNextLevel = 1218
+//            return "Gains Master"
+//        case _ where exp > 448:
+//            level = 4
+//            expToNextLevel = 738
+//            return "Iron Warrior"
+//        case _ where exp > 271:
+//            level = 3
+//            expToNextLevel = 488
+//            return "Gym Bro"
+//        case _ where exp > 164:
+//            level = 2
+//            expToNextLevel = 271
+//            return "Gum Newbie"
+//        default:
+//            level = 1
+//            expToNextLevel = 164
+//            return "Rookie Lifter"
+//        }
+//    }
     
 }
 

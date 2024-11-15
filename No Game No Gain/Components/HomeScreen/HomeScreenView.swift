@@ -17,6 +17,8 @@ struct HomeScreenView: View {
     @State private var totalDuration: String = ""
     @State private var totalLifted: Double = 0.0
     
+    @State var userAccount: UserAccount = loadUserAccountFromFile() ?? UserAccount()
+    
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
@@ -25,9 +27,19 @@ struct HomeScreenView: View {
                 VStack{
 //                    ProgressBarView()
                     
-                    NavigationLink(destination: LevelsView()) {
-                        ProgressBarView()
+                    NavigationLink(destination: LevelsView(level: userAccount.exp)) {
+                        ProgressBarView(exp: userAccount.exp)
                             .foregroundStyle(.white)
+                    }
+                    
+                    Button("Add 100 exp") {
+                        userAccount.exp += 100
+                        saveUserAccountToFile(userAccount)
+                    }
+                    
+                    Button("Minus 100 exp") {
+                        userAccount.exp -= 100
+                        saveUserAccountToFile(userAccount)
                     }
                     
                     Spacer()

@@ -84,8 +84,6 @@ struct WorkoutView: View {
                                 Text(stopwatch.formattedTimeMS)
                                     .font(.system(size: stopwatch.timeElapsedMSMs > 3600 ? 72 : 92, weight: .ultraLight))
                                     .monospacedDigit()
-                                
-                                //                                    .fixedSize(horizontal: true, vertical: false)
                                 Spacer()
                             }
 
@@ -96,7 +94,6 @@ struct WorkoutView: View {
                     HStack {
                         Button(action: {
                             viewModel.setComplete(isDone: false, restTime: stopwatch.timeElapsedMSMs)
-                            
                             stopwatch.resetFormattedTimeMS()
                             stopwatch.stopFormattedTimeMS()
                             stopwatch.startFormattedTimeMS()
@@ -201,10 +198,6 @@ struct WorkoutView: View {
                                         Text("Reps: \(doneSet.reps)")
                                         Text("Time: " + time)
                                         Text("RPE: ")
-                                        //                                        //TODO: Picker to create
-                                        //                                        Picker("RPE", selection: doneSet.rpe) {
-                                        //
-                                        //                                        }
                                     }
                                     Divider()
                                 }
@@ -244,6 +237,7 @@ struct WorkoutView: View {
                             viewModel.workoutSession.duration = stopwatch.timeElapsedHMS
                             stopwatch.resetFormattedTime()
                             stopwatch.resetFormattedTimeMS()
+                            viewModel.addExp()
                             isSession = false
                             UserDefaults.standard.set(false, forKey: "isSession")
                             viewModel.workoutSession.endTime = Date()

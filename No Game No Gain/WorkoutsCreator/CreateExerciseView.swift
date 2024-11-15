@@ -34,9 +34,10 @@ struct CreateExerciseView: View {
                         HStack {
                             Text("Name:")
                             
-                            TextField("", text: $exercise.name)
+                            TextField("", text: $exerciseName)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(.leading)
+                                .keyboardType(.default)
                         }
                         .padding([.leading, .trailing])
                         
@@ -108,9 +109,12 @@ struct CreateExerciseView: View {
                 }
                 .preferredColorScheme(.dark)
                 .frame(minHeight: geometry.size.height)
-//                .onChange(of: sets) {
-//                    exercise.sets = sets
-//                }
+                .onChange(of: exerciseName) {_, name in
+                    exercise.name = name
+                }
+                .onAppear() {
+                    exerciseName = exercise.name
+                }
             }
             .navigationTitle(exercise.name)
         }

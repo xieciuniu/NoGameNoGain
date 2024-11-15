@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LevelsView: View {
     let levels = ranks
-    @State var level = 500
+    @State var level: Double
     var levelName: String {
         switch level {
         case _ where level > 14841:
@@ -40,19 +40,6 @@ struct LevelsView: View {
     var body: some View {
         ScrollViewReader { proxy in
             VStack {
-                VStack {
-                    Button("level +100") {
-                        level += 100
-                    }
-                    Button("Level -100") {
-                        level -= 100
-                    }
-                    Button("go to level") {
-                        withAnimation {
-                            proxy.scrollTo(levelName, anchor: .bottom)
-                        }
-                    }
-
                     ScrollView{
                         ForEach(ranks.reversed()) { rank in
                             VStack {
@@ -75,7 +62,7 @@ struct LevelsView: View {
                             Divider()
                         }
                     }
-                }
+
             }
             .padding()
             .preferredColorScheme(.dark)
@@ -89,5 +76,5 @@ struct LevelsView: View {
 }
 
 #Preview {
-    LevelsView()
+    LevelsView(level: 400)
 }

@@ -90,6 +90,13 @@ extension WorkoutView {
                 workoutSession.workout.exercises[thisExercise].exerciseNote = exerciseNotes
             }
         }
+        
+        func addExp() {
+            var gainedExp = Double
+            
+            userAccount.exp += gainedExp
+            saveUserAccountToFile(userAccount)
+        }
 
     }
 }

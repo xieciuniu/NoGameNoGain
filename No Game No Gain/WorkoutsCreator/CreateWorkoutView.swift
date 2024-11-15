@@ -22,7 +22,7 @@ struct CreateWorkoutView: View {
                 HStack {
                     Text("Name:")
                     
-                    TextField("of workout", text: $workout.name)
+                    TextField("of workout", text: $name)
                         .textFieldStyle(.roundedBorder)
                 }
                 .padding()
@@ -101,6 +101,12 @@ struct CreateWorkoutView: View {
         }
         .navigationBarBackButtonHidden()
         .preferredColorScheme(.dark)
+        .onChange(of: name){_, name in
+            workout.name = name
+        }
+        .onAppear(perform: {
+            name = workout.name
+        })
     }
     
     func addExercise() {

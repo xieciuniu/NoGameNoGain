@@ -22,8 +22,6 @@ struct ContentView: View {
         } else {
             HomeScreenView(isSession: $isSession)
         }
-//        Button(action: { isSession.toggle()} ) { Text("Too bad")}
-        // special testing button
     }
 }
 

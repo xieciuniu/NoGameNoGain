@@ -63,7 +63,3 @@ struct SelectWorkoutView: View {
         modelContext.insert(workoutSession)
     }
 }
-
-//#Preview {
-//    SelectWorkoutView()
-//}

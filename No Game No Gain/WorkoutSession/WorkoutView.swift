@@ -14,7 +14,6 @@ struct WorkoutView: View {
     @StateObject private var viewModel: WorkoutViewModel
     
     
-    
     @State private var showEnded = true
     
     @Binding var isSession: Bool
@@ -234,13 +233,11 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             print("end")
-                            viewModel.workoutSession.duration = stopwatch.timeElapsedHMS
                             stopwatch.resetFormattedTime()
                             stopwatch.resetFormattedTimeMS()
-                            viewModel.addExp()
+                            viewModel.workoutEnded(workoutDuration: stopwatch.timeElapsedHMS)
                             isSession = false
                             UserDefaults.standard.set(false, forKey: "isSession")
-                            viewModel.workoutSession.endTime = Date()
                             
                         }) {
                             Text("End Workout")

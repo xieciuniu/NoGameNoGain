@@ -25,6 +25,8 @@
 		DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8624D2CC3D52B0052E651 /* UserAccount.swift */; };
 		DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */; };
 		DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */; };
+		DBCFE7B32CE8942600493D90 /* AddBodyMassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCFE7B22CE8942600493D90 /* AddBodyMassView.swift */; };
+		DBCFE7B52CE8958C00493D90 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCFE7B42CE8958C00493D90 /* HealthKitManager.swift */; };
 		DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */; };
 		DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */; };
 		DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */; };
@@ -53,6 +55,9 @@
 		DBA8624D2CC3D52B0052E651 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreator.swift; sourceTree = "<group>"; };
 		DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
+		DBCFE7AF2CE8719900493D90 /* No Game No Gain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "No Game No Gain.entitlements"; sourceTree = "<group>"; };
+		DBCFE7B22CE8942600493D90 /* AddBodyMassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBodyMassView.swift; sourceTree = "<group>"; };
+		DBCFE7B42CE8958C00493D90 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
 		DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsView.swift; sourceTree = "<group>"; };
 		DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
@@ -72,13 +77,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DB0938E52C981D7600BC3505 /* StatsView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = StatsView;
-			sourceTree = "<group>";
-		};
 		DB7F6E8E2C63582B001C9D59 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +95,8 @@
 				DB13E7C42C8DA489002A5EED /* StatsView.swift */,
 				DB0938E62C98352700BC3505 /* Extension.swift */,
 				DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */,
+				DBCFE7B22CE8942600493D90 /* AddBodyMassView.swift */,
+				DBCFE7B42CE8958C00493D90 /* HealthKitManager.swift */,
 				DB7F6E8E2C63582B001C9D59 /* HomeScreen */,
 				DBCEE1A82C9B0F1200808BC0 /* DataStructures */,
 			);
@@ -122,8 +122,8 @@
 		DB8D4EA22C5A21C000F84C41 /* No Game No Gain */ = {
 			isa = PBXGroup;
 			children = (
+				DBCFE7AF2CE8719900493D90 /* No Game No Gain.entitlements */,
 				DBD1E82B2C9C235100D419C6 /* WorkoutsCreator */,
-				DB0938E52C981D7600BC3505 /* StatsView */,
 				DB97BC042C75B83D007970CD /* WorkoutSession */,
 				DB7F6E912C635960001C9D59 /* Components */,
 				DB8D4EA32C5A21C000F84C41 /* No_Game_No_GainApp.swift */,
@@ -247,6 +247,7 @@
 			files = (
 				DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */,
 				DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */,
+				DBCFE7B52CE8958C00493D90 /* HealthKitManager.swift in Sources */,
 				DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */,
 				DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */,
 				DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */,
@@ -258,6 +259,7 @@
 				DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */,
 				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,
 				DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */,
+				DBCFE7B32CE8942600493D90 /* AddBodyMassView.swift in Sources */,
 				DB0938E72C98352700BC3505 /* Extension.swift in Sources */,
 				DBDBF34D2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift in Sources */,
 				DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */,
@@ -397,12 +399,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "No Game No Gain/No Game No Gain.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"No Game No Gain/Preview Content\"";
 				DEVELOPMENT_TEAM = FC3RG2JLGW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "\"Your Health data will be shown in app\"";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "\"Your training data will be saved in Aplle Health\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -426,12 +431,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "No Game No Gain/No Game No Gain.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"No Game No Gain/Preview Content\"";
 				DEVELOPMENT_TEAM = FC3RG2JLGW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "\"Your Health data will be shown in app\"";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "\"Your training data will be saved in Aplle Health\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

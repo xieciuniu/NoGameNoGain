@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SwiftUICore
 import _SwiftData_SwiftUI
+import HealthKit
 
 extension WorkoutView {
     @MainActor class WorkoutViewModel: ObservableObject {
@@ -91,11 +92,28 @@ extension WorkoutView {
             }
         }
         
-        func addExp() {
-            var gainedExp = Double
+        func workoutEnded(workoutDuration: TimeInterval) {
+            var gainedExp: Double = 0
+    
+            gainedExp = 1
+            
+            workoutSession.endTime = Date()
+            workoutSession.duration = workoutDuration
+            
+            // TODO: Health adding workout0
+            if HKHealthStore.isHealthDataAvailable() {
+                let caloriesBurned = fetchCaloriesBurnedDuringWorkout()
+                // Creating Training for HealthKit
+                // Adding Training to HealthKit
+            }
             
             userAccount.exp += gainedExp
             saveUserAccountToFile(userAccount)
+        }
+        
+        //TODO: fetching Calories during the workout
+        func fetchCaloriesBurnedDuringWorkout() -> Double {
+            return 0.0
         }
 
     }

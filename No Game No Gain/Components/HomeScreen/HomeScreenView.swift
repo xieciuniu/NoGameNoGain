@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import HealthKit
 
 struct HomeScreenView: View {
     @State var path = NavigationPath()
@@ -25,12 +26,16 @@ struct HomeScreenView: View {
         NavigationStack(path: $path) {
             VStack {
                 VStack{
+                    
 //                    ProgressBarView()
                     
-                    NavigationLink(destination: LevelsView(level: userAccount.exp)) {
+//                    NavigationLink(destination: LevelsView(level: userAccount.exp)) {
                         ProgressBarView(exp: userAccount.exp)
                             .foregroundStyle(.white)
-                    }
+                            .onTapGesture {
+                                path.append("LevelsView")
+                            }
+//                    }
                     
                     Button("Add 100 exp") {
                         userAccount.exp += 100
@@ -43,6 +48,10 @@ struct HomeScreenView: View {
                     }
                     
                     Spacer()
+                    
+                    if HKHealthStore.isHealthDataAvailable() {
+                        TodayActivitiesView()
+                    }
                     
                     Section("Today"){
                         HStack {
@@ -93,11 +102,6 @@ struct HomeScreenView: View {
                             
                         })
                     }
-//                    List {
-//                        ForEach(workout){ session in
-//                            Text(session.name)
-//                        }
-//                    }
                     
                     Spacer()
                     
@@ -141,6 +145,15 @@ struct HomeScreenView: View {
                     
                 }
             }
+            .onAppear(perform: {
+                HealthKitManager.shared.requestAuthorizationIfNeeded { success, error in
+                    if success {
+                        print("Authorization gained")
+                    } else {
+                        print("Error: \(String(describing: error))")
+                    }
+                }
+            })
             .navigationDestination(for: String.self) { destination in
                 switch destination {
                 case "MyWorkoutsView":
@@ -149,6 +162,8 @@ struct HomeScreenView: View {
                     SelectWorkoutView(isSession: $isSession)
                 case "StatsView":
                     Text("Hello, World!")
+                case "LevelsView":
+                    LevelsView(level: userAccount.exp)
                 default:
                     Text("Some kind of error")
 

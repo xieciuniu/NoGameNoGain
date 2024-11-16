@@ -6,10 +6,29 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct TodayActivitiesView: View {
+    let healthStore = HKHealthStore()
+    @State var stepsToday: Double?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("Today steps: \((stepsToday ?? 0.0 ).formatted())")
+        }
+        .onAppear {
+            fetchSteps()
+        }
+    }
+    
+    func fetchSteps() {
+        HealthKitManager().fetchStepCount { steps, error in
+            if let error = error {
+                print("Błąd podczas pobierania liczby kroków: \(error)")
+                return
+            }
+            stepsToday = steps ?? 0
+        }
     }
 }
 

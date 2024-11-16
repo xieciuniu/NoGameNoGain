@@ -11,29 +11,11 @@ struct LevelsView: View {
     let levels = ranks
     @State var level: Double
     var levelName: String {
-        switch level {
-        case _ where level > 14841:
-            return "Fitness Deity"
-        case _ where level > 9001:
-            return "Gym Legend"
-        case _ where level > 5459:
-            return "Ultimate Beast"
-        case _ where level > 3311:
-            return "Gains God"
-        case _ where level > 2008:
-            return "GymBeast"
-        case _ where level > 1218:
-            return "Swole Legend"
-        case _ where level > 738:
-            return "Gains Master"
-        case _ where level > 448:
-            return "Iron Warrior"
-        case _ where level > 271:
-            return "Gym Bro"
-        case _ where level > 164:
-            return "Gum Newbie"
-        default:
-            return "Rookie Lifter"
+        if let rank = ranks.first(where: {$0.expRange.contains(level)}) {
+            return rank.title
+        }
+        else {
+            return "Legend"
         }
     }
     
@@ -58,7 +40,7 @@ struct LevelsView: View {
                                 }
                             }
                             .id(rank.title)
-                            .blur(radius: level >= rank.levels ? 0 : 10)
+                            .blur(radius: level >= rank.expStart ? 0 : 10)
                             Divider()
                         }
                     }

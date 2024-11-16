@@ -1,19 +1,18 @@
 //
-//  StatsView.swift
+//  AddBodyMassView.swift
 //  No Game No Gain
 //
-//  Created by Hubert Wojtowicz on 9/8/24.
+//  Created by Hubert Wojtowicz on 16/11/2024.
 //
 
 import SwiftUI
 
-struct StatsView: View {
-    var sessions: [WorkoutSession]
+struct AddBodyMassView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    StatsView(sessions: [])
+    AddBodyMassView()
 }

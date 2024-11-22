@@ -103,6 +103,7 @@ extension WorkoutView {
             // TODO: Health adding workout0
             if HKHealthStore.isHealthDataAvailable() {
                 let caloriesBurned = fetchCaloriesBurnedDuringWorkout()
+                print("\(caloriesBurned)")
                 // Creating Training for HealthKit
                 // Adding Training to HealthKit
             }

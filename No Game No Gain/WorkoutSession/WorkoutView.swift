@@ -69,7 +69,7 @@ struct WorkoutView: View {
                             } label: {
                                 Image(systemName: "pencil.and.list.clipboard")
                                     .resizable()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 25, height: 25)
                             }
                             .padding(.trailing)
                         }
@@ -165,7 +165,7 @@ struct WorkoutView: View {
                             Spacer()
                         }
                         
-                        Text(viewModel.restTime.formatted())
+//                        Text(viewModel.restTime.formatted())
                         
                         HStack {
                             
@@ -196,7 +196,7 @@ struct WorkoutView: View {
                                         Text("Weight: \(doneSet.weight.formatted())")
                                         Text("Reps: \(doneSet.reps)")
                                         Text("Time: " + time)
-                                        Text("RPE: ")
+//                                        Text("RPE: ")
                                     }
                                     Divider()
                                 }

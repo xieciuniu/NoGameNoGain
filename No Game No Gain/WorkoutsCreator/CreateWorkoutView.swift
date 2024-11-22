@@ -39,7 +39,7 @@ struct CreateWorkoutView: View {
                     ForEach(workout.exercises.sorted()){ exercise in
                         
                         HStack{
-                            Text(exercise.name + " | \(exercise.order)")
+                            Text(exercise.name /*+ " | \(exercise.order)"*/)
                                 .foregroundStyle(.white)
                             Spacer()
                             Image(systemName: "line.3.horizontal")

@@ -20,6 +20,8 @@ struct HomeScreenView: View {
     
     @State var userAccount: UserAccount = loadUserAccountFromFile() ?? UserAccount()
     
+    @State var expToTextUI: Double = 10
+    
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
@@ -29,42 +31,28 @@ struct HomeScreenView: View {
                     
 //                    ProgressBarView()
                     
-//                    NavigationLink(destination: LevelsView(level: userAccount.exp)) {
-                        ProgressBarView(exp: userAccount.exp)
-                            .foregroundStyle(.white)
+//                        ProgressBarView(exp: userAccount.exp)
+//                            .foregroundStyle(.white)
+//                            .onTapGesture {
+//                                path.append("LevelsView")
+//                            }
+                    ProgressBarView(exp: expToTextUI)
+//                            .foregroundStyle(.white)
+                        .padding([.horizontal, .bottom])
                             .onTapGesture {
                                 path.append("LevelsView")
                             }
 //                    }
                     
-                    Button("Add 100 exp") {
-                        userAccount.exp += 100
-                        saveUserAccountToFile(userAccount)
-                    }
-                    
-                    Button("Minus 100 exp") {
-                        userAccount.exp -= 100
-                        saveUserAccountToFile(userAccount)
-                    }
+
                     
                     Spacer()
                     
                     if HKHealthStore.isHealthDataAvailable() {
                         TodayActivitiesView()
+                            .padding(.horizontal)
                     }
                     
-                    Section("Today"){
-                        HStack {
-                            Text("Steps: 6572")
-                            Spacer()
-                            Text("Burn calories: 2134")
-                            Spacer()
-                            Text("Sleep time: 7:10")
-                        }
-                    }
-                    .padding([.leading, .trailing])
-                    
-                    Divider()
                     
                     Section("Workout Data") {
                         HStack {
@@ -78,6 +66,18 @@ struct HomeScreenView: View {
                     .padding([.leading, .trailing])
                     .onAppear(){
                         getData()
+                    }
+                    
+                    Button("Add 100 exp") {
+                        expToTextUI += 100
+                        userAccount.exp += 100
+                        saveUserAccountToFile(userAccount)
+                    }
+                    
+                    Button("Minus 100 exp") {
+                        expToTextUI -= 100
+                        userAccount.exp -= 100
+                        saveUserAccountToFile(userAccount)
                     }
                     
 //                    NavigationLink(

@@ -252,4 +252,147 @@ class HealthKitManager {
             completion(healthData, nil)
         }
     }
+    
+    enum HealthDataUnit {
+        case kilocalories
+        case steps
+        case distanceMeters
+
+        // Metoda zwracająca odpowiednią jednostkę dla HealthKit
+        func unit() -> HKUnit {
+            switch self {
+            case .kilocalories:
+                return .kilocalorie()
+            case .steps:
+                return .count()
+            case .distanceMeters:
+                return .meter()
+            }
+        }
+    }
+    
+    func fetchDataForChart(title: String, type: HKQuantityTypeIdentifier, completion: @escaping ([(Date, Double)], Error?) -> Void) {
+        guard let dataType = HKObjectType.quantityType(forIdentifier: type) else {
+            completion([], NSError(domain: "com.example.HealthKit", code: 1, userInfo: [NSLocalizedDescriptionKey: "Typ danych \(type) jest niedostępny"]))
+            return
+        }
+        
+        var unit: HKUnit {
+            switch type {
+            case .activeEnergyBurned:
+                .kilocalorie()
+            case .stepCount:
+                    .count()
+            default:
+                    .count()
+            }
+        }
+
+        let now = Date()
+        let calendar = Calendar.current
+        guard let startOfMonth = calendar.date(byAdding: .month, value: -1, to: now) else {
+            completion([], NSError(domain: "com.example.HealthKit", code: 2, userInfo: [NSLocalizedDescriptionKey: "Błąd obliczania początku miesiąca"]))
+            return
+        }
+
+        var chartData: [(Date, Double)] = []
+
+        var currentDate = startOfMonth
+        let group = DispatchGroup() // Do synchronizacji asynchronicznych zapytań
+
+        while currentDate <= now {
+            let startOfDay = calendar.startOfDay(for: currentDate)
+            let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+
+            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: endOfDay, options: .strictStartDate)
+
+            let query = HKStatisticsQuery(quantityType: dataType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, statistics, error in
+                defer {
+                    group.leave()
+                }
+
+                if let error = error {
+                    print("Błąd podczas zapytania o dane dla \(type): \(error.localizedDescription)")
+                    return
+                }
+
+                if let statistics = statistics, let sum = statistics.sumQuantity()?.doubleValue(for: unit) {
+                    chartData.append((startOfDay, sum))
+                } else {
+                    print("Brak danych dla dnia: \(currentDate) i typu \(type)")
+                }
+            }
+
+            healthStore.execute(query)
+            group.enter()
+
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+
+        // Po zakończeniu wszystkich zapytań
+        group.notify(queue: .main) {
+            completion(chartData, nil)
+        }
+    }
+    
+    func fetchSleepDataForChart(completion: @escaping ([(Date, Double)], Error?) -> Void) {
+        let healthStore = HKHealthStore()
+        let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
+        let calendar = Calendar.current
+        
+        // Oblicz daty początkową i końcową (ostatnie 30 dni)
+        guard let startDate = calendar.date(byAdding: .day, value: -30, to: Date()) else {
+            completion([], NSError(domain: "DateError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to calculate start date"]))
+            return
+        }
+        let endDate = Date()
+        
+        // Tworzenie zakresu dni z przesunięciem dnia snu na 15:00
+        var dateRange: [Date] = []
+        var currentDate = calendar.date(bySettingHour: 15, minute: 0, second: 0, of: startDate)!
+        while currentDate < endDate {
+            dateRange.append(currentDate)
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+        
+        var sleepData: [Date: Double] = [:] // Wynikowe dane z mapowaniem daty na czas snu
+        let group = DispatchGroup() // Kontrola zadań
+        
+        for day in dateRange {
+            group.enter()
+            
+            let nextDay = calendar.date(byAdding: .day, value: 1, to: day)!
+            let predicate = HKQuery.predicateForSamples(withStart: day, end: nextDay, options: .strictStartDate)
+            
+            let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, results, error in
+                guard error == nil else {
+                    completion([], error)
+                    return
+                }
+                
+                // Sumowanie czasu snu z wielu rekordów dla tej samej daty
+                if let samples = results as? [HKCategorySample] {
+                    let totalSleep = samples
+                        .filter { $0.value == HKCategoryValueSleepAnalysis.asleepUnspecified.rawValue }
+                        .reduce(0.0) { $0 + $1.endDate.timeIntervalSince($1.startDate) } / 3600 // Konwersja na godziny
+                    
+                    sleepData[day, default: 0.0] += totalSleep
+                } else {
+                    sleepData[day, default: 0.0] += 0 // Brak danych = 0
+                }
+                
+                group.leave()
+            }
+            
+            healthStore.execute(query)
+        }
+        
+        // Zakończenie zadań
+        group.notify(queue: .main) {
+            let sortedData = sleepData
+                .map { ($0.key, $0.value) }
+                .sorted(by: { $0.0 < $1.0 }) // Sortowanie według daty
+            completion(sortedData, nil)
+        }
+    }
 }

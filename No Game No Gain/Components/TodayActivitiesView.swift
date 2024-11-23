@@ -18,64 +18,74 @@ struct TodayActivitiesView: View {
     
     @State private var showChart: Bool = false
     @State private var chartName: String = ""
-    @State private var caloriesData: [(date: Date, calories: Double)] = []
+    @State private var chartColor: Color = .red
+    @State private var chartData: [(date: Date, data: Double)] = []
     @State private var isLoading = false
     var body: some View {
         if !showChart{
             HStack(alignment: .center, spacing: 10) {
-
-                    VStack {
-                        Text("\(stepsToday.formatted())")
-                            .font(.title3)
-                            .padding(.vertical)
-                            .lineLimit(1)
-                        Text("Steps")
-                            .font(.headline)
-                        Text("Goal: 8000")
-                            .font(.subheadline)
-                        
-                    }
-                    .padding(20)
-                    .frame(minWidth: 60, maxWidth: .infinity,minHeight: 150, maxHeight: 160)
-                    .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                
+                VStack {
+                    Text("\(stepsToday.formatted())")
+                        .font(.title3)
+                        .padding(.vertical)
+                        .lineLimit(1)
+                    Text("Steps")
+                        .font(.headline)
+                    Text("Goal: 18000")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                     
-
-                    VStack{
-                        Text("Calories")
-                            .font(.headline)
-                        HStack {
-                            Image(systemName: "flame.fill")
-                                .foregroundStyle(.red)
-                            Text("\(burnedCalories, specifier: "%.0f")")
-                        }
-                    }
-                    .padding(20)
-                    .frame(minWidth: 60, maxWidth: .infinity, minHeight: 150, maxHeight: 160)
-                    .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .onTapGesture {
-                            showChart = true
-                            loadCaloriesData()
-                        }
-
-                    VStack{
-                        Text("Sleep")
-                        HStack{
-                            Image(systemName: "moon.fill")
-                            Text("\(sleepTimeFormatted(minutes: sleepTime))")
-                        }
-                    }
-                    .padding(20)
-                    .frame(minWidth: 60, maxWidth: .infinity,minHeight: 150, maxHeight: 160)
-                    .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
+                .frame(minWidth: 60, maxWidth: .infinity,minHeight: 150, maxHeight: 160)
+                .background(Color(red: 26/255, green: 26/255, blue: 26/255))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .onTapGesture {
+                    showChart = true
+                    loadChartData(type: .stepCount)
+                    chartName = "Steps"
+                    chartColor = .green
+                }
+                
+                
+                VStack{
+                    Text("Calories")
+                        .font(.headline)
+                    HStack {
+                        Image(systemName: "flame.fill")
+                            .foregroundStyle(.red)
+                        Text("\(burnedCalories, specifier: "%.0f")")
+                    }
+                }
+                .frame(minWidth: 60, maxWidth: .infinity, minHeight: 150, maxHeight: 160)
+                .background(Color(red: 26/255, green: 26/255, blue: 26/255))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .onTapGesture {
+                    showChart = true
+                    loadChartData(type: .activeEnergyBurned)
+                    chartName = "Calories"
+                    chartColor = .red
+                }
+                
+                VStack{
+                    Text("Sleep")
+                    HStack{
+                        Image(systemName: "moon.fill")
+                        Text("\(sleepTimeFormatted(minutes: sleepTime))")
+                    }
+                }
+                .frame(minWidth: 60, maxWidth: .infinity,minHeight: 150, maxHeight: 160)
+                .background(Color(red: 26/255, green: 26/255, blue: 26/255))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .onTapGesture {
+                    chartName = "Sleep duration"
+                    loadChartDataSleep()
+                    showChart = true
+                    chartColor = .blue
+                }
+            }
             .frame(height: 150)
-//            .padding(.horizontal, 10)
-//            .background(.red.gradient)
             .onAppear {
-                //Designing purpose
                 fetchHealthData()
             }
         } else {
@@ -83,18 +93,36 @@ struct TodayActivitiesView: View {
                 if isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
+                        .frame(height: 150)
                 } else {
-                    Chart {
-                        ForEach(caloriesData, id: \.date) { data in
-                            BarMark(
-                                x: .value("Date", data.date, unit: .day),
-                                y: .value("Calories", data.calories)
-                            )
+                    VStack{
+                        Text(chartName)
+                            .font(.title)
+                            .padding(.vertical, -8)
+                        Chart {
+                            ForEach(chartData, id: \.date) { data in
+                                BarMark(
+                                    x: .value("Date", data.date, unit: .day),
+                                    y: .value("Data", data.data)
+                                )
+                            }
+                            if let average = calculateAverage(for: chartData) {
+                                RuleMark(y: .value("Average", average))
+                                    .foregroundStyle(.white)
+                                    .lineStyle(StrokeStyle(lineWidth: 2, dash: [5]))
+                                    .annotation(position: .top, alignment: .leading) {
+                                        Text("Average: \(chartName == "Sleep duration" ? sleepTimeFormattedHours(hours: average)  : "\(Int(average))")")
+                                            .font(.caption)
+                                            .foregroundColor(.primary)
+                                    }
+                            }
                         }
+                        .foregroundColor(chartColor)
                     }
-                    .padding()
-                    .frame(height: 300)
-                    .foregroundColor(.blue)
+                    .padding(4)
+                    .frame(height: 150)
+                    .background(Color(red: 26/255, green: 26/255, blue: 26/255))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
             }
             .onTapGesture {
@@ -118,42 +146,66 @@ struct TodayActivitiesView: View {
                 return
             }
             burnedCalories = calories ?? 0
-            print("Kalorie: \(calories?.formatted() ?? "error")")
         }
         
         Task {
-//            burnedCalories = burned
+            //            burnedCalories = burned
             sleepTime = try await HealthKitManager().fetchLastSleepDuration()
-//            sleepTime = sleepTimeMin
+            //            sleepTime = sleepTimeMin
         }
         
-        print("kroki: \(stepsToday), kcal: \(burnedCalories.formatted()), sleep: \(sleepTime.formatted())")
+//        print("kroki: \(stepsToday), kcal: \(burnedCalories.formatted()), sleep: \(sleepTime.formatted())")
     }
     
     func sleepTimeFormatted(minutes: Double) -> String {
         let hours = Int(minutes / 60)
         let minute = Int(Int(minutes) % 60)
-//        if minute == 0 { return "\(hours)h"}
         return "\(hours):\(minute)"
     }
+    func sleepTimeFormattedHours(hours: Double) -> String {
+        let hour = Int(hours)
+        var minute: Int {
+            return Int((hours - Double(hour)) * 60)
+        }
+        return "\(hour):\(minute)"
+    }
     
-    func loadCaloriesData() {
+    func loadChartData(type: HKQuantityTypeIdentifier) {
         isLoading = true
-        healthKitManager.fetchCaloriesBurnedForLastMonth { data, error in
+//        healthKitManager.fetchCaloriesBurnedForLastMonth { data, error in
+        healthKitManager.fetchDataForChart(title: "", type: type) { data, error in
             DispatchQueue.main.async {
                 self.isLoading = false
                 if let error = error {
-                    print("Błąd podczas pobierania danych o kaloriach: \(error.localizedDescription)")
+                    print("Błąd podczas pobierania danych: \(error.localizedDescription)")
                 } else  {
-                    self.caloriesData = data.map { (date, calories) in
-                        return (date: date, calories: calories)
+                    self.chartData = data.map { (date, data) in
+                        return (date: date, data: data)
                     }
                 }
             }
         }
-        for calorie in caloriesData {
-            print("\(calorie.date): \(calorie.calories) kcal")
+    }
+    
+    func loadChartDataSleep() {
+        healthKitManager.fetchSleepDataForChart { data, error in
+            DispatchQueue.main.async {
+                self.isLoading = false
+                if let error = error {
+                    print("Błąd podczas pobierania danych: \(error.localizedDescription)")
+                } else  {
+                    self.chartData = data.map { (date, data) in
+                        return (date: date, data: data)
+                    }
+                }
+            }
         }
+    }
+    
+    private func calculateAverage(for data: [(Date, Double)]) -> Double? {
+        guard !data.isEmpty else { return nil }
+        let total = data.reduce(0) { $0 + $1.1 }
+        return total / Double(data.count)
     }
 }
 

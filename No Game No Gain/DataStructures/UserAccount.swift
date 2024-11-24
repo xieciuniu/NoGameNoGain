@@ -12,6 +12,11 @@ class UserAccount: Codable {
     var name: String = ""
     var exp: Double = 0
     var expMultiplier: Double = 1
+    var weight: Double = 0
+    var goal: String = ""
+    var goalStart: Double = 0
+    var goalEnd: Double = 0
+    var goalProgress: Double = 0
     
 }
 

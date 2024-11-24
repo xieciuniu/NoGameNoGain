@@ -20,11 +20,13 @@ class HealthKitManager {
             HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!,
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
+            HKObjectType.quantityType(forIdentifier: .bodyMass)!,
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
             HKObjectType.workoutType()
         ]
         let writeTypes: Set<HKSampleType> = [
-            HKObjectType.workoutType()
+            HKObjectType.workoutType(),
+            HKSampleType.quantityType(forIdentifier: .bodyMass)!,
         ]
         
         healthStore.requestAuthorization(toShare: writeTypes, read: readTypes) { success, error in
@@ -393,6 +395,40 @@ class HealthKitManager {
                 .map { ($0.key, $0.value) }
                 .sorted(by: { $0.0 < $1.0 }) // Sortowanie według daty
             completion(sortedData, nil)
+        }
+    }
+    
+    func fetchBodyMassData(completion: @escaping (Double, Error?) -> Void) {
+        guard let bodyMassType = HKQuantityType.quantityType(forIdentifier: .bodyMass) else {
+            completion(0, NSError(domain: "com.example.HealthKit", code: 2, userInfo: [NSLocalizedDescriptionKey: "Błąd pobrania wagi użytkownika"]))
+            return
+        }
+        let query = HKSampleQuery(sampleType: bodyMassType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]) { query, results, error in
+            if let sample = results?.first as? HKQuantitySample {
+                let bodyMass = sample.quantity.doubleValue(for: .gramUnit(with: .kilo))
+                completion(bodyMass, nil)
+            } else if let error = error {
+                print("Error fetching body mass: \(error)")
+                completion(0, error)
+            }
+        }
+        healthStore.execute(query)
+    }
+    
+    func addBodyMassToHealthKit(weightInKilograms: Double, completion: @escaping(Bool, Error?) -> Void) {
+        guard let bodyMassType = HKQuantityType.quantityType(forIdentifier: .bodyMass) else {
+                completion(false, NSError(domain: "HealthKit", code: 2, userInfo: [NSLocalizedDescriptionKey: "Body mass type is not available."]))
+                return
+            }
+        
+        let weightQuantity = HKQuantity(unit: HKUnit.gramUnit(with: .kilo), doubleValue: weightInKilograms)
+        
+        let now = Date()
+        
+        let bodyMassSample = HKQuantitySample(type: bodyMassType, quantity: weightQuantity, start: now, end: now)
+        
+        healthStore.save(bodyMassSample) { success, error in
+            completion(success, error)
         }
     }
 }

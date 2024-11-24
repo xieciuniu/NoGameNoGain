@@ -29,81 +29,84 @@ struct HomeScreenView: View {
             VStack {
                 VStack{
                     
-//                    ProgressBarView()
+                    //                    ProgressBarView()
                     
-//                        ProgressBarView(exp: userAccount.exp)
-//                            .foregroundStyle(.white)
-//                            .onTapGesture {
-//                                path.append("LevelsView")
-//                            }
-                    ProgressBarView(exp: expToTextUI)
-//                            .foregroundStyle(.white)
-                        .padding([.horizontal, .bottom])
+                    //                        ProgressBarView(exp: userAccount.exp)
+                    //                            .foregroundStyle(.white)
+                    //                            .onTapGesture {
+                    //                                path.append("LevelsView")
+                    //                            }
+                    ScrollView{
+                        ProgressBarView(exp: expToTextUI)
+                        //                            .foregroundStyle(.white)
+                            .padding([.horizontal, .bottom])
                             .onTapGesture {
                                 path.append("LevelsView")
                             }
-//                    }
-                    
-
-                    
-                    Spacer()
-                    
-                    if HKHealthStore.isHealthDataAvailable() {
-                        TodayActivitiesView()
-                            .padding(.horizontal)
-                    }
-                    
-                    
-                    Section("Workout Data") {
-                        HStack {
-                            Text("Total workouts: \(totalWorkouts)")
-                            Spacer()
-                            Text("Total duration: " + totalDuration)
-                            Spacer()
-                            Text("Total lifted weight: \(totalLifted.formatted())kg")
+                        //                    }
+                        
+                        
+                        
+                        Spacer()
+                        
+                        if HKHealthStore.isHealthDataAvailable() {
+                            TodayActivitiesView()
+                                .padding([.horizontal, .bottom])
                         }
-                    }
-                    .padding([.leading, .trailing])
-                    .onAppear(){
-                        getData()
-                    }
-                    
-                    Button("Add 100 exp") {
-                        expToTextUI += 100
-                        userAccount.exp += 100
-                        saveUserAccountToFile(userAccount)
-                    }
-                    
-                    Button("Minus 100 exp") {
-                        expToTextUI -= 100
-                        userAccount.exp -= 100
-                        saveUserAccountToFile(userAccount)
-                    }
-                    
-//                    NavigationLink(
-                    
-                    Button(action: { deleteSessions() } ) { Text("Delete all sessions")}
-                    
-                    Text(workouts.count.description)
-                    
-                    List {
-                        ForEach(workouts){ session in
+                        
+                        BodyWeightAndPersonalGoalView()
+                            .padding([.horizontal])
+//                            .padding(.bottom, 25)
+                        
+                        Section("Workout Data") {
                             HStack {
-                                Text(session.workout.name)
-                                Text(session.duration.formatted())
+                                Text("Total workouts: \(totalWorkouts)")
+                                Spacer()
+                                Text("Total duration: " + totalDuration)
+                                Spacer()
+                                Text("Total lifted weight: \(totalLifted.formatted())kg")
                             }
-                            
                         }
-                        .onDelete(perform: { offsets in
-                            for index in offsets {
-                                let sesseionToRemove = workouts[index]
-                                modelContext.delete(sesseionToRemove)
+                        .padding([.leading, .trailing])
+                        .onAppear(){
+                            getData()
+                        }
+                        
+                        Button("Add 100 exp") {
+                            expToTextUI += 100
+                            userAccount.exp += 100
+                            saveUserAccountToFile(userAccount)
+                        }
+                        
+                        Button("Minus 100 exp") {
+                            expToTextUI -= 100
+                            userAccount.exp -= 100
+                            saveUserAccountToFile(userAccount)
+                        }
+                        
+                        //                    NavigationLink(
+                        
+                        Button(action: { deleteSessions() } ) { Text("Delete all sessions")}
+                        
+                        Text(workouts.count.description)
+                        
+                        List {
+                            ForEach(workouts){ session in
+                                HStack {
+                                    Text(session.workout.name)
+                                    Text(session.duration.formatted())
+                                }
+                                
                             }
-                            
-                        })
+                            .onDelete(perform: { offsets in
+                                for index in offsets {
+                                    let sesseionToRemove = workouts[index]
+                                    modelContext.delete(sesseionToRemove)
+                                }
+                                
+                            })
+                        }
                     }
-                    
-                    Spacer()
                     
                     
                     
@@ -166,7 +169,7 @@ struct HomeScreenView: View {
                     LevelsView(level: userAccount.exp)
                 default:
                     Text("Some kind of error")
-
+                    
                 }
             }
             .navigationDestination(for: Workout.self) { workout in
@@ -185,7 +188,7 @@ struct HomeScreenView: View {
         }
     }
     func getData() {
-//        let allSets = workouts.reduce(0) { $0 + $1.weight }
+        //        let allSets = workouts.reduce(0) { $0 + $1.weight }
         totalLifted = workouts.reduce(0) { $0 + $1.totalWeight() }
         totalWorkouts = workouts.count
         let totaltime = workouts.reduce(0) { $0 + $1.duration }

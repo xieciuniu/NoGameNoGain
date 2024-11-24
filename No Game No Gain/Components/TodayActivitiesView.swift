@@ -74,7 +74,8 @@ struct TodayActivitiesView: View {
                         Text("\(sleepTimeFormatted(minutes: sleepTime))")
                     }
                 }
-                .frame(minWidth: 60, maxWidth: .infinity,minHeight: 150, maxHeight: 160)
+                .frame(minWidth: 60, maxWidth: .infinity)
+                .frame(height: 150)
                 .background(Color(red: 26/255, green: 26/255, blue: 26/255))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .onTapGesture {

@@ -18,7 +18,7 @@ struct BodyWeightAndPersonalGoalView: View {
 //            VStack {
             NavigationStack {
                 GeometryReader { geometry in
-                    HStack(spacing: 10){
+                    HStack(alignment: .center, spacing: 10){
                     VStack {
                         if !changeWeight {
                             Text("\(bodyMass, specifier: "%.1f") kg")
@@ -54,8 +54,10 @@ struct BodyWeightAndPersonalGoalView: View {
                     
                     
                     VStack {
-                        NavigationLink(destination: {} ){
-                            VStack{
+                        NavigationLink(destination: {
+                            PersonalGoalView()
+                        } ){
+                            VStack(alignment: .leading){
                                 Text("Weight Goal")
                                     .font(.title2)
                                 

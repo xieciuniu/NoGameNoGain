@@ -16,6 +16,7 @@
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
 		DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E922C635971001C9D59 /* ProgressBarView.swift */; };
 		DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */; };
+		DB894FCC2CF4714C0068059D /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB894FCB2CF4714C0068059D /* ChallengeView.swift */; };
 		DB8AA4F62CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AA4F52CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift */; };
 		DB8AA4F82CF34E12005681B4 /* PersonalGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */; };
 		DB8D4EA42C5A21C000F84C41 /* No_Game_No_GainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D4EA32C5A21C000F84C41 /* No_Game_No_GainApp.swift */; };
@@ -45,6 +46,7 @@
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		DB7F6E922C635971001C9D59 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayActivitiesView.swift; sourceTree = "<group>"; };
+		DB894FCB2CF4714C0068059D /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		DB8AA4F52CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyWeightAndPersonalGoalView.swift; sourceTree = "<group>"; };
 		DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalGoalView.swift; sourceTree = "<group>"; };
 		DB8D4EA02C5A21C000F84C41 /* No Game No Gain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Game No Gain.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,6 +99,7 @@
 				DBCFE7B42CE8958C00493D90 /* HealthKitManager.swift */,
 				DB8AA4F52CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift */,
 				DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */,
+				DB894FCB2CF4714C0068059D /* ChallengeView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */,
 				DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */,
 				DBCFE7B52CE8958C00493D90 /* HealthKitManager.swift in Sources */,
+				DB894FCC2CF4714C0068059D /* ChallengeView.swift in Sources */,
 				DB8AA4F82CF34E12005681B4 /* PersonalGoalView.swift in Sources */,
 				DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */,
 				DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */,

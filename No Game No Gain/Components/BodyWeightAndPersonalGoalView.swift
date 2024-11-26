@@ -65,7 +65,7 @@ struct BodyWeightAndPersonalGoalView: View {
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                 
-                                ProgressView(value: 10, total: 15)
+                                ProgressView(value: 2.9, total: 5)
         //                            .padding(.horizontal)
                                 HStack {
                                     Text("85")

@@ -55,58 +55,64 @@ struct HomeScreenView: View {
                         }
                         
                         BodyWeightAndPersonalGoalView()
-                            .padding([.horizontal])
+                            .padding([.horizontal, .bottom])
 //                            .padding(.bottom, 25)
                         
-                        Section("Workout Data") {
-                            HStack {
-                                Text("Total workouts: \(totalWorkouts)")
-                                Spacer()
-                                Text("Total duration: " + totalDuration)
-                                Spacer()
-                                Text("Total lifted weight: \(totalLifted.formatted())kg")
-                            }
+                        ChallengeView()
+                            .padding([.horizontal, .bottom])
+                        
+                        
+//                        Section ("placeholder"){
+//                            Section("Workout Data") {
+//                                HStack {
+//                                    Text("Total workouts: \(totalWorkouts)")
+//                                    Spacer()
+//                                    Text("Total duration: " + totalDuration)
+//                                    Spacer()
+//                                    Text("Total lifted weight: \(totalLifted.formatted())kg")
+//                                }
+//                            }
+//                            .padding([.leading, .trailing])
+//                            .onAppear(){
+//                                getData()
+//                            }
+//                            
+//                            Button("Add 100 exp") {
+//                                expToTextUI += 100
+//                                userAccount.exp += 100
+//                                saveUserAccountToFile(userAccount)
+//                            }
+//                            
+//                            Button("Minus 100 exp") {
+//                                expToTextUI -= 100
+//                                userAccount.exp -= 100
+//                                saveUserAccountToFile(userAccount)
+//                            }
+//                            
+//                            //                    NavigationLink(
+//                            
+//                            Button(action: { deleteSessions() } ) { Text("Delete all sessions")}
+//                            
+//                            Text(workouts.count.description)
+//                            
+//                            List {
+//                                ForEach(workouts){ session in
+//                                    HStack {
+//                                        Text(session.workout.name)
+//                                        Text(session.duration.formatted())
+//                                    }
+//                                    
+//                                }
+//                                .onDelete(perform: { offsets in
+//                                    for index in offsets {
+//                                        let sesseionToRemove = workouts[index]
+//                                        modelContext.delete(sesseionToRemove)
+//                                    }
+//                                    
+//                                })
+//                            }
+//                        }
                         }
-                        .padding([.leading, .trailing])
-                        .onAppear(){
-                            getData()
-                        }
-                        
-                        Button("Add 100 exp") {
-                            expToTextUI += 100
-                            userAccount.exp += 100
-                            saveUserAccountToFile(userAccount)
-                        }
-                        
-                        Button("Minus 100 exp") {
-                            expToTextUI -= 100
-                            userAccount.exp -= 100
-                            saveUserAccountToFile(userAccount)
-                        }
-                        
-                        //                    NavigationLink(
-                        
-                        Button(action: { deleteSessions() } ) { Text("Delete all sessions")}
-                        
-                        Text(workouts.count.description)
-                        
-                        List {
-                            ForEach(workouts){ session in
-                                HStack {
-                                    Text(session.workout.name)
-                                    Text(session.duration.formatted())
-                                }
-                                
-                            }
-                            .onDelete(perform: { offsets in
-                                for index in offsets {
-                                    let sesseionToRemove = workouts[index]
-                                    modelContext.delete(sesseionToRemove)
-                                }
-                                
-                            })
-                        }
-                    }
                     
                     
                     

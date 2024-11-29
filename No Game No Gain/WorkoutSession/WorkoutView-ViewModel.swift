@@ -68,6 +68,17 @@ extension WorkoutView {
             let setDone = DoneSets(exerciseName: exerciseName, numberOfSet: currentSet + 1, weight: currentWeight, reps: currentReps, restTime: restTime, isDone: isDone, rpe: nil)
             workoutSession.doneSets.append(setDone)
             currentSet += 1
+            
+            if let index = workoutSession.workout.exercises.firstIndex(where: { $0.name == exerciseName}) {
+                if workoutSession.workout.exercises[index].personalBestWeight ?? 0 < currentWeight {
+                    workoutSession.workout.exercises[index].personalBestWeight = currentWeight
+                    workoutSession.workout.exercises[index].personalBestReps = currentReps
+                }
+            }
+            if exerciseName == userAccount.strengthGoalExercise && userAccount.goalProgress < currentWeight {
+                userAccount.goalProgress = currentWeight
+            }
+            
         }
         
         func previousExercise() {

@@ -54,8 +54,12 @@ struct HomeScreenView: View {
                                 .padding([.horizontal, .bottom])
                         }
                         
-                        BodyWeightAndPersonalGoalView()
+                        BodyWeightAndPersonalGoalView(path: $path, userAccount: userAccount )
                             .padding([.horizontal, .bottom])
+                            .onAppear(perform: {
+                                userAccount = loadUserAccountFromFile() ?? UserAccount()
+                            })
+                        Text("\(userAccount.goalEnd.formatted())")
 //                            .padding(.bottom, 25)
                         
                         ChallengeView()
@@ -173,6 +177,8 @@ struct HomeScreenView: View {
                     Text("Hello, World!")
                 case "LevelsView":
                     LevelsView(level: userAccount.exp)
+                case "PersonalGoalView":
+                    PersonalGoalView(userAccount: $userAccount)
                 default:
                     Text("Some kind of error")
                     

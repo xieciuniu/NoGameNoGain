@@ -13,10 +13,13 @@ struct BodyWeightAndPersonalGoalView: View {
     @State var bodyMass: Double = 0.0
     @State var changeWeight: Bool = false
     @State var addWeight: Int = 500
+    @Binding var path: NavigationPath
+    
+    let userAccount: UserAccount
     
     var body: some View {
 //            VStack {
-            NavigationStack {
+        VStack {
                 GeometryReader { geometry in
                     HStack(alignment: .center, spacing: 10){
                     VStack {
@@ -54,27 +57,29 @@ struct BodyWeightAndPersonalGoalView: View {
                     
                     
                     VStack {
-                        NavigationLink(destination: {
-                            PersonalGoalView()
-                        } ){
                             VStack(alignment: .leading){
-                                Text("Weight Goal")
+                                Text(userAccount.goal)
                                     .font(.title2)
                                 
                                 Text("Lose 5kg")
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                 
-                                ProgressView(value: 2.9, total: 5)
+                                if userAccount.goalProgress <= userAccount.goalEnd{
+                                    ProgressView(value: userAccount.goalProgress - userAccount.goalStart, total: userAccount.goalEnd - userAccount.goalStart)
+                                } else {
+                                    ProgressView(value: 1, total: 1)
+                                        .foregroundStyle(.red)
+                                }
         //                            .padding(.horizontal)
                                 HStack {
-                                    Text("85")
+                                    Text("\(userAccount.goalStart.formatted())")
                                     Spacer()
-                                    Text("80")
+                                    Text("\(userAccount.goalEnd.formatted())")
                                 }
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            }
+                                Text("\(userAccount.goalProgress.formatted())")
                         }
                         .foregroundStyle(.primary)
                     }
@@ -83,6 +88,9 @@ struct BodyWeightAndPersonalGoalView: View {
     //                .frame(width: geometry.size.width * 2/3, height: 150)
                     .background(Color(red: 26/255, green: 26/255, blue: 26/255))
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .onTapGesture {
+                        path.append("PersonalGoalView")
+                    }
                 }
             }
             .frame(height: 150)
@@ -124,6 +132,8 @@ struct BodyWeightAndPersonalGoalView: View {
 }
 
 #Preview {
-    BodyWeightAndPersonalGoalView()
+    @Previewable @State var path: NavigationPath = NavigationPath()
+    @Previewable @State var userAccount = UserAccount()
+    BodyWeightAndPersonalGoalView(path: $path, userAccount: userAccount)
         .preferredColorScheme(.dark)
 }

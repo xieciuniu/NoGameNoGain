@@ -26,6 +26,8 @@ class Exercise: Comparable {
     var muscleGroup: [String]
     var order: Int
     var exerciseNote: String = ""
+    var personalBestWeight: Double? = nil
+    var personalBestReps: Int? = nil
     
     init(name: String, order: Int) {
         self.name = name

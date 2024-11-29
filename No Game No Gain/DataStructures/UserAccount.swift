@@ -14,9 +14,10 @@ class UserAccount: Codable {
     var expMultiplier: Double = 1
     var weight: Double = 0
     var goal: String = "Weight Goal"
+    var strengthGoalExercise: String? = nil
     var goalStart: Double = 0
     var goalEnd: Double = 0
-    var goalProgress: Double = 0
+    var goalProgress: Double = 65
     
 }
 

@@ -23,9 +23,6 @@ struct DoneSets: Codable, Comparable, Identifiable {
     }
 }
 
-struct DoneExercise {
-    
-}
 
 @Model
 class WorkoutSession {

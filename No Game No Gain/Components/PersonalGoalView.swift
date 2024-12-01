@@ -13,13 +13,15 @@ struct PersonalGoalView: View {
     @State var goal: String = "Weight Goal"
     @Binding var userAccount: UserAccount
     //= loadUserAccountFromFile() ?? UserAccount()
-    @State var goalWeight: Double = 82
     
     @Query var exercises: [Exercise]
     @State var chosenExercise: Exercise?
     @State var strengthGoal: Double = 0
     @State var strengthGoalInt: Int = 0
-    let strengthGoalPicker = Array(stride(from: 0, through: 10000, by: 25)) + [610]
+    @State var strengthGoalPicker: [Int] = []
+    @State var weightGoalPicker = Array(stride(from: 300, through: 2000, by: 1))
+    @State var weightGoalInt: Int = 20
+    @State var weightGoal: Double = 0
     
     var body: some View {
         VStack {
@@ -31,14 +33,26 @@ struct PersonalGoalView: View {
             .pickerStyle(.segmented)
             .padding(.bottom)
 //            .onTapGesture(perform: { print(userAccount.goal)})
-            List {
+            Form {
                 if goal == "Weight Goal" {
                     HStack {
                         Text("Current weight:")
                         Spacer()
-                        Text("\(userAccount.weight.formatted(.number))")
+                        Text("\(userAccount.weight.formatted())")
                     }
-                    Text("Aimed weight: ")
+                        
+                    Section("Goal"){
+                        Picker("Goal", selection: $weightGoalInt) {
+                            ForEach(weightGoalPicker, id: \.self) {
+                                Text("\((Double($0)/10).formatted())")
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                    }
+                    Text("\(weightGoal.formatted())")
+                    Button("Set goal") {
+                        setGoal()
+                    }
                     
                 } else if goal == "Strength Goal"{
                     HStack {
@@ -61,17 +75,20 @@ struct PersonalGoalView: View {
                             Text("\((exercise.personalBestWeight ?? 0).formatted())kg")
                         }
                         
-                        Text("Goal")
-                        Picker("kg", selection: $strengthGoalInt) {
-                            ForEach(strengthGoalPicker.sorted(), id: \.self) {
-                                Text("\((Double($0)/10).formatted())")
+                        Section("Goal"){
+                            Picker("", selection: $strengthGoalInt) {
+                                ForEach(strengthGoalPicker.sorted(), id: \.self) {
+                                    Text("\((Double($0)/10).formatted())")
+                                }
                             }
+                            .pickerStyle(.wheel)
                         }
-                        .pickerStyle(.wheel)
                         
-                        Text("New goal: \(strengthGoal.formatted())kg")
+                        //Testing
+//                        Text("New goal: \(strengthGoal.formatted())kg")
                         
                     }
+                    
                     
                     Button("Set goal") {
                         setGoal()
@@ -85,16 +102,20 @@ struct PersonalGoalView: View {
             goal = userAccount.goal
             chosenExercise = exercises.first(where: {$0.name == userAccount.strengthGoalExercise })
             strengthGoalInt = Int((chosenExercise?.personalBestWeight ?? 0) * 10)
+            strengthGoalPicker = Array(stride(from: 0 , through: 10000, by: 25)).filter({ $0 > strengthGoalInt})
+            weightGoalInt = Int((userAccount.weight) * 10)
+            
         })
-        .onChange(of: goal) { oldGoal, newGoal in
-            userAccount.goal = newGoal
-        }
         .onChange(of: chosenExercise) {
             userAccount.strengthGoalExercise = chosenExercise?.name
-            saveUserAccountToFile(userAccount)
+            strengthGoalInt = Int((chosenExercise?.personalBestWeight ?? 0) * 10)
+            strengthGoalPicker = Array(stride(from: 0 , through: 10000, by: 25)).filter({ $0 > strengthGoalInt})
         }
         .onChange(of: strengthGoalInt) {old, new in
             strengthGoal = Double(new) / 10
+        }
+        .onChange(of: weightGoalInt) { old, new in
+            weightGoal = Double(new) / 10
         }
     }
     
@@ -105,9 +126,10 @@ struct PersonalGoalView: View {
             userAccount.goalEnd = strengthGoal
         } else if goal == "Weight Goal" {
             userAccount.goalStart = userAccount.weight
-            userAccount.goalEnd = goalWeight
+            userAccount.goalEnd = weightGoal
+            userAccount.goalProgress = userAccount.weight
         }
-        
+        userAccount.goal = goal
         saveUserAccountToFile(userAccount)
     }
 }

@@ -11,6 +11,7 @@
 		DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */; };
 		DB0938E72C98352700BC3505 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0938E62C98352700BC3505 /* Extension.swift */; };
 		DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13E7C42C8DA489002A5EED /* StatsView.swift */; };
+		DB53CF2B2CFC549000A3F944 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB53CF2A2CFC549000A3F944 /* Test.swift */; };
 		DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */; };
 		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
@@ -41,6 +42,7 @@
 		DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DB0938E62C98352700BC3505 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DB13E7C42C8DA489002A5EED /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		DB53CF2A2CFC549000A3F944 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsView.swift; sourceTree = "<group>"; };
 		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */,
 				DBCFE7B42CE8958C00493D90 /* HealthKitManager.swift */,
 				DB8AA4F52CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift */,
+				DB53CF2A2CFC549000A3F944 /* Test.swift */,
 				DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */,
 				DB894FCB2CF4714C0068059D /* ChallengeView.swift */,
 			);
@@ -267,6 +270,7 @@
 				DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */,
 				DB0938E72C98352700BC3505 /* Extension.swift in Sources */,
 				DBDBF34D2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift in Sources */,
+				DB53CF2B2CFC549000A3F944 /* Test.swift in Sources */,
 				DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */,
 				DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */,
 				DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */,
@@ -417,6 +421,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,6 +454,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

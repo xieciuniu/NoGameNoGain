@@ -14,8 +14,11 @@ struct BodyWeightAndPersonalGoalView: View {
     @State var changeWeight: Bool = false
     @State var addWeight: Int = 500
     @Binding var path: NavigationPath
+    @Binding var userAccount: UserAccount
+    var start: Double { return userAccount.goalStart }
+    var end: Double { return userAccount.goalEnd }
+    var progress: Double { return userAccount.goalProgress }
     
-    let userAccount: UserAccount
     
     var body: some View {
 //            VStack {
@@ -65,12 +68,46 @@ struct BodyWeightAndPersonalGoalView: View {
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                 
-                                if userAccount.goalProgress <= userAccount.goalEnd{
-                                    ProgressView(value: userAccount.goalProgress - userAccount.goalStart, total: userAccount.goalEnd - userAccount.goalStart)
-                                } else {
-                                    ProgressView(value: 1, total: 1)
-                                        .foregroundStyle(.red)
+                                if userAccount.goal == "Strength Goal"{
+                                    if progress < end {
+                                        ProgressView(value: progress - start, total: end - start )
+                                    } else if progress == end{
+                                        ProgressView(value: 1, total: 1, label: { Text("Congrats, you achieve your goal!\nNow it's time for new").font(.caption2)})
+                                            .tint(.green)
+                                    } else {
+                                        ProgressView(value: 1, total: 1, label: { Text("Set new goal!")})
+                                            .tint(.red)
+                                    }
+                                } else if userAccount.goal == "Weight Goal" {
+                                    if start > end {
+                                        if progress > start {
+                                            ProgressView(value: 0, total: 1)
+                                                .background(Color.red)
+                                        } else if progress > end {
+                                            ProgressView(value: userAccount.goalStart - userAccount.goalProgress, total: userAccount.goalStart - userAccount.goalEnd )
+                                        } else if progress == end {
+                                            ProgressView(value: 1, total: 1, label: { Text("Congrats, you achieve your goal!\nNow it's time for new").font(.caption2)})
+                                                .tint(.green)
+                                        } else {
+                                            ProgressView(value: 1, total: 1, label: { Text("Set new goal!")})
+                                                .tint(.red)
+                                        }
+                                    } else if start < end {
+                                        if progress < start {
+                                            ProgressView(value: 0, total: 1)
+                                                
+                                        } else if progress < end {
+                                            ProgressView(value: progress - start, total: end - start )
+                                        } else if progress == end {
+                                            ProgressView(value: 1, total: 1, label: { Text("Congrats, you achieve your goal!\nNow it's time for new").font(.caption2)})
+                                                .tint(.green)
+                                        } else {
+                                            ProgressView(value: 1, total: 1, label: { Text("Set new goal!")})
+                                                .tint(.red)
+                                        }
+                                    }
                                 }
+                                
         //                            .padding(.horizontal)
                                 HStack {
                                     Text("\(userAccount.goalStart.formatted())")
@@ -108,15 +145,24 @@ struct BodyWeightAndPersonalGoalView: View {
                 } else {
                     self.bodyMass = result
                     self.addWeight = Int(result * 10 - 100)
+                    userAccount.weight = result
                 }
             }
         }
     }
     
     func addWeightRecord() {
-        if bodyMass == Double(addWeight) / 10 + 10 { return }
+        guard bodyMass != Double(addWeight) / 10 + 10 else  {
+            return
+        }
         
         bodyMass = Double(addWeight) / 10 + 10
+        userAccount.weight = bodyMass
+        
+        if userAccount.goal == "Weight Goal" {
+            userAccount.goalProgress = bodyMass
+        }
+        saveUserAccountToFile(userAccount)
         
         guard HKHealthStore.isHealthDataAvailable() else {
             return
@@ -134,6 +180,6 @@ struct BodyWeightAndPersonalGoalView: View {
 #Preview {
     @Previewable @State var path: NavigationPath = NavigationPath()
     @Previewable @State var userAccount = UserAccount()
-    BodyWeightAndPersonalGoalView(path: $path, userAccount: userAccount)
+    BodyWeightAndPersonalGoalView(path: $path, userAccount: $userAccount)
         .preferredColorScheme(.dark)
 }

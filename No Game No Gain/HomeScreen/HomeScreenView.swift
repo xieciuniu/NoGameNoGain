@@ -51,19 +51,27 @@ struct HomeScreenView: View {
                         
                         if HKHealthStore.isHealthDataAvailable() {
                             TodayActivitiesView()
-                                .padding([.horizontal, .bottom])
+                                .padding([.bottom])
+                                .padding(.horizontal)
                         }
                         
-                        BodyWeightAndPersonalGoalView(path: $path, userAccount: userAccount )
+//                        Test()
+                        ChallengeView()
+                            .padding([.horizontal, .bottom])
+                        
+                        BodyWeightAndPersonalGoalView(path: $path, userAccount: $userAccount )
                             .padding([.horizontal, .bottom])
                             .onAppear(perform: {
                                 userAccount = loadUserAccountFromFile() ?? UserAccount()
                             })
-                        Text("\(userAccount.goalEnd.formatted())")
+                            .onTapGesture {
+                                userAccount = loadUserAccountFromFile() ?? UserAccount()
+                            }
+                        Text("End Goal: \(userAccount.goalEnd.formatted())")
+                        Text("Progress: \(userAccount.goalProgress.formatted())")
+                        Text("User weight: \(userAccount.weight.formatted())")
 //                            .padding(.bottom, 25)
                         
-                        ChallengeView()
-                            .padding([.horizontal, .bottom])
                         
                         
 //                        Section ("placeholder"){

@@ -28,25 +28,14 @@ struct HomeScreenView: View {
         NavigationStack(path: $path) {
             VStack {
                 VStack{
-                    
-                    //                    ProgressBarView()
-                    
-                    //                        ProgressBarView(exp: userAccount.exp)
-                    //                            .foregroundStyle(.white)
-                    //                            .onTapGesture {
-                    //                                path.append("LevelsView")
-                    //                            }
+
                     ScrollView{
                         ProgressBarView(exp: expToTextUI)
-                        //                            .foregroundStyle(.white)
                             .padding([.horizontal, .bottom])
                             .onTapGesture {
                                 path.append("LevelsView")
                             }
-                        //                    }
-                        
-                        
-                        
+                                    
                         Spacer()
                         
                         if HKHealthStore.isHealthDataAvailable() {
@@ -55,7 +44,6 @@ struct HomeScreenView: View {
                                 .padding(.horizontal)
                         }
                         
-//                        Test()
                         ChallengeView()
                             .padding([.horizontal, .bottom])
                         
@@ -208,7 +196,6 @@ struct HomeScreenView: View {
         }
     }
     func getData() {
-        //        let allSets = workouts.reduce(0) { $0 + $1.weight }
         totalLifted = workouts.reduce(0) { $0 + $1.totalWeight() }
         totalWorkouts = workouts.count
         let totaltime = workouts.reduce(0) { $0 + $1.duration }

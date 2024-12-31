@@ -29,7 +29,6 @@ struct SelectWorkoutView: View {
                         }
                     }) {
                         Text(workout.name)
-                        Text(workout.id.uuidString)
                     }
                 }
             }

@@ -40,10 +40,13 @@ struct BodyWeightAndPersonalGoalView: View {
                             }
                             .pickerStyle(.wheel)
                             .padding(.horizontal)
-                            .onTapGesture {
-                                changeWeight.toggle()
-                                addWeightRecord()
-                            }
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        changeWeight.toggle()
+                                        addWeightRecord()
+                                    }
+                            )
                             .padding(.bottom, 0)
                         }
                         

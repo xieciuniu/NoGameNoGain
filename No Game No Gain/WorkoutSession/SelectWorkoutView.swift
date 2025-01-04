@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import AVFoundation
 
 struct SelectWorkoutView: View {
     @Binding var isSession: Bool
@@ -38,7 +37,6 @@ struct SelectWorkoutView: View {
             
             Button(action: {
                 dismiss()
-                AudioServicesPlaySystemSound(1026)
             }) {
                 Text("Back")
                     .frame(maxWidth: .infinity)

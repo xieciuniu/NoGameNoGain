@@ -27,6 +27,7 @@
 		DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97BC052C75B85D007970CD /* WorkoutView.swift */; };
 		DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0677D2CB97250001B76FD /* StopwatchView.swift */; };
 		DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8624D2CC3D52B0052E651 /* UserAccount.swift */; };
+		DBAF8A7E2D292F7E00D5ED67 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */; };
 		DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */; };
 		DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */; };
 		DBCFE7B52CE8958C00493D90 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCFE7B42CE8958C00493D90 /* HealthKitManager.swift */; };
@@ -59,6 +60,7 @@
 		DB97BC052C75B85D007970CD /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		DBA0677D2CB97250001B76FD /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		DBA8624D2CC3D52B0052E651 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreator.swift; sourceTree = "<group>"; };
 		DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
 		DBCFE7AF2CE8719900493D90 /* No Game No Gain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "No Game No Gain.entitlements"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */,
 				DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */,
 				DBA0677D2CB97250001B76FD /* StopwatchView.swift */,
+				DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */,
 			);
 			path = WorkoutSession;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */,
+				DBAF8A7E2D292F7E00D5ED67 /* CircularProgressView.swift in Sources */,
 				DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */,
 				DBCFE7B52CE8958C00493D90 /* HealthKitManager.swift in Sources */,
 				DB894FCC2CF4714C0068059D /* ChallengeView.swift in Sources */,

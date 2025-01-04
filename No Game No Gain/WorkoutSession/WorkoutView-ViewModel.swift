@@ -78,7 +78,11 @@ extension WorkoutView {
             if exerciseName == userAccount.strengthGoalExercise && userAccount.goalProgress < currentWeight {
                 userAccount.goalProgress = currentWeight
             }
-            
+        }
+        
+        func percentOfDoneSets() -> Double {
+            let doneSetsCount = workoutSession.doneSets.filter({$0.exerciseName == exerciseName}).count
+            return Double(doneSetsCount)/Double(exercise.sets.count)
         }
         
         func previousExercise() {

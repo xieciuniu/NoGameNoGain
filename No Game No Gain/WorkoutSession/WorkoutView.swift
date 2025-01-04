@@ -51,6 +51,18 @@ struct WorkoutView: View {
                         
                         
                         HStack{
+                            
+                            Button(action: {
+                                print("Add exercise")
+                                //TODO: add exercise after current one
+                            } ){
+                                Image(systemName: "plus.circle")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .padding(.leading)
+                            
                             Spacer()
                             
                             NavigationLink {
@@ -69,7 +81,8 @@ struct WorkoutView: View {
                             } label: {
                                 Image(systemName: "pencil.and.list.clipboard")
                                     .resizable()
-                                    .frame(width: 25, height: 25)
+                                    .frame(width: 30, height: 30)
+                                    .foregroundStyle(Color.white)
                             }
                             .padding(.trailing)
                         }
@@ -143,6 +156,8 @@ struct WorkoutView: View {
                             
                             Spacer()
                             
+                            
+                            
                             Text("Weight:")
                             TextField("Weight", value: $viewModel.currentWeight, format: .number)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -163,28 +178,25 @@ struct WorkoutView: View {
                             Text(viewModel.exercise.exerciseNote)
                                 .padding(.leading)
                             Spacer()
-                        }
-                        
-//                        Text(viewModel.restTime.formatted())
-                        
-                        HStack {
                             
-                            Spacer()
-                            
-                            withAnimation {
+                            HStack{
+                                CircularProgressView(progress: viewModel.percentOfDoneSets())
+                                    .frame(height: 15)
+                                    .padding(.trailing)
+                                
                                 Button(action: { showEnded.toggle() }) {
                                     Image(systemName: showEnded ? "arrowshape.down" : "arrowshape.up" )
                                         .foregroundStyle(.white)
-                                        .padding(.trailing)
                                         .padding(.bottom)
                                 }
                             }
+                            .padding(.trailing)
                         }
                         
                         if showEnded {
                             ScrollView {
                                 
-                                ForEach(viewModel.workoutSession.doneSets.filter({ $0.exerciseName == viewModel.exerciseName })) { doneSet in
+                                ForEach(viewModel.workoutSession.doneSets.filter({ $0.exerciseName == viewModel.exerciseName }).sorted(by: { $0.numberOfSet > $1.numberOfSet })) { doneSet in
                                     HStack {
                                         var time: String {
                                             let minutes = Int(doneSet.restTime) / 60

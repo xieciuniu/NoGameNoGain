@@ -51,7 +51,7 @@ struct CreateExerciseView: View {
                         .padding([.leading, .trailing])
                         
                         HStack {
-                            Text("Progress per workout: ")
+                            Text("Progress per session: ")
                             
                             TextField("", value: $exercise.progressPerWorkout, format: .number)
                                 .textFieldStyle(.roundedBorder)
@@ -83,7 +83,7 @@ struct CreateExerciseView: View {
                                     }
                                     
                                     Toggle(isOn: $oneSet.progress, label: {
-                                        Text("Weekly progress")
+                                        Text("Progress per session")
                                     })
                                     
                                     Stepper("Sets like this: \(oneSet.numberOfSameSets)", value: $oneSet.numberOfSameSets, in: 1...1000)

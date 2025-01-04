@@ -17,8 +17,8 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
-        if isSession && !sessions.isEmpty {
-            WorkoutView(isSession: $isSession, workoutSession: sessions.first!)
+        if let activeSession = sessions.first, isSession {
+            WorkoutView(isSession: $isSession, workoutSession: activeSession)
         } else {
             HomeScreenView(isSession: $isSession)
         }

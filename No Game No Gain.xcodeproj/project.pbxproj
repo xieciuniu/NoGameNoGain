@@ -12,6 +12,7 @@
 		DB0938E72C98352700BC3505 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0938E62C98352700BC3505 /* Extension.swift */; };
 		DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13E7C42C8DA489002A5EED /* StatsView.swift */; };
 		DB3ACD042D33E48A00E624B6 /* HistorySets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ACD032D33E48A00E624B6 /* HistorySets.swift */; };
+		DB5B19E82D3530150060B940 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B19E72D3530150060B940 /* AddExerciseView.swift */; };
 		DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */; };
 		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
@@ -63,6 +64,7 @@
 		DB3ACD032D33E48A00E624B6 /* HistorySets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistorySets.swift; path = "No Game No Gain/History & Stats/HistorySets.swift"; sourceTree = SOURCE_ROOT; };
 		DB43522F2D2E657600D1D64F /* NoGameNoGainUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoGameNoGainUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4352482D2E844B00D1D64F /* No Game No Gain.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "No Game No Gain.xctestplan"; sourceTree = "<group>"; };
+		DB5B19E72D3530150060B940 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsView.swift; sourceTree = "<group>"; };
 		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
@@ -92,8 +94,18 @@
 		DBFBD5B62D2C2869008ACC6C /* No Game No GainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "No Game No GainTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DB5B19E92D3537DC0060B940 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HistorySets.swift,
+			);
+			target = DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		DB3ACD002D33DEBF00E624B6 /* History & Stats */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "History & Stats"; sourceTree = "<group>"; };
+		DB3ACD002D33DEBF00E624B6 /* History & Stats */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DB5B19E92D3537DC0060B940 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "History & Stats"; sourceTree = "<group>"; };
 		DB4352302D2E657600D1D64F /* NoGameNoGainUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NoGameNoGainUITests; sourceTree = "<group>"; };
 		DBFBD5B72D2C2869008ACC6C /* No Game No GainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "No Game No GainTests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -200,9 +212,10 @@
 			children = (
 				DB97BC052C75B85D007970CD /* WorkoutView.swift */,
 				DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */,
-				DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */,
+				DB5B19E72D3530150060B940 /* AddExerciseView.swift */,
 				DBA0677D2CB97250001B76FD /* StopwatchView.swift */,
 				DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */,
+				DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */,
 			);
 			path = WorkoutSession;
 			sourceTree = "<group>";
@@ -307,7 +320,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					DB43522E2D2E657600D1D64F = {
 						CreatedOnToolsVersion = 16.2;
@@ -407,6 +420,7 @@
 				DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */,
 				DB8D4EA42C5A21C000F84C41 /* No_Game_No_GainApp.swift in Sources */,
 				DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */,
+				DB5B19E82D3530150060B940 /* AddExerciseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

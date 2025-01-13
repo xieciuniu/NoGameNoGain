@@ -53,14 +53,23 @@ struct WorkoutView: View {
                         HStack{
                             
                             Button(action: {
-                                print("Add exercise")
-                                //TODO: add exercise after current one
-                            } ){
+                                viewModel.showingAddExercise = true
+                            }) {
                                 Image(systemName: "plus.circle")
                                     .resizable()
                                     .frame(width: 25, height: 25)
                                     .foregroundStyle(Color.white)
                             }
+                            .sheet(isPresented: $viewModel.showingAddExercise) {
+                                AddExerciseView(
+                                    isPresented: $viewModel.showingAddExercise,
+                                    currentOrder: viewModel.currentExercise,
+                                    workout: viewModel.workoutSession.workout
+                                ) { exercise, permanent in
+                                    viewModel.addExercise(exercise, permanent: permanent)
+                                }
+                            }
+
                             .padding(.leading)
                             
                             Spacer()
@@ -236,7 +245,7 @@ struct WorkoutView: View {
                                 .cornerRadius(12)
                                 .shadow(radius: 5)
                         }
-                        .disabled(viewModel.currentExercise == 0 )
+                        .disabled(!viewModel.canMoveToPreviousExercise() )
                         
                         Spacer()
                         
@@ -305,7 +314,6 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             viewModel.nextExercise()
-                            print("next")
                         }) {
                             Text("Next Exercise")
                                 .font(.subheadline)
@@ -315,7 +323,7 @@ struct WorkoutView: View {
                                 .foregroundStyle(viewModel.currentExercise == viewModel.workoutSession.workout.exercises.count - 1 ? .gray : .white)
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
-                        .disabled(viewModel.currentExercise == viewModel.workoutSession.workout.exercises.count - 1 )
+                        .disabled(!viewModel.canMoveToNextExercise() )
                     }
                     .padding([.leading, .trailing])
                     .onAppear(perform: {

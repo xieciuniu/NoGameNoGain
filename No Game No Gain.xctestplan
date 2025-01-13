@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "17AC7B22-26CE-44D6-8299-0D6593E3CDEC",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:No Game No Gain.xcodeproj",
+      "identifier" : "DB8D4E9F2C5A21BF00F84C41",
+      "name" : "No Game No Gain"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:No Game No Gain.xcodeproj",
+        "identifier" : "DBFBD5B52D2C2869008ACC6C",
+        "name" : "No Game No GainTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:No Game No Gain.xcodeproj",
+        "identifier" : "DB43522E2D2E657600D1D64F",
+        "name" : "NoGameNoGainUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

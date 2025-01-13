@@ -55,9 +55,12 @@ struct HomeScreenView: View {
                             .onTapGesture {
                                 userAccount = loadUserAccountFromFile() ?? UserAccount()
                             }
-                        Text("End Goal: \(userAccount.goalEnd.formatted())")
-                        Text("Progress: \(userAccount.goalProgress.formatted())")
-                        Text("User weight: \(userAccount.weight.formatted())")
+                        
+                        
+                        
+//                        Text("End Goal: \(userAccount.goalEnd.formatted())")
+//                        Text("Progress: \(userAccount.goalProgress.formatted())")
+//                        Text("User weight: \(userAccount.weight.formatted())")
 //                            .padding(.bottom, 25)
                         
                         
@@ -170,7 +173,7 @@ struct HomeScreenView: View {
                 case "SelectWorkoutView":
                     SelectWorkoutView(isSession: $isSession)
                 case "StatsView":
-                    Text("Hello, World!")
+                    History(endedSession: workouts)
                 case "LevelsView":
                     LevelsView(level: userAccount.exp)
                 case "PersonalGoalView":

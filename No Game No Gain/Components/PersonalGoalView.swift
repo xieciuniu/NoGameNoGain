@@ -25,7 +25,7 @@ struct PersonalGoalView: View {
     
     var body: some View {
         VStack {
-            Picker("", selection: $goal) {
+            Picker("Choose goal", selection: $goal) {
                 ForEach(possibleGoals, id: \.self) { goal in
                     Text(goal)
                 }

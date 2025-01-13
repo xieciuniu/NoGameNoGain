@@ -11,6 +11,7 @@
 		DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */; };
 		DB0938E72C98352700BC3505 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0938E62C98352700BC3505 /* Extension.swift */; };
 		DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB13E7C42C8DA489002A5EED /* StatsView.swift */; };
+		DB3ACD042D33E48A00E624B6 /* HistorySets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3ACD032D33E48A00E624B6 /* HistorySets.swift */; };
 		DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */; };
 		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
@@ -38,6 +39,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		DB4352352D2E657600D1D64F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB8D4E982C5A21BF00F84C41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB8D4E9F2C5A21BF00F84C41;
+			remoteInfo = "No Game No Gain";
+		};
 		DBFBD5BA2D2C2869008ACC6C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DB8D4E982C5A21BF00F84C41 /* Project object */;
@@ -52,6 +60,9 @@
 		DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DB0938E62C98352700BC3505 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DB13E7C42C8DA489002A5EED /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		DB3ACD032D33E48A00E624B6 /* HistorySets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistorySets.swift; path = "No Game No Gain/History & Stats/HistorySets.swift"; sourceTree = SOURCE_ROOT; };
+		DB43522F2D2E657600D1D64F /* NoGameNoGainUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoGameNoGainUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB4352482D2E844B00D1D64F /* No Game No Gain.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "No Game No Gain.xctestplan"; sourceTree = "<group>"; };
 		DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsView.swift; sourceTree = "<group>"; };
 		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
@@ -82,10 +93,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		DB3ACD002D33DEBF00E624B6 /* History & Stats */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "History & Stats"; sourceTree = "<group>"; };
+		DB4352302D2E657600D1D64F /* NoGameNoGainUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NoGameNoGainUITests; sourceTree = "<group>"; };
 		DBFBD5B72D2C2869008ACC6C /* No Game No GainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "No Game No GainTests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DB43522C2D2E657600D1D64F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB8D4E9D2C5A21BF00F84C41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,8 +151,10 @@
 		DB8D4E972C5A21BF00F84C41 = {
 			isa = PBXGroup;
 			children = (
+				DB4352482D2E844B00D1D64F /* No Game No Gain.xctestplan */,
 				DB8D4EA22C5A21C000F84C41 /* No Game No Gain */,
 				DBFBD5B72D2C2869008ACC6C /* No Game No GainTests */,
+				DB4352302D2E657600D1D64F /* NoGameNoGainUITests */,
 				DB8D4EA12C5A21C000F84C41 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,6 +164,7 @@
 			children = (
 				DB8D4EA02C5A21C000F84C41 /* No Game No Gain.app */,
 				DBFBD5B62D2C2869008ACC6C /* No Game No GainTests.xctest */,
+				DB43522F2D2E657600D1D64F /* NoGameNoGainUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				DBCFE7AF2CE8719900493D90 /* No Game No Gain.entitlements */,
+				DB3ACD002D33DEBF00E624B6 /* History & Stats */,
 				DBD1E82B2C9C235100D419C6 /* WorkoutsCreator */,
 				DB97BC042C75B83D007970CD /* WorkoutSession */,
 				DB7F6E912C635960001C9D59 /* Components */,
@@ -188,6 +212,7 @@
 			children = (
 				DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */,
 				DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */,
+				DB3ACD032D33E48A00E624B6 /* HistorySets.swift */,
 				DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */,
 				DBA8624D2CC3D52B0052E651 /* UserAccount.swift */,
 				DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */,
@@ -208,6 +233,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DB43522E2D2E657600D1D64F /* NoGameNoGainUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB4352392D2E657600D1D64F /* Build configuration list for PBXNativeTarget "NoGameNoGainUITests" */;
+			buildPhases = (
+				DB43522B2D2E657600D1D64F /* Sources */,
+				DB43522C2D2E657600D1D64F /* Frameworks */,
+				DB43522D2D2E657600D1D64F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB4352362D2E657600D1D64F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DB4352302D2E657600D1D64F /* NoGameNoGainUITests */,
+			);
+			name = NoGameNoGainUITests;
+			packageProductDependencies = (
+			);
+			productName = NoGameNoGainUITests;
+			productReference = DB43522F2D2E657600D1D64F /* NoGameNoGainUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB8D4EAE2C5A21C000F84C41 /* Build configuration list for PBXNativeTarget "No Game No Gain" */;
@@ -219,6 +267,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DB3ACD002D33DEBF00E624B6 /* History & Stats */,
 			);
 			name = "No Game No Gain";
 			productName = "No Game No Gain";
@@ -258,6 +309,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					DB43522E2D2E657600D1D64F = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = DB8D4E9F2C5A21BF00F84C41;
+					};
 					DB8D4E9F2C5A21BF00F84C41 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -282,11 +337,19 @@
 			targets = (
 				DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */,
 				DBFBD5B52D2C2869008ACC6C /* No Game No GainTests */,
+				DB43522E2D2E657600D1D64F /* NoGameNoGainUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DB43522D2D2E657600D1D64F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB8D4E9E2C5A21BF00F84C41 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,6 +369,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DB43522B2D2E657600D1D64F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DB8D4E9C2C5A21BF00F84C41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +385,7 @@
 				DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */,
 				DBCFE7B52CE8958C00493D90 /* HealthKitManager.swift in Sources */,
 				DB894FCC2CF4714C0068059D /* ChallengeView.swift in Sources */,
+				DB3ACD042D33E48A00E624B6 /* HistorySets.swift in Sources */,
 				DB8AA4F82CF34E12005681B4 /* PersonalGoalView.swift in Sources */,
 				DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */,
 				DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */,
@@ -349,6 +420,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		DB4352362D2E657600D1D64F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */;
+			targetProxy = DB4352352D2E657600D1D64F /* PBXContainerItemProxy */;
+		};
 		DBFBD5BB2D2C2869008ACC6C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */;
@@ -357,6 +433,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		DB4352372D2E657600D1D64F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC3RG2JLGW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Boost.NoGameNoGainUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "No Game No Gain";
+			};
+			name = Debug;
+		};
+		DB4352382D2E657600D1D64F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC3RG2JLGW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Boost.NoGameNoGainUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "No Game No Gain";
+			};
+			name = Release;
+		};
 		DB8D4EAC2C5A21C000F84C41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -583,6 +695,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DB4352392D2E657600D1D64F /* Build configuration list for PBXNativeTarget "NoGameNoGainUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB4352372D2E657600D1D64F /* Debug */,
+				DB4352382D2E657600D1D64F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DB8D4E9B2C5A21BF00F84C41 /* Build configuration list for PBXProject "No Game No Gain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

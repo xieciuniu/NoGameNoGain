@@ -16,11 +16,9 @@ struct AddExerciseView: View {
     
     @State private var exerciseName: String = ""
     @State private var restTime: Double = 90
-    @State private var numberOfSets: Int = 3
-    @State private var addPermanently: Bool = true
-    @State private var weight: Double = 60
-    @State private var reps: Int = 5
-    @State private var progress: Bool = true
+    @State private var numberOfSets: Int = 1
+    @State private var addPermanently: Bool = false
+    @State private var sets: [OneSet] = [OneSet(reps: 5, weight: 60, progress: false)]
     
     let onAdd: (Exercise, Bool) -> Void
     
@@ -39,22 +37,35 @@ struct AddExerciseView: View {
                         Text("seconds")
                     }
                     
-                    Stepper("Sets: \(numberOfSets)", value: $numberOfSets, in: 1...10)
+                    Stepper("Number of different sets: \(numberOfSets)",
+                           value: $numberOfSets,
+                           in: 1...10,
+                           onEditingChanged: { _ in
+                        updateSeries()
+                    })
                 }
                 
-                Section("Set Details") {
-                    HStack {
-                        Text("Weight:")
-                        Spacer()
-                        TextField("60", value: $weight, format: .number)
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.trailing)
-                        Text("kg")
+                Section("Sets Configuration") {
+                    ForEach($sets) { $oneSet in
+                        VStack(alignment: .leading, spacing: 10) {
+                            Stepper("Number of reps: \(oneSet.reps)",
+                                   value: $oneSet.reps,
+                                   in: 1...30)
+                            
+                            HStack {
+                                Text("Weight:")
+                                Spacer()
+                                DecimalTextFieldBonus(value: $oneSet.weight)
+                                Text("kg")
+                            }
+                            
+                            Toggle("Progressive Overload", isOn: $oneSet.progress)
+                            
+                            Stepper("Sets like this: \(oneSet.numberOfSameSets)",
+                                   value: $oneSet.numberOfSameSets,
+                                   in: 1...10)
+                        }
                     }
-                    
-                    Stepper("Reps: \(reps)", value: $reps, in: 1...30)
-                    
-                    Toggle("Progressive Overload", isOn: $progress)
                 }
                 
 //                Section {
@@ -62,7 +73,6 @@ struct AddExerciseView: View {
 //                }
                 
                 Button("Add Exercise") {
-                    let sets = [OneSet(reps: reps, weight: weight, progress: progress)]
                     let exercise = Exercise(name: exerciseName, order: currentOrder + 1)
                     exercise.restTime = restTime
                     exercise.numberOfSets = numberOfSets
@@ -78,5 +88,42 @@ struct AddExerciseView: View {
                 dismiss()
             })
         }
+    }
+    
+    private func updateSeries() {
+        if numberOfSets > sets.count {
+            // Dodaj nowe serie
+            for _ in sets.count..<numberOfSets {
+                sets.append(OneSet(
+                    reps: sets.last?.reps ?? 5,
+                    weight: sets.last?.weight ?? 60,
+                    progress: sets.last?.progress ?? true
+                ))
+            }
+        } else if numberOfSets < sets.count {
+            sets.removeLast(sets.count - numberOfSets)
+        }
+    }
+}
+
+struct DecimalTextFieldBonus: View {
+    @Binding var value: Double
+    @State private var textValue: String = ""
+
+    var body: some View {
+        TextField("", text: $textValue)
+//            .background(Color.gray)
+            .keyboardType(.decimalPad)
+            .textFieldStyle(.automatic)
+            .onChange(of: textValue) { oldValue, newValue in
+                            let filtered = newValue.replacingOccurrences(of: ",", with: ".")
+                            if let number = Double(filtered) {
+                                value = number
+                            }
+                        }
+            .onAppear {
+                // Ustaw początkowy tekst na wartość początkową Double
+                textValue = String(value).replacingOccurrences(of: ".", with: ",")
+            }
     }
 }

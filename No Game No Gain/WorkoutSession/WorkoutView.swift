@@ -20,8 +20,8 @@ struct WorkoutView: View {
     
     @StateObject private var stopwatch = Stopwatch()
     
-    init(isSession: Binding<Bool>, workoutSession: WorkoutSession) {
-        _viewModel = StateObject(wrappedValue: WorkoutViewModel(workoutSession: workoutSession))
+    init(isSession: Binding<Bool>, workoutSession: WorkoutSession, notificationSettings: NotificationSettings) {
+        _viewModel = StateObject(wrappedValue: WorkoutViewModel(workoutSession: workoutSession, settings: notificationSettings))
         self._isSession = isSession
     }
 
@@ -235,7 +235,7 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             print("previous")
-                            viewModel.previousExercise()
+                            viewModel.previousExercise(elapsedTime: stopwatch.timeElapsedMSMs)
                         }) {
                             Text("Previous Exercise")
                                 .font(.subheadline)
@@ -313,13 +313,12 @@ struct WorkoutView: View {
                             .frame(maxHeight: 60)
                         
                         Button(action: {
-                            viewModel.nextExercise()
+                            viewModel.nextExercise(elapsedTime: stopwatch.timeElapsedMSMs)
                         }) {
                             Text("Next Exercise")
                                 .font(.subheadline)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
-                            //                                .background(Color.blue)
                                 .foregroundStyle(viewModel.currentExercise == viewModel.workoutSession.workout.exercises.count - 1 ? .gray : .white)
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
@@ -346,9 +345,9 @@ struct WorkoutView: View {
             viewModel.updateExerciseNotes()
         }
         .onChange(of: stopwatch.timeElapsedMSMs) {old, new in
-            if new >= viewModel.restTime && old <= viewModel.restTime {
-                AudioServicesPlaySystemSound(1026)
-            }
+//            if new >= viewModel.restTime && old <= viewModel.restTime {
+//                AudioServicesPlaySystemSound(1026)
+//            }
         }
         .onChange(of: viewModel.userAccount.notes) {
             saveUserAccountToFile(viewModel.userAccount)

@@ -10,6 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @State private var isSession = UserDefaults.standard.bool(forKey: "isSession")
+    @StateObject private var notificationSettings = NotificationSettings()
     @Query var workouts : [Workout]
     @Query(filter: #Predicate<WorkoutSession>{ session in
         session.endTime == nil
@@ -18,7 +19,7 @@ struct ContentView: View {
     
     var body: some View {
         if let activeSession = sessions.first, isSession {
-            WorkoutView(isSession: $isSession, workoutSession: activeSession)
+            WorkoutView(isSession: $isSession, workoutSession: activeSession, notificationSettings: notificationSettings)
         } else {
             HomeScreenView(isSession: $isSession)
         }

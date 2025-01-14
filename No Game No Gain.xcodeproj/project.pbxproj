@@ -15,6 +15,9 @@
 		DB5B19E82D3530150060B940 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B19E72D3530150060B940 /* AddExerciseView.swift */; };
 		DB63AF162CD4C1D6000F41B2 /* LevelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */; };
 		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
+		DB7A5DD42D3682AB0055B923 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */; };
+		DB7A5DD62D36836D0055B923 /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */; };
+		DB7A5DD82D3683D60055B923 /* WorkoutNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A5DD72D3683D60055B923 /* WorkoutNotificationManager.swift */; };
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
 		DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E922C635971001C9D59 /* ProgressBarView.swift */; };
 		DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */; };
@@ -67,6 +70,9 @@
 		DB5B19E72D3530150060B940 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsView.swift; sourceTree = "<group>"; };
 		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
+		DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
+		DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
+		DB7A5DD72D3683D60055B923 /* WorkoutNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutNotificationManager.swift; sourceTree = "<group>"; };
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		DB7F6E922C635971001C9D59 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayActivitiesView.swift; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 				DB8AA4F52CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift */,
 				DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */,
 				DB894FCB2CF4714C0068059D /* ChallengeView.swift */,
+				DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -216,6 +223,7 @@
 				DBA0677D2CB97250001B76FD /* StopwatchView.swift */,
 				DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */,
 				DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */,
+				DB7A5DD72D3683D60055B923 /* WorkoutNotificationManager.swift */,
 			);
 			path = WorkoutSession;
 			sourceTree = "<group>";
@@ -229,6 +237,7 @@
 				DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */,
 				DBA8624D2CC3D52B0052E651 /* UserAccount.swift */,
 				DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */,
+				DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */,
 			);
 			path = DataStructures;
 			sourceTree = "<group>";
@@ -408,6 +417,7 @@
 				DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */,
 				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,
 				DB0469D42CD606EC0082CCF8 /* LevelRanks.swift in Sources */,
+				DB7A5DD82D3683D60055B923 /* WorkoutNotificationManager.swift in Sources */,
 				DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */,
 				DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */,
 				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,
@@ -421,6 +431,8 @@
 				DB8D4EA42C5A21C000F84C41 /* No_Game_No_GainApp.swift in Sources */,
 				DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */,
 				DB5B19E82D3530150060B940 /* AddExerciseView.swift in Sources */,
+				DB7A5DD62D36836D0055B923 /* NotificationSettingsView.swift in Sources */,
+				DB7A5DD42D3682AB0055B923 /* NotificationSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

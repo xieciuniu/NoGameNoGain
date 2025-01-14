@@ -28,6 +28,7 @@ extension WorkoutView {
         
         @Published var workoutSession: WorkoutSession
         @Published var workoutState: WorkoutState = .inProgress
+        @Published var notificationManager: WorkoutNotificationManager
         
         @Published var userAccount: UserAccount = loadUserAccountFromFile() ?? UserAccount()
         
@@ -56,9 +57,17 @@ extension WorkoutView {
         
         @Published var showingAddExercise = false
         
-        init(workoutSession: WorkoutSession) {
+        init(workoutSession: WorkoutSession, settings: NotificationSettings) {
             self.workoutSession = workoutSession
             self.sortedExercises = workoutSession.workout.exercises.sorted()
+            self.notificationManager = WorkoutNotificationManager(settings: settings)
+        }
+        
+        func updateRestTimeNotification(elapsedTime: TimeInterval) {
+            let remainingTime = restTime - elapsedTime
+            if remainingTime > 0 {
+                notificationManager.scheduleNotification(after: remainingTime)
+            }
         }
         
         func begin() {
@@ -98,6 +107,7 @@ extension WorkoutView {
                 rpe: rpe
             )
             
+            notificationManager.scheduleNotification(after: self.restTime)
             handleSetCompletion(isDone: isDone, metrics: metrics)
         }
         
@@ -160,22 +170,24 @@ extension WorkoutView {
             return currentExercise > 0
         }
         
-        func nextExercise() {
+        func nextExercise(elapsedTime: TimeInterval) {
             guard canMoveToNextExercise() else { print("Error: cannot move to next exercise"); return }
             currentExercise += 1
-            updateCurrentExercise()
+            updateCurrentExercise(elapsedTime: elapsedTime)
         }
-        func previousExercise() {
+        func previousExercise(elapsedTime: TimeInterval) {
             guard canMoveToPreviousExercise() else { return }
             currentExercise -= 1
-            updateCurrentExercise()
+            updateCurrentExercise(elapsedTime: elapsedTime)
         }
         
-        private func updateCurrentExercise() {
+        private func updateCurrentExercise(elapsedTime: TimeInterval) {
             exerciseName = sortedExercises[currentExercise].name
             exercise = sortedExercises[currentExercise]
             exerciseNotes = exercise.exerciseNote
             restTime = exercise.restTime
+            
+            updateRestTimeNotification(elapsedTime: elapsedTime)
         }
         
         func updateExerciseNotes() {

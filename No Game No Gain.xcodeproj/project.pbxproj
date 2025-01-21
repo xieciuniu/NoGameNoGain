@@ -39,6 +39,7 @@
 		DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */; };
 		DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */; };
 		DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */; };
+		DBD4FE6A2D3F783F0082EECE /* LastWorkoutAndStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */; };
 		DBDBF34D2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,7 @@
 		DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsView.swift; sourceTree = "<group>"; };
 		DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
 		DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
+		DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastWorkoutAndStatsView.swift; sourceTree = "<group>"; };
 		DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutView-ViewModel.swift"; sourceTree = "<group>"; };
 		DBFBD5B62D2C2869008ACC6C /* No Game No GainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "No Game No GainTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -163,6 +165,7 @@
 				DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */,
 				DB894FCB2CF4714C0068059D /* ChallengeView.swift */,
 				DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */,
+				DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,
 				DB0469D42CD606EC0082CCF8 /* LevelRanks.swift in Sources */,
 				DB7A5DD82D3683D60055B923 /* WorkoutNotificationManager.swift in Sources */,
+				DBD4FE6A2D3F783F0082EECE /* LastWorkoutAndStatsView.swift in Sources */,
 				DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */,
 				DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */,
 				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,

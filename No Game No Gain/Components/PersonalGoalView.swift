@@ -49,7 +49,7 @@ struct PersonalGoalView: View {
                         }
                         .pickerStyle(.wheel)
                     }
-                    Text("\(weightGoal.formatted())")
+                    //Text("\(weightGoal.formatted())")
                     Button("Set goal") {
                         setGoal()
                     }

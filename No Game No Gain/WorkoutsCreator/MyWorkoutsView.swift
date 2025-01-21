@@ -25,12 +25,12 @@ struct MyWorkoutsView: View {
         VStack {
             VStack {
                 
-                Picker("Select Workout frequency", selection: $trainingFrequency) {
-                    Text("Day of week").tag(TrainingFrequency.dayOfWeek)
-                    Text("Every X Days").tag(TrainingFrequency.everyXDays)
-                }
-                .pickerStyle(.segmented)
-                .padding()
+//                Picker("Select Workout frequency", selection: $trainingFrequency) {
+//                    Text("Day of week").tag(TrainingFrequency.dayOfWeek)
+//                    Text("Every X Days").tag(TrainingFrequency.everyXDays)
+//                }
+//                .pickerStyle(.segmented)
+//                .padding()
                 
                 // TODO: ustawienie kolejnosc treningow
                 

@@ -20,7 +20,7 @@ struct HomeScreenView: View {
     
     @State var userAccount: UserAccount = loadUserAccountFromFile() ?? UserAccount()
     
-    @State var expToTextUI: Double = 10
+    @State var expToTextUI: Double = 400
     
     @Environment(\.modelContext) var modelContext
     
@@ -115,14 +115,20 @@ struct HomeScreenView: View {
 //                                })
 //                            }
 //                        }
-                        }
+                        
+                        LastWorkoutAndStatsView(path: $path)
+                            .padding([.horizontal, .bottom])
+
+                    }
                     
                     
                     
                     Divider()
                     
                     HStack {
-                        Button(action: { path.append("StatsView")} ) {
+                        Button(action: {
+                            userAccount.exp += 100
+                            path.append("StatsView")} ) {
                             Text("Settings")
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
@@ -173,11 +179,16 @@ struct HomeScreenView: View {
                 case "SelectWorkoutView":
                     SelectWorkoutView(isSession: $isSession)
                 case "StatsView":
-                    History(endedSession: workouts)
+                    //History(endedSession: workouts)
+                    TrainingStatsView()
                 case "LevelsView":
                     LevelsView(level: userAccount.exp)
                 case "PersonalGoalView":
                     PersonalGoalView(userAccount: $userAccount)
+                case "WorkoutHistory":
+                    WorkoutHistoryView()
+                case "WorkoutStats":
+                    TrainingStatsView()
                 default:
                     Text("Some kind of error")
                     

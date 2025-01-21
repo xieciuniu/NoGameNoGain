@@ -10,6 +10,7 @@ import SwiftUI
 struct LevelsView: View {
     let levels = ranks
     @State var level: Double
+    let levelTest = 5000.0
     var levelName: String {
         if let rank = ranks.first(where: {$0.expRange.contains(level)}) {
             return rank.title
@@ -40,7 +41,7 @@ struct LevelsView: View {
                                 }
                             }
                             .id(rank.title)
-                            .blur(radius: level >= rank.expStart ? 0 : 10)
+                            .blur(radius: levelTest >= rank.expStart ? 0 : 10)
                             Divider()
                         }
                     }

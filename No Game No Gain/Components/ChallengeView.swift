@@ -17,7 +17,7 @@ struct ChallengeView: View {
                 
                 Text(Image(systemName: "timer")).font(.caption)
                 +
-                Text(" 5d 4h")
+                Text(" 6d 4h")
                     .font(.caption)
             }
             
@@ -31,7 +31,7 @@ struct ChallengeView: View {
                     Text("Lift a total of 5t")
                         .foregroundStyle(.secondary)
                     
-                    ProgressView(value: 3000, total: 5000)
+                    ProgressView(value: 2365, total: 5000)
                     HStack {
                         Text("0")
                         Spacer()

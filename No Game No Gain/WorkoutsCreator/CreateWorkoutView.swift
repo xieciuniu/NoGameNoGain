@@ -75,17 +75,17 @@ struct CreateWorkoutView: View {
                 Divider()
                 
                 HStack {
-                    Button(action: {dismiss()}) {
-                        Text("Back")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 8)
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    
-                    Spacer()
-                    Divider()
-                        .frame(height: 35)
+//                    Button(action: {dismiss()}) {
+//                        Text("Back")
+//                            .frame(maxWidth: .infinity)
+//                            .padding(.vertical, 8)
+//                            .foregroundStyle(.white)
+//                            .clipShape(RoundedRectangle(cornerRadius: 12))
+//                    }
+//                    
+//                    Spacer()
+//                    Divider()
+//                        .frame(height: 35)
                     
                     Button(action: addExercise) {
                         Text("Add Exercise")
@@ -98,8 +98,8 @@ struct CreateWorkoutView: View {
                 
             }
             .navigationTitle(workout.name)
+//            self.navigationBar.tintColor = Color.white
         }
-        .navigationBarBackButtonHidden()
         .preferredColorScheme(.dark)
         .onChange(of: name){_, name in
             workout.name = name

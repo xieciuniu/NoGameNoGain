@@ -21,103 +21,108 @@ struct CreateExerciseView: View {
     // TODO: Muscle Groups
     
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                ZStack {
-                    Color.black
-                        .ignoresSafeArea()
-                        .onTapGesture(perform: {
-                            self.hideKeyboard()
-                        })
-                    
-                    VStack {
-                        HStack {
-                            Text("Name:")
-                            
-                            TextField("", text: $exerciseName)
-                                .textFieldStyle(.roundedBorder)
-                                .padding(.leading)
-                                .keyboardType(.default)
-                        }
-                        .padding([.leading, .trailing])
+//        GeometryReader { geometry in
+            VStack {
+                ScrollView {
+                    ZStack {
+                        Color.black
+                            .ignoresSafeArea()
+                            .onTapGesture(perform: {
+                                self.hideKeyboard()
+                            })
                         
-                        HStack {
-                            Text("Rest time (s): ")
-                            TextField("", value: $exercise.restTime, format: .number)
-                                .textFieldStyle(.roundedBorder)
-                                .keyboardType(.numberPad)
-                                .padding(.leading)
-                        }
-                        .padding([.leading, .trailing])
-                        
-                        HStack {
-                            Text("Progress per session: ")
-                            
-                            TextField("", value: $exercise.progressPerWorkout, format: .number)
-                                .textFieldStyle(.roundedBorder)
-                                .keyboardType(.decimalPad)
-                            //                        .padding(.leading)
-                        }
-                        .padding([.leading, .trailing])
-                        
-                        Stepper("Number of different sets: \(exercise.numberOfSets)", value: $exercise.numberOfSets, in: 1...100, onEditingChanged: { _ in
-                            updateSeries()
-                        })
-                        .padding([.leading, .trailing])
-                        
-                        
-                        
-                        VStack{
-                            ForEach($exercise.sets) {$oneSet in
-                                Section(header: Text("Set")) {
-                                    Stepper("Number of reps: \(oneSet.reps)", value: $oneSet.reps, in: 1...1000)
-                                    
-                                    HStack {
-                                        Text("Weight: ")
-                                        Spacer()
-                                        
-//                                        TextField("", value: $oneSet.weight, format: .number)
-//                                            .keyboardType(.decimalPad)
-                                        DecimalTextField(value: $oneSet.weight)
-                                        
-                                    }
-                                    
-                                    Toggle(isOn: $oneSet.progress, label: {
-                                        Text("Progress per session")
-                                    })
-                                    
-                                    Stepper("Sets like this: \(oneSet.numberOfSameSets)", value: $oneSet.numberOfSameSets, in: 1...1000)
-                                }
-                                .padding([.leading, .trailing])
+                        VStack {
+                            HStack {
+                                Text("Name:")
                                 
+                                TextField("", text: $exerciseName)
+                                    .textFieldStyle(.roundedBorder)
+                                    .padding(.leading)
+                                    .keyboardType(.default)
                             }
+                            .padding([.leading, .trailing])
+                            
+                            HStack {
+                                Text("Rest time (s): ")
+                                TextField("", value: $exercise.restTime, format: .number)
+                                    .textFieldStyle(.roundedBorder)
+                                    .keyboardType(.numberPad)
+                                    .padding(.leading)
+                            }
+                            .padding([.leading, .trailing])
+                            
+                            HStack {
+                                Text("Progress per session: ")
+                                
+                                TextField("", value: $exercise.progressPerWorkout, format: .number)
+                                    .textFieldStyle(.roundedBorder)
+                                    .keyboardType(.decimalPad)
+                                //                        .padding(.leading)
+                            }
+                            .padding([.leading, .trailing])
+                            
+                            Stepper("Number of different sets: \(exercise.numberOfSets)", value: $exercise.numberOfSets, in: 1...100, onEditingChanged: { _ in
+                                updateSeries()
+                            })
+                            .padding([.leading, .trailing])
+                            
+                            
+                            
+                            VStack{
+                                ForEach($exercise.sets) {$oneSet in
+                                    Section(header: Text("Set")) {
+                                        Stepper("Number of reps: \(oneSet.reps)", value: $oneSet.reps, in: 1...1000)
+                                        
+                                        HStack {
+                                            Text("Weight: ")
+                                            Spacer()
+                                            
+    //                                        TextField("", value: $oneSet.weight, format: .number)
+    //                                            .keyboardType(.decimalPad)
+                                            DecimalTextField(value: $oneSet.weight)
+                                            
+                                        }
+                                        
+                                        Toggle(isOn: $oneSet.progress, label: {
+                                            Text("Progress per session")
+                                        })
+                                        
+                                        Stepper("Sets like this: \(oneSet.numberOfSameSets)", value: $oneSet.numberOfSameSets, in: 1...1000)
+                                    }
+                                    .padding([.leading, .trailing])
+                                    
+                                }
+                            }
+                            
+                            Spacer()
+                            Spacer()
+                            Divider()
+                            
                         }
                         
-                        Spacer()
-                        Spacer()
-                        
-                        Divider()
-                        Button(action: { 
-                            dismiss()
-                        }) {
-                            Text("Add")
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                                .foregroundStyle(.white)
-                        }
+                    }
+                    .preferredColorScheme(.dark)
+//                    .frame(minHeight: geometry.size.height)
+                    .onChange(of: exerciseName) {_, name in
+                        exercise.name = name
+                    }
+                    .onAppear() {
+                        exerciseName = exercise.name
                     }
                 }
-                .preferredColorScheme(.dark)
-                .frame(minHeight: geometry.size.height)
-                .onChange(of: exerciseName) {_, name in
-                    exercise.name = name
-                }
-                .onAppear() {
-                    exerciseName = exercise.name
+                .navigationTitle(exercise.name)
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Done")
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .foregroundStyle(.white)
                 }
             }
-            .navigationTitle(exercise.name)
-        }
+//        }
+        
         .navigationBarBackButtonHidden()
     }
     

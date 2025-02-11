@@ -64,19 +64,18 @@ struct MyWorkoutsView: View {
                 
                 Divider()
                 
-                // TODO: klikniecie Create Workout tworzy nowa klase Workout oraz dodaje do path EditWorkoutView
                 HStack {
                     
-                    Button(action: {dismiss()}) {
-                        Text("Back")
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 8)
-                            .foregroundStyle(.white)
-                    }
-                    
-                    Spacer()
-                    Divider()
-                        .frame(height: 35)
+//                    Button(action: {dismiss()}) {
+//                        Text("Back")
+//                            .frame(maxWidth: .infinity)
+//                            .padding(.vertical, 8)
+//                            .foregroundStyle(.white)
+//                    }
+//                    
+//                    Spacer()
+//                    Divider()
+//                        .frame(height: 35)
                     
                     Button(action: addWorkout) {
                         Text("Create Workout")
@@ -97,7 +96,6 @@ struct MyWorkoutsView: View {
             
         }
         .preferredColorScheme(.dark)
-        .navigationBarBackButtonHidden()
     }
     
     func addWorkout() {

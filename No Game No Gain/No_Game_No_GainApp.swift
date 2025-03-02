@@ -15,6 +15,7 @@ struct No_Game_No_GainApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.dark)
+            
         }
         .modelContainer(for: [Workout.self, WorkoutSession.self])
     }

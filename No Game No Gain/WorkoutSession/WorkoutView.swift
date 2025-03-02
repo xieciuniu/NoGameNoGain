@@ -254,9 +254,9 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             print("end")
+                            viewModel.workoutEnded(workoutDuration: stopwatch.timeElapsedHMS)
                             stopwatch.resetFormattedTime()
                             stopwatch.resetFormattedTimeMS()
-                            viewModel.workoutEnded(workoutDuration: stopwatch.timeElapsedHMS)
                             isSession = false
                             UserDefaults.standard.set(false, forKey: "isSession")
                             

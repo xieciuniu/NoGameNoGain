@@ -54,15 +54,7 @@ struct WorkoutHistoryView: View {
         }
         .background(Color.black)
         .navigationTitle("Training History")
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    Text("Back")
-                        .foregroundStyle(.white)
-                }
-            }
-        }
+        .statusBarHidden()
     }
     
     private func exportToPDF() {
@@ -106,10 +98,9 @@ struct WorkoutSessionCard: View {
         VStack(spacing: 0) {
             // Session Header
             VStack(alignment: .leading, spacing: 4) {
-                Text(formatDate(session.startTime))
+                Text(session.workout.name + " | " + formatDate(session.startTime))
                     .font(.title3)
                     .bold()
-                
                 Text(formatDuration(session.duration))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)

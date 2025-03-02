@@ -201,6 +201,7 @@ struct HomeScreenView: View {
                 CreateExerciseView(exercise: exercise)
             }
         }
+        .tint(.white)
     }
     func deleteSessions() {
         do {

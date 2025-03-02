@@ -42,32 +42,46 @@ class ExperienceSystem {
     }
     
     // Oblicz mnożnik XP na podstawie regularności
-    func calculateXPMultiplier(weeklyWorkouts: Int, streakWeeks: Int) -> Double {
-        var frequencyMultiplier: Double = 1.0
-        var streakMultiplier: Double = 1.0
-        
-        // Mnożnik za tygodniową częstotliwość
-        if weeklyWorkouts == 3 {
-            frequencyMultiplier = 1.15
-        } else if weeklyWorkouts == 4 {
-            frequencyMultiplier = 1.2
-        } else if weeklyWorkouts >= 5 {
-            frequencyMultiplier = 1.25
+    func calculateXPMultiplier(userAccount: UserAccount) -> Double {
+            // Aktualizuj liczbę treningów w bieżącym tygodniu
+            let calendar = Calendar.current
+            let date = Date()
+            let year = calendar.component(.year, from: date)
+            let week = calendar.component(.weekOfYear, from: date)
+            let key = "\(year)-\(week)"
+            
+            // Aktualizacja liczby treningów w bieżącym tygodniu
+            userAccount.weeklyWorkouts[key] = (userAccount.weeklyWorkouts[key] ?? 0) + 1
+            
+            // Pobieramy zaktualizowane wartości
+            let weeklyWorkouts = userAccount.getWorkoutsInCurrentWeek()
+            let streakWeeks = userAccount.getWorkoutStreakWeeks()
+            
+            var frequencyMultiplier: Double = 1.0
+            var streakMultiplier: Double = 1.0
+            
+            // Mnożnik za tygodniową częstotliwość
+            if weeklyWorkouts == 3 {
+                frequencyMultiplier = 1.15
+            } else if weeklyWorkouts == 4 {
+                frequencyMultiplier = 1.2
+            } else if weeklyWorkouts >= 5 {
+                frequencyMultiplier = 1.25
+            }
+            
+            // Mnożnik za streak
+            if streakWeeks >= 12 {
+                streakMultiplier = 1.2
+            } else if streakWeeks >= 8 {
+                streakMultiplier = 1.15
+            } else if streakWeeks >= 4 {
+                streakMultiplier = 1.1
+            } else if streakWeeks >= 2 {
+                streakMultiplier = 1.05
+            }
+            
+            return frequencyMultiplier * streakMultiplier
         }
-        
-        // Mnożnik za streak
-        if streakWeeks >= 12 {
-            streakMultiplier = 1.2
-        } else if streakWeeks >= 8 {
-            streakMultiplier = 1.15
-        } else if streakWeeks >= 4 {
-            streakMultiplier = 1.1
-        } else if streakWeeks >= 2 {
-            streakMultiplier = 1.05
-        }
-        
-        return frequencyMultiplier * streakMultiplier
-    }
     
     // Generuj wyzwanie tygodniowe dostosowane do poziomu użytkownika
     func generateWeeklyChallenge(userLevel: Int) -> Challenge {

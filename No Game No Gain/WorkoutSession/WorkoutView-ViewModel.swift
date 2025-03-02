@@ -203,8 +203,15 @@ extension WorkoutView {
         //MARK: Workout Ended
         func workoutEnded(workoutDuration: TimeInterval) {
             var gainedExp: Double = 0
+            let experienceSystem = ExperienceSystem()
             
-            gainedExp = ExperienceSystem().calculateWorkoutXP(duration: workoutDuration, setCount: workoutSession.doneSets.count, newRecords: workoutSession.personalRecords)
+            gainedExp = experienceSystem.calculateWorkoutXP(duration: workoutDuration, setCount: workoutSession.doneSets.count, newRecords: workoutSession.personalRecords)
+            
+            // Oblicz mnożnik na podstawie historii treningów - ta funkcja teraz również aktualizuje weeklyWorkouts
+            let expMultiplier = experienceSystem.calculateXPMultiplier(userAccount: userAccount)
+            
+            // Zastosuj mnożnik do doświadczenia
+            gainedExp *= expMultiplier
             
             updateProgressWeight()
             workoutSession.endTime = Date()

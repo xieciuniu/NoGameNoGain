@@ -32,6 +32,7 @@ class WorkoutSession {
     var endTime: Date? = nil
     var doneSets: [DoneSets] = []
     var duration: TimeInterval = 0
+    var personalRecords: Int = 0
     
     init(workout: Workout, startTime: Date) {
         self.workout = workout

@@ -144,8 +144,10 @@ extension WorkoutView {
                 if workoutSession.workout.exercises[index].personalBestWeight ?? 0 < metrics.weight {
                     workoutSession.workout.exercises[index].personalBestWeight = metrics.weight
                     workoutSession.workout.exercises[index].personalBestReps = metrics.reps
+                    workoutSession.personalRecords += 1                    
                 }
             }
+            
             
             if exerciseName == userAccount.strengthGoalExercise &&
                 userAccount.goalProgress < metrics.weight {
@@ -153,14 +155,16 @@ extension WorkoutView {
             }
         }
         
-        func togglePause() {
-            workoutState = workoutState == .inProgress ? .paused : .inProgress
-        }
-        
         func percentOfDoneSets() -> Double {
             let doneSetsCount = workoutSession.doneSets.filter({$0.exerciseName == exerciseName}).count
             return Double(doneSetsCount)/Double(exercise.sets.count)
         }
+
+        //MARK: Buttons
+        func togglePause() {
+            workoutState = workoutState == .inProgress ? .paused : .inProgress
+        }
+        
         
         // Sprawdzenie czy można bezpiecznie przejść do następnego/poprzedniego ćwiczenia
         func canMoveToNextExercise() -> Bool {
@@ -196,10 +200,11 @@ extension WorkoutView {
             }
         }
         
+        //MARK: Workout Ended
         func workoutEnded(workoutDuration: TimeInterval) {
             var gainedExp: Double = 0
             
-            gainedExp = 1
+            gainedExp = ExperienceSystem().calculateWorkoutXP(duration: workoutDuration, setCount: workoutSession.doneSets.count, newRecords: workoutSession.personalRecords)
             
             updateProgressWeight()
             workoutSession.endTime = Date()

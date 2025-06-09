@@ -18,7 +18,7 @@ class UserAccount: Codable {
     var goalStart: Double = 0
     var goalEnd: Double = 0
     var goalProgress: Double = 65
-    var weeklyWorkouts: [String: Int] = [:]
+    var weeklyWorkouts: [String: Int]? = [:]
     
     func getWorkoutsInCurrentWeek() -> Int {
             let calendar = Calendar.current
@@ -27,7 +27,7 @@ class UserAccount: Codable {
             let week = calendar.component(.weekOfYear, from: date)
             let key = "\(year)-\(week)"
             
-            return weeklyWorkouts[key] ?? 0
+        return weeklyWorkouts?[key] ?? 0
         }
         
         // Oblicza liczbę tygodni z treningami pod rząd (streak)
@@ -44,7 +44,7 @@ class UserAccount: Codable {
             // Sprawdzamy wstecz, czy każdy tydzień miał co najmniej jeden trening
             while true {
                 let key = "\(yearToCheck)-\(weekToCheck)"
-                let workouts = weeklyWorkouts[key] ?? 0
+                let workouts = weeklyWorkouts?[key] ?? 0
                 
                 if workouts > 0 {
                     streakWeeks += 1

@@ -23,7 +23,7 @@ struct CreateExerciseView: View {
     var body: some View {
 //        GeometryReader { geometry in
             VStack {
-                ScrollView {
+                VStack {
                     ZStack {
                         Color.black
                             .ignoresSafeArea()
@@ -61,7 +61,7 @@ struct CreateExerciseView: View {
                             }
                             .padding([.leading, .trailing])
                             
-                            Stepper("Number of different sets: \(exercise.numberOfSets)", value: $exercise.numberOfSets, in: 1...100, onEditingChanged: { _ in
+                            Stepper("Number of sets: \(exercise.numberOfSets)", value: $exercise.numberOfSets, in: 1...100, onEditingChanged: { _ in
                                 updateSeries()
                             })
                             .padding([.leading, .trailing])
@@ -69,34 +69,38 @@ struct CreateExerciseView: View {
                             
                             
                             VStack{
-                                ForEach($exercise.sets) {$oneSet in
-                                    Section(header: Text("Set")) {
-                                        Stepper("Number of reps: \(oneSet.reps)", value: $oneSet.reps, in: 1...1000)
-                                        
-                                        HStack {
-                                            Text("Weight: ")
-                                            Spacer()
+                                List{
+                                    ForEach($exercise.sets) {$oneSet in
+                                        VStack {
+                                            Stepper("Number of reps: \(oneSet.reps)", value: $oneSet.reps, in: 1...1000)
                                             
-    //                                        TextField("", value: $oneSet.weight, format: .number)
-    //                                            .keyboardType(.decimalPad)
-                                            DecimalTextField(value: $oneSet.weight)
+                                            HStack {
+                                                Text("Weight: ")
+                                                Spacer()
+                                                
+                                                DecimalTextField(value: $oneSet.weight)
+                                                
+                                            }
+                                            
+                                            Toggle(isOn: $oneSet.progress, label: {
+                                                Text("Progress per session")
+                                            })
+                                            
+//                                            Stepper("Sets like this: \(oneSet.numberOfSameSets)", value: $oneSet.numberOfSameSets, in: 1...1000)
                                             
                                         }
+//                                        .padding(.bottom, 5)
                                         
-                                        Toggle(isOn: $oneSet.progress, label: {
-                                            Text("Progress per session")
-                                        })
-                                        
-                                        Stepper("Sets like this: \(oneSet.numberOfSameSets)", value: $oneSet.numberOfSameSets, in: 1...1000)
                                     }
-                                    .padding([.leading, .trailing])
-                                    
+
                                 }
+                                
+                                .listStyle(InsetGroupedListStyle())
                             }
                             
-                            Spacer()
-                            Spacer()
-                            Divider()
+//                            Spacer()
+//                            Spacer()
+//                            Divider()
                             
                         }
                         
@@ -153,7 +157,6 @@ struct DecimalTextField: View {
                             }
                         }
             .onAppear {
-                // Ustaw początkowy tekst na wartość początkową Double
                 textValue = String(value).replacingOccurrences(of: ".", with: ",")
             }
     }

@@ -51,7 +51,7 @@ class ExperienceSystem {
             let key = "\(year)-\(week)"
             
             // Aktualizacja liczby treningów w bieżącym tygodniu
-            userAccount.weeklyWorkouts[key] = (userAccount.weeklyWorkouts[key] ?? 0) + 1
+        userAccount.weeklyWorkouts?[key] = (userAccount.weeklyWorkouts?[key] ?? 0) + 1
             
             // Pobieramy zaktualizowane wartości
             let weeklyWorkouts = userAccount.getWorkoutsInCurrentWeek()

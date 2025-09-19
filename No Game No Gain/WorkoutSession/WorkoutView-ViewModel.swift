@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import SwiftUICore
+import SwiftUI
 import _SwiftData_SwiftUI
 import HealthKit
 

@@ -10,6 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @State private var isSession = UserDefaults.standard.bool(forKey: "isSession")
+    // Test comment
     @StateObject private var notificationSettings = NotificationSettings()
     @Query var workouts : [Workout]
     @Query(filter: #Predicate<WorkoutSession>{ session in

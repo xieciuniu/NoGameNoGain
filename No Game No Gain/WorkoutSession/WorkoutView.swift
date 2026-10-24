@@ -18,7 +18,7 @@ struct WorkoutView: View {
     
     @Binding var isSession: Bool
     
-    @StateObject private var stopwatch = Stopwatch()
+    @State private var stopwatch = Stopwatch()
     
     init(isSession: Binding<Bool>, workoutSession: WorkoutSession, notificationSettings: NotificationSettings) {
         _viewModel = StateObject(wrappedValue: WorkoutViewModel(workoutSession: workoutSession, settings: notificationSettings))
@@ -42,8 +42,7 @@ struct WorkoutView: View {
                             Text(viewModel.workoutSession.workout.name)
                             Text(stopwatch.formattedTime)
                                 .onAppear {
-                                   stopwatch.startFormattedTime()
-                                   stopwatch.startFormattedTimeMS()
+                                    stopwatch.startIfNeeded()
                                     viewModel.setWeightRepsSet()
                                 }
                                 .font(.title2)
@@ -101,10 +100,7 @@ struct WorkoutView: View {
                             VStack {
                                 Spacer()
                                 // time between rests, put on clock
-                                
-                                Text(stopwatch.formattedTimeMS)
-                                    .font(.system(size: stopwatch.timeElapsedMSMs > 3600 ? 72 : 92, weight: .ultraLight))
-                                    .monospacedDigit()
+                                RestClockView(stopwatch: stopwatch)
                                 Spacer()
                             }
 
@@ -254,7 +250,7 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             print("end")
-                            viewModel.workoutEnded(workoutDuration: stopwatch.timeElapsedHMS)
+                            viewModel.workoutEnded(workoutDuration: stopwatch.workoutElapsed)
                             stopwatch.resetFormattedTime()
                             stopwatch.resetFormattedTimeMS()
                             isSession = false
@@ -343,11 +339,6 @@ struct WorkoutView: View {
         }
         .onChange(of: viewModel.exerciseNotes) {
             viewModel.updateExerciseNotes()
-        }
-        .onChange(of: stopwatch.timeElapsedMSMs) {old, new in
-//            if new >= viewModel.restTime && old <= viewModel.restTime {
-//                AudioServicesPlaySystemSound(1026)
-//            }
         }
         .onChange(of: viewModel.userAccount.notes) {
             saveUserAccountToFile(viewModel.userAccount)

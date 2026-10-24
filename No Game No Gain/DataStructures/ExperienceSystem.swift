@@ -13,7 +13,7 @@ class ExperienceSystem {
         var baseXP: Double = 0
         var setsXP: Double = 0
         var recordsXP: Double = 0
-        
+
         // XP za czas treningu
         let durationMinutes = duration / 60
         if durationMinutes >= 30 && durationMinutes < 50 {
@@ -24,7 +24,7 @@ class ExperienceSystem {
             let extraMinutes = min(durationMinutes - 70, 30)
             baseXP = 150 + extraMinutes
         }
-        
+
         // XP za serie
         if setCount <= 15 {
             setsXP = Double(setCount) * 5
@@ -34,60 +34,63 @@ class ExperienceSystem {
             setsXP = 15 * 5 + 10 * 3 + Double(setCount - 25)
         }
         setsXP = min(setsXP, 150) // Limit na XP z serii
-        
+
         // XP za rekordy
         recordsXP = Double(newRecords) * 30
-        
+
         return baseXP + setsXP + recordsXP
     }
-    
+
     // Oblicz mnożnik XP na podstawie regularności
     func calculateXPMultiplier(userAccount: UserAccount) -> Double {
-            // Aktualizuj liczbę treningów w bieżącym tygodniu
-            let calendar = Calendar.current
-            let date = Date()
-            let year = calendar.component(.year, from: date)
-            let week = calendar.component(.weekOfYear, from: date)
-            let key = "\(year)-\(week)"
-            
-            // Aktualizacja liczby treningów w bieżącym tygodniu
-        userAccount.weeklyWorkouts?[key] = (userAccount.weeklyWorkouts?[key] ?? 0) + 1
-            
-            // Pobieramy zaktualizowane wartości
-            let weeklyWorkouts = userAccount.getWorkoutsInCurrentWeek()
-            let streakWeeks = userAccount.getWorkoutStreakWeeks()
-            
-            var frequencyMultiplier: Double = 1.0
-            var streakMultiplier: Double = 1.0
-            
-            // Mnożnik za tygodniową częstotliwość
-            if weeklyWorkouts == 3 {
-                frequencyMultiplier = 1.15
-            } else if weeklyWorkouts == 4 {
-                frequencyMultiplier = 1.2
-            } else if weeklyWorkouts >= 5 {
-                frequencyMultiplier = 1.25
-            }
-            
-            // Mnożnik za streak
-            if streakWeeks >= 12 {
-                streakMultiplier = 1.2
-            } else if streakWeeks >= 8 {
-                streakMultiplier = 1.15
-            } else if streakWeeks >= 4 {
-                streakMultiplier = 1.1
-            } else if streakWeeks >= 2 {
-                streakMultiplier = 1.05
-            }
-            
-            return frequencyMultiplier * streakMultiplier
+        // Aktualizuj liczbę treningów w bieżącym tygodniu
+        let calendar = Calendar.current
+        let date = Date()
+        let year = calendar.component(.year, from: date)
+        let week = calendar.component(.weekOfYear, from: date)
+        let key = "\(year)-\(week)"
+
+        // Aktualizacja liczby treningów w bieżącym tygodniu
+        // userAccount.weeklyWorkouts?[key] = (userAccount.weeklyWorkouts?[key] ?? 0) + 1
+        var workouts = userAccount.weeklyWorkouts ?? [:]
+        workouts[key, default: 0] += 1
+        userAccount.weeklyWorkouts = workouts
+
+        // Pobieramy zaktualizowane wartości
+        let weeklyWorkouts = userAccount.getWorkoutsInCurrentWeek()
+        let streakWeeks = userAccount.getWorkoutStreakWeeks()
+
+        var frequencyMultiplier: Double = 1.0
+        var streakMultiplier: Double = 1.0
+
+        // Mnożnik za tygodniową częstotliwość
+        if weeklyWorkouts == 3 {
+            frequencyMultiplier = 1.15
+        } else if weeklyWorkouts == 4 {
+            frequencyMultiplier = 1.2
+        } else if weeklyWorkouts >= 5 {
+            frequencyMultiplier = 1.25
         }
-    
+
+        // Mnożnik za streak
+        if streakWeeks >= 12 {
+            streakMultiplier = 1.2
+        } else if streakWeeks >= 8 {
+            streakMultiplier = 1.15
+        } else if streakWeeks >= 4 {
+            streakMultiplier = 1.1
+        } else if streakWeeks >= 2 {
+            streakMultiplier = 1.05
+        }
+
+        return frequencyMultiplier * streakMultiplier
+    }
+
     // Generuj wyzwanie tygodniowe dostosowane do poziomu użytkownika
     func generateWeeklyChallenge(userLevel: Int) -> Challenge {
         let requiredSets = 20 + 2 * userLevel
         let requiredWeight = 500 * userLevel
-        
+
         return Challenge(
             title: "Weekly Challenge",
             description: "Complete \(requiredSets) sets and lift a total of \(requiredWeight)kg",

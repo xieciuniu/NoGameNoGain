@@ -31,8 +31,13 @@ class WorkoutSession {
     var startTime: Date
     var endTime: Date? = nil
     var doneSets: [DoneSets] = []
+    /// Index into `workout.exercises` sorted by `order`. The set index stays derived from `doneSets`.
+    var currentExerciseIndex: Int = 0
     var duration: TimeInterval = 0
     var personalRecords: Int = 0
+    /// Session average and highest heart rate, in beats per minute. Nil when the Watch sent no samples.
+    var averageHeartRateBPM: Double? = nil
+    var maximumHeartRateBPM: Double? = nil
     
     init(workout: Workout, startTime: Date) {
         self.workout = workout

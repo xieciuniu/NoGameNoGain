@@ -15,14 +15,15 @@ struct WorkoutView: View {
     
     
     @State private var showEnded = true
+
+    @Environment(WorkoutCoordinator.self) private var coordinator
+
+    private var stopwatch: Stopwatch {
+        coordinator.stopwatch
+    }
     
-    @Binding var isSession: Bool
-    
-    @State private var stopwatch = Stopwatch()
-    
-    init(isSession: Binding<Bool>, workoutSession: WorkoutSession, notificationSettings: NotificationSettings) {
-        _viewModel = StateObject(wrappedValue: WorkoutViewModel(workoutSession: workoutSession, settings: notificationSettings))
-        self._isSession = isSession
+    init(workoutSession: WorkoutSession, notifications: WorkoutNotificationManager) {
+        _viewModel = StateObject(wrappedValue: WorkoutViewModel(workoutSession: workoutSession, notifications: notifications))
     }
 
     var body: some View {
@@ -41,11 +42,10 @@ struct WorkoutView: View {
                         VStack{
                             Text(viewModel.workoutSession.workout.name)
                             Text(stopwatch.formattedTime)
-                                .onAppear {
-                                    stopwatch.startIfNeeded()
-                                    viewModel.setWeightRepsSet()
-                                }
                                 .font(.title2)
+                            if coordinator.hasTrackingDevice {
+                                WorkoutLiveMetricsView()
+                            }
                         }
                         
                         
@@ -115,6 +115,7 @@ struct WorkoutView: View {
                             stopwatch.stopFormattedTimeMS()
                             stopwatch.startFormattedTimeMS()
                             stopwatch.startFormattedTime()
+                            coordinator.keepWatchClockSynced()
                             print("failed")
                             
                         }) {
@@ -136,6 +137,7 @@ struct WorkoutView: View {
                             stopwatch.stopFormattedTimeMS()
                             stopwatch.startFormattedTimeMS()
                             stopwatch.startFormattedTime()
+                            coordinator.keepWatchClockSynced()
                             print("done")
                         }) {
                             Circle()
@@ -232,6 +234,7 @@ struct WorkoutView: View {
                         Button(action: {
                             print("previous")
                             viewModel.previousExercise(elapsedTime: stopwatch.timeElapsedMSMs)
+                            coordinator.setWatchRestTarget(viewModel.restTime)
                         }) {
                             Text("Previous Exercise")
                                 .font(.subheadline)
@@ -250,12 +253,7 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             print("end")
-                            viewModel.workoutEnded(workoutDuration: stopwatch.workoutElapsed)
-                            stopwatch.resetFormattedTime()
-                            stopwatch.resetFormattedTimeMS()
-                            isSession = false
-                            UserDefaults.standard.set(false, forKey: "isSession")
-                            
+                            coordinator.end(viewModel.workoutSession, account: viewModel.userAccount)
                         }) {
                             Text("End Workout")
                                 .font(.subheadline)
@@ -275,9 +273,7 @@ struct WorkoutView: View {
                         if stopwatch.isRunning {
                             Button(action: {
                                 print("pause")
-                                UserDefaults.standard.set(false, forKey: "isRunning")
-                                stopwatch.stopFormattedTimeMS()
-                                stopwatch.stopFormattedTime()                                
+                                coordinator.pause()
                             }) {
                                 Text("Pause Workout")
                                     .font(.subheadline)
@@ -289,9 +285,7 @@ struct WorkoutView: View {
                         } else {
                             Button(action: {
                                 print("resume")
-                                UserDefaults.standard.set(true, forKey: "isRunning")
-                               stopwatch.startFormattedTime()
-                               stopwatch.startFormattedTimeMS()
+                                coordinator.resume()
                             }) {
                                 Text("Resume Workout")
                                     .font(.subheadline)
@@ -310,6 +304,7 @@ struct WorkoutView: View {
                         
                         Button(action: {
                             viewModel.nextExercise(elapsedTime: stopwatch.timeElapsedMSMs)
+                            coordinator.setWatchRestTarget(viewModel.restTime)
                         }) {
                             Text("Next Exercise")
                                 .font(.subheadline)
@@ -321,15 +316,22 @@ struct WorkoutView: View {
                         .disabled(!viewModel.canMoveToNextExercise() )
                     }
                     .padding([.leading, .trailing])
-                    .onAppear(perform: {
-                        viewModel.setWeightRepsSet()
+                    .onAppear {
                         viewModel.begin()
-                    })
+                        viewModel.setWeightRepsSet()
+                        coordinator.keepWatchClockSynced()
+                        coordinator.setWatchRestTarget(viewModel.restTime)
+                    }
                     Spacer()
                 }
                 
             }
             
+        }
+        .onChange(of: coordinator.companionEnded) {
+            if coordinator.companionEnded {
+                coordinator.end(viewModel.workoutSession, account: viewModel.userAccount)
+            }
         }
         .onChange(of: viewModel.currentSet) {
             viewModel.setWeightRepsSet()
@@ -337,11 +339,20 @@ struct WorkoutView: View {
         .onChange(of: viewModel.currentExercise) {
             viewModel.setWeightRepsSet()
         }
+        .onChange(of: viewModel.currentWeight) {
+            viewModel.noteWeightEdit()
+        }
+        .onChange(of: viewModel.currentReps) {
+            viewModel.noteRepsEdit()
+        }
+        .onChange(of: viewModel.rpe) {
+            viewModel.noteRPEEdit()
+        }
         .onChange(of: viewModel.exerciseNotes) {
-            viewModel.updateExerciseNotes()
+            viewModel.noteExerciseNotesEdit()
         }
         .onChange(of: viewModel.userAccount.notes) {
-            saveUserAccountToFile(viewModel.userAccount)
+            viewModel.noteAccountNotesEdit()
         }
     }
 }

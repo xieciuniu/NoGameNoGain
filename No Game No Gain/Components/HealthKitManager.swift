@@ -8,11 +8,126 @@
 import Foundation
 import HealthKit
 
-class HealthKitManager {
+enum RecoveredWorkoutSessionKind {
+    case none
+    case mirrored
+    case phone
+}
+
+/// Authorization and the finished-workout save for the live session.
+/// Chart screens keep calling `HealthKitManager` directly.
+/// Companion callbacks are invoked on the main thread.
+protocol WorkoutHealthRecording: AnyObject {
+    func requestAuthorizationIfNeeded(completion: @escaping (Bool, Error?) -> Void)
+    func saveTraditionalStrengthWorkout(
+        start: Date,
+        duration: TimeInterval,
+        completion: @escaping (Bool, Error?) -> Void
+    )
+    func installCompanion(
+        onMirrored: @escaping () -> Void,
+        onEnded: @escaping () -> Void,
+        onMetrics: @escaping (_ metrics: WorkoutLiveMetrics) -> Void,
+        onRecovered: @escaping (_ kind: RecoveredWorkoutSessionKind) -> Void,
+        onPhoneFailed: @escaping () -> Void
+    )
+    func startWatchApp(
+        configuration: HKWorkoutConfiguration,
+        completion: @escaping (Bool) -> Void
+    )
+    func pauseLiveSession()
+    func resumeLiveSession()
+    func endLiveSession()
+    /// Starts the phone session when the Watch did not. The completion runs on the main thread.
+    /// It is false on iOS 17 and 18, and when the session cannot be created.
+    func startPhoneSession(
+        configuration: HKWorkoutConfiguration,
+        completion: @escaping (Bool) -> Void
+    )
+    func pausePhoneSession()
+    func resumePhoneSession()
+    /// Ends the phone session. True means that session's builder saved the workout.
+    func endPhoneSession(completion: @escaping (Bool) -> Void)
+    func discardPhoneSession()
+}
+
+class HealthKitManager: WorkoutHealthRecording {
     static let shared = HealthKitManager()
-    private let healthStore = HKHealthStore()
+    private let healthStore: HKHealthStore
+    private let liveMirror: LiveWorkoutMirror
+    private let phoneSessions: PhoneWorkoutSessionHost
     
-    init() {}
+    init() {
+        let store = HKHealthStore()
+        healthStore = store
+        liveMirror = LiveWorkoutMirror(healthStore: store)
+        phoneSessions = PhoneWorkoutSessionHost(healthStore: store)
+    }
+
+    func installCompanion(
+        onMirrored: @escaping () -> Void,
+        onEnded: @escaping () -> Void,
+        onMetrics: @escaping (WorkoutLiveMetrics) -> Void,
+        onRecovered: @escaping (RecoveredWorkoutSessionKind) -> Void,
+        onPhoneFailed: @escaping () -> Void
+    ) {
+        phoneSessions.onMetrics = onMetrics
+        phoneSessions.onFailed = onPhoneFailed
+        liveMirror.install(
+            onMirrored: onMirrored,
+            onEnded: onEnded,
+            onMetrics: onMetrics,
+            onRecovered: { found in
+                onRecovered(found ? .mirrored : .none)
+            },
+            onPrimary: { [weak self] session in
+                self?.phoneSessions.adopt(session)
+                onRecovered(.phone)
+            }
+        )
+    }
+
+    func startWatchApp(
+        configuration: HKWorkoutConfiguration,
+        completion: @escaping (Bool) -> Void
+    ) {
+        liveMirror.startWatchApp(configuration: configuration, completion: completion)
+    }
+
+    func pauseLiveSession() {
+        liveMirror.pause()
+    }
+
+    func resumeLiveSession() {
+        liveMirror.resume()
+    }
+
+    func endLiveSession() {
+        liveMirror.end()
+    }
+
+    func startPhoneSession(
+        configuration: HKWorkoutConfiguration,
+        completion: @escaping (Bool) -> Void
+    ) {
+        phoneSessions.start(configuration: configuration, completion: completion)
+    }
+
+    func pausePhoneSession() {
+        phoneSessions.pause()
+    }
+
+    func resumePhoneSession() {
+        phoneSessions.resume()
+    }
+
+    func endPhoneSession(completion: @escaping (Bool) -> Void) {
+        phoneSessions.end(completion: completion)
+    }
+
+    func discardPhoneSession() {
+        phoneSessions.discard()
+    }
     
     func requestAuthorizationIfNeeded(completion: @escaping (Bool, Error?) -> Void) {
         let readTypes: Set<HKObjectType> = [
@@ -429,6 +544,35 @@ class HealthKitManager {
         
         healthStore.save(bodyMassSample) { success, error in
             completion(success, error)
+        }
+    }
+
+    func saveTraditionalStrengthWorkout(
+        start: Date,
+        duration: TimeInterval,
+        completion: @escaping (Bool, Error?) -> Void
+    ) {
+        let end = TraditionalStrengthWorkout.endDate(start: start, duration: duration)
+        let builder = HKWorkoutBuilder(
+            healthStore: healthStore,
+            configuration: TraditionalStrengthWorkout.configuration(),
+            device: .local()
+        )
+        Task {
+            do {
+                try await builder.beginCollection(at: start)
+                try await builder.endCollection(at: end)
+            } catch {
+                builder.discardWorkout()
+                await MainActor.run { completion(false, error) }
+                return
+            }
+            do {
+                _ = try await builder.finishWorkout()
+                await MainActor.run { completion(true, nil) }
+            } catch {
+                await MainActor.run { completion(false, error) }
+            }
         }
     }
 }

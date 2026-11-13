@@ -9,19 +9,40 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @State private var isSession = UserDefaults.standard.bool(forKey: "isSession")
-    @StateObject private var notificationSettings = NotificationSettings()
+    @State private var coordinator: WorkoutCoordinator
     @Query var workouts : [Workout]
     @Query(filter: #Predicate<WorkoutSession>{ session in
         session.endTime == nil
     }) var sessions : [WorkoutSession]
     @Environment(\.modelContext) var modelContext
+
+    init() {
+        let settings = NotificationSettings()
+        let notifications = WorkoutNotificationManager(settings: settings)
+        _coordinator = State(initialValue: WorkoutCoordinator(notifications: notifications))
+    }
     
     var body: some View {
-        if let activeSession = sessions.first, isSession {
-            WorkoutView(isSession: $isSession, workoutSession: activeSession, notificationSettings: notificationSettings)
-        } else {
-            HomeScreenView(isSession: $isSession)
+        Group {
+            if let activeSession = sessions.first {
+                WorkoutView(workoutSession: activeSession, notifications: coordinator.notifications)
+            } else {
+                HomeScreenView()
+            }
+        }
+        .environment(coordinator)
+        .onAppear {
+            coordinator.notifications.installForegroundPresentation()
+        }
+        .onChange(of: sessions.map(\.persistentModelID)) {
+            if !sessions.isEmpty {
+                coordinator.resolveRecoveredCompanion(openWorkoutExists: true)
+            }
+        }
+        .task(id: sessions.map(\.persistentModelID)) {
+            await Task.yield()
+            guard !Task.isCancelled else { return }
+            coordinator.resolveRecoveredCompanion(openWorkoutExists: !sessions.isEmpty)
         }
     }
 }

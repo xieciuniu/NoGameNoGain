@@ -11,7 +11,6 @@ import HealthKit
 
 struct HomeScreenView: View {
     @State var path = NavigationPath()
-    @Binding var isSession: Bool
     @Query var workouts: [WorkoutSession]
     
     @State private var totalWorkouts: Int = 0
@@ -118,7 +117,7 @@ struct HomeScreenView: View {
                 case "MyWorkoutsView":
                     MyWorkoutsView(path: $path)
                 case "SelectWorkoutView":
-                    SelectWorkoutView(isSession: $isSession)
+                    SelectWorkoutView()
                 case "StatsView":
                     //History(endedSession: workouts)
                     TrainingStatsView()

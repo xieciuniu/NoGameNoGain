@@ -11,24 +11,16 @@ import SwiftUI
 import _SwiftData_SwiftUI
 import HealthKit
 
-enum WorkoutState {
-    case inProgress
-    case paused
-}
-
-struct SetMetrics {
-    let weight: Double
-    let reps: Int
-    let restTime: TimeInterval
-    let rpe: Int?
-}
-
 extension WorkoutView {
     @MainActor class WorkoutViewModel: ObservableObject {
         
         @Published var workoutSession: WorkoutSession
-        @Published var workoutState: WorkoutState = .inProgress
-        @Published var notificationManager: WorkoutNotificationManager
+        let notificationManager: WorkoutNotificationManager
+        private let completion = WorkoutCompletion()
+        private var appliedWeight = 0.0
+        private var appliedReps = 0
+        private var appliedRPE = 5
+        private var appliedExerciseNotes = ""
         
         @Published var userAccount: UserAccount = loadUserAccountFromFile() ?? UserAccount()
         
@@ -57,23 +49,33 @@ extension WorkoutView {
         
         @Published var showingAddExercise = false
         
-        init(workoutSession: WorkoutSession, settings: NotificationSettings) {
+        init(workoutSession: WorkoutSession, notifications: WorkoutNotificationManager) {
             self.workoutSession = workoutSession
             self.sortedExercises = workoutSession.workout.exercises.sorted()
-            self.notificationManager = WorkoutNotificationManager(settings: settings)
+            self.notificationManager = notifications
         }
         
         func updateRestTimeNotification(elapsedTime: TimeInterval) {
             let remainingTime = restTime - elapsedTime
             if remainingTime > 0 {
-                notificationManager.scheduleNotification(after: remainingTime)
+                notificationManager.scheduleRest(after: remainingTime)
             }
         }
         
         func begin() {
+            guard !sortedExercises.isEmpty else { return }
+            let lastIndex = sortedExercises.count - 1
+            let storedIndex = workoutSession.currentExerciseIndex
+            let clamped = min(max(storedIndex, 0), lastIndex)
+            currentExercise = clamped
+            if clamped != storedIndex {
+                workoutSession.currentExerciseIndex = clamped
+                saveSession()
+            }
             exerciseName = sortedExercises[currentExercise].name
             exercise = sortedExercises[currentExercise]
             exerciseNotes = exercise.exerciseNote
+            appliedExerciseNotes = exerciseNotes
             restTime = exercise.restTime
         }
         
@@ -85,18 +87,54 @@ extension WorkoutView {
             workoutSession.workout.exercises.append(exercise)
             
             sortedExercises = workoutSession.workout.exercises.sorted()
+            notificationManager.userDidAct()
         }
         
         func setWeightRepsSet() {
-            if !workoutSession.doneSets.filter({$0.exerciseName == exerciseName}).isEmpty {
-                currentSet = workoutSession.doneSets.filter({$0.exerciseName == exerciseName}).count
-            } else {
-                currentSet = 0
+            let completed = workoutSession.doneSets.filter { $0.exerciseName == exerciseName }.count
+            // Logging index stays the completed count, including failed sets.
+            // The fields show the next planned set, or the last one once they are all logged.
+            currentSet = completed
+            if !exercise.sets.isEmpty {
+                let fieldIndex = completed < exercise.sets.count ? completed : exercise.sets.count - 1
+                currentReps = exercise.sets[fieldIndex].reps
+                currentWeight = exercise.sets[fieldIndex].weight
             }
-            if currentSet < exercise.sets.count {
-                currentReps = exercise.sets[currentSet].reps
-                currentWeight = exercise.sets[currentSet].weight
-            }
+            appliedWeight = currentWeight
+            appliedReps = currentReps
+            appliedRPE = rpe
+        }
+
+        /// Ignores the value just written by `setWeightRepsSet` or `begin`.
+        /// `onChange` runs after that write, so an equal value is not a user edit.
+        func noteWeightEdit() {
+            guard currentWeight != appliedWeight else { return }
+            appliedWeight = currentWeight
+            notificationManager.userDidAct()
+        }
+
+        func noteRepsEdit() {
+            guard currentReps != appliedReps else { return }
+            appliedReps = currentReps
+            notificationManager.userDidAct()
+        }
+
+        func noteRPEEdit() {
+            guard rpe != appliedRPE else { return }
+            appliedRPE = rpe
+            notificationManager.userDidAct()
+        }
+
+        func noteExerciseNotesEdit() {
+            updateExerciseNotes()
+            guard exerciseNotes != appliedExerciseNotes else { return }
+            appliedExerciseNotes = exerciseNotes
+            notificationManager.userDidAct()
+        }
+
+        func noteAccountNotesEdit() {
+            saveUserAccountToFile(userAccount)
+            notificationManager.userDidAct()
         }
         
         func setComplete(isDone: Bool, restTime: TimeInterval) {
@@ -106,53 +144,24 @@ extension WorkoutView {
                 restTime: restTime,
                 rpe: rpe
             )
-            
-            notificationManager.scheduleNotification(after: self.restTime)
-            handleSetCompletion(isDone: isDone, metrics: metrics)
-        }
-        
-        private func handleSetCompletion(isDone: Bool, metrics: SetMetrics) {
-            //tworzenie DoneSets
-            let setDone = DoneSets(
+
+            notificationManager.scheduleRest(after: self.restTime)
+            notificationManager.userDidAct()
+            completion.logSet(
+                session: workoutSession,
+                account: userAccount,
                 exerciseName: exerciseName,
-                numberOfSet: currentSet + 1,
-                weight: metrics.weight,
-                reps: metrics.reps,
-                restTime: metrics.restTime,
-                isDone: isDone,
-                rpe: metrics.rpe
+                setNumber: currentSet + 1,
+                metrics: metrics,
+                isDone: isDone
             )
-            
-            // Dodanie do sesji
-            workoutSession.doneSets.append(setDone)
-            
-            //aktualizacja metryk
+
             if isDone {
                 totalVolume += metrics.weight * Double(metrics.reps)
                 completedSets += 1
             }
-            
-            // Aktualizacja osobistych rekordów
-            updatePersonalBests(metrics)
-            
-            // Przejście do następnej serii
+
             currentSet += 1
-        }
-        
-        private func updatePersonalBests(_ metrics: SetMetrics) {
-            if let index = workoutSession.workout.exercises.firstIndex(where: { $0.name == exerciseName}) {
-                if workoutSession.workout.exercises[index].personalBestWeight ?? 0 < metrics.weight {
-                    workoutSession.workout.exercises[index].personalBestWeight = metrics.weight
-                    workoutSession.workout.exercises[index].personalBestReps = metrics.reps
-                    workoutSession.personalRecords += 1                    
-                }
-            }
-            
-            
-            if exerciseName == userAccount.strengthGoalExercise &&
-                userAccount.goalProgress < metrics.weight {
-                userAccount.goalProgress = metrics.weight
-            }
         }
         
         func percentOfDoneSets() -> Double {
@@ -161,11 +170,6 @@ extension WorkoutView {
         }
 
         //MARK: Buttons
-        func togglePause() {
-            workoutState = workoutState == .inProgress ? .paused : .inProgress
-        }
-        
-        
         // Sprawdzenie czy można bezpiecznie przejść do następnego/poprzedniego ćwiczenia
         func canMoveToNextExercise() -> Bool {
             return currentExercise < sortedExercises.count - 1
@@ -177,18 +181,34 @@ extension WorkoutView {
         func nextExercise(elapsedTime: TimeInterval) {
             guard canMoveToNextExercise() else { print("Error: cannot move to next exercise"); return }
             currentExercise += 1
+            storeCurrentExercise()
             updateCurrentExercise(elapsedTime: elapsedTime)
+            notificationManager.userDidAct()
         }
         func previousExercise(elapsedTime: TimeInterval) {
             guard canMoveToPreviousExercise() else { return }
             currentExercise -= 1
+            storeCurrentExercise()
             updateCurrentExercise(elapsedTime: elapsedTime)
+            notificationManager.userDidAct()
+        }
+
+        private func storeCurrentExercise() {
+            workoutSession.currentExerciseIndex = currentExercise
+            saveSession()
+        }
+
+        private func saveSession() {
+            if let context = workoutSession.modelContext {
+                try? context.save()
+            }
         }
         
         private func updateCurrentExercise(elapsedTime: TimeInterval) {
             exerciseName = sortedExercises[currentExercise].name
             exercise = sortedExercises[currentExercise]
             exerciseNotes = exercise.exerciseNote
+            appliedExerciseNotes = exerciseNotes
             restTime = exercise.restTime
             
             updateRestTimeNotification(elapsedTime: elapsedTime)
@@ -197,49 +217,6 @@ extension WorkoutView {
         func updateExerciseNotes() {
             if let thisExercise = workoutSession.workout.exercises.firstIndex(where: {$0.name == exerciseName}) {
                 workoutSession.workout.exercises[thisExercise].exerciseNote = exerciseNotes
-            }
-        }
-        
-        //MARK: Workout Ended
-        func workoutEnded(workoutDuration: TimeInterval) {
-            var gainedExp: Double = 0
-            let experienceSystem = ExperienceSystem()
-            
-            gainedExp = experienceSystem.calculateWorkoutXP(duration: workoutDuration, setCount: workoutSession.doneSets.count, newRecords: workoutSession.personalRecords)
-            
-            // Oblicz mnożnik na podstawie historii treningów - ta funkcja teraz również aktualizuje weeklyWorkouts
-            let expMultiplier = experienceSystem.calculateXPMultiplier(userAccount: userAccount)
-            
-            // Zastosuj mnożnik do doświadczenia
-            gainedExp *= expMultiplier
-            
-            updateProgressWeight()
-            workoutSession.endTime = Date()
-            workoutSession.duration = workoutDuration
-            
-            userAccount.exp += gainedExp
-            saveUserAccountToFile(userAccount)
-        }
-        
-        func updateProgressWeight() {
-            // Sprawdź każde ćwiczenie
-            for exercise in workoutSession.workout.exercises {
-                let exerciseSets = workoutSession.doneSets.filter { $0.exerciseName == exercise.name }
-                let allSetsCompleted = exerciseSets.count == exercise.sets.count
-                
-                if allSetsCompleted {
-                    // Sprawdź czy wszystkie serie były wykonane z odpowiednim ciężarem
-                    let allSetsWithProperWeight = exerciseSets.enumerated().allSatisfy { index, doneSet in
-                        doneSet.isDone && doneSet.weight >= exercise.sets[index].weight
-                    }
-                    
-                    if allSetsWithProperWeight {
-                        // Zwiększ ciężar we wszystkich seriach z włączonym progresem
-                        for (index, set) in exercise.sets.enumerated() where set.progress {
-                            exercise.sets[index].weight += exercise.progressPerWorkout
-                        }
-                    }
-                }
             }
         }
         

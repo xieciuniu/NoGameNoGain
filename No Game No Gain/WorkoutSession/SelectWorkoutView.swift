@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SelectWorkoutView: View {
-    @Binding var isSession: Bool
+    @Environment(WorkoutCoordinator.self) private var coordinator
     @Query var workouts: [Workout]
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
@@ -53,10 +53,6 @@ struct SelectWorkoutView: View {
     }
     
     func selectedWorkout(_ workout: Workout) {
-        UserDefaults.standard.set(true , forKey: "isSession")
-        isSession = true
-        
-        let workoutSession = WorkoutSession(workout: workout, startTime: Date())
-        modelContext.insert(workoutSession)
+        coordinator.start(workout: workout, in: modelContext)
     }
 }

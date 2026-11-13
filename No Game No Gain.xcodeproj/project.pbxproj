@@ -30,7 +30,6 @@
 		DB8D4EAB2C5A21C000F84C41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB8D4EAA2C5A21C000F84C41 /* Preview Assets.xcassets */; };
 		DB97BC062C75B85D007970CD /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB97BC052C75B85D007970CD /* WorkoutView.swift */; };
 		DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0677D2CB97250001B76FD /* StopwatchView.swift */; };
-		E7C41A012F4E4B0100A1C001 /* RestClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A002F4E4B0100A1C001 /* RestClockView.swift */; };
 		DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8624D2CC3D52B0052E651 /* UserAccount.swift */; };
 		DBAF8A7E2D292F7E00D5ED67 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */; };
 		DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */; };
@@ -43,6 +42,15 @@
 		DBD4FE6A2D3F783F0082EECE /* LastWorkoutAndStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */; };
 		DBD70C4B2D744D9E000955EC /* ExperienceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD70C4A2D744D9E000955EC /* ExperienceSystem.swift */; };
 		DBDBF34D2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */; };
+		E7C41A012F4E4B0100A1C001 /* RestClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A002F4E4B0100A1C001 /* RestClockView.swift */; };
+		E7C41A112F4E4C0100A1C101 /* WorkoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A102F4E4C0100A1C101 /* WorkoutCoordinator.swift */; };
+		E7C41A312F4E4D0100A1C301 /* WorkoutCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A302F4E4D0100A1C301 /* WorkoutCompletion.swift */; };
+		E7C41A412F4E4E0100A1C401 /* WorkoutHealthRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */; };
+		E7C41B052F4E500100A1D705 /* No Game No Gain Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7C41B122F4E510100A1D712 /* LiveWorkoutMirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */; };
+		E7C41C222F4E530100A1D802 /* PhoneWorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */; };
+		E7C41B142F4E510100A1D714 /* WorkoutLiveMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B132F4E510100A1D713 /* WorkoutLiveMetricsView.swift */; };
+		E7C41B162F4E520100A1D716 /* WorkoutWatchLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B152F4E520100A1D715 /* WorkoutWatchLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +68,28 @@
 			remoteGlobalIDString = DB8D4E9F2C5A21BF00F84C41;
 			remoteInfo = "No Game No Gain";
 		};
+		E7C41B032F4E500100A1D703 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB8D4E982C5A21BF00F84C41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7C41B012F4E500100A1D701;
+			remoteInfo = "No Game No Gain Watch App";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E7C41B062F4E500100A1D706 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				E7C41B052F4E500100A1D705 /* No Game No Gain Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelRanks.swift; sourceTree = "<group>"; };
@@ -89,7 +118,6 @@
 		DB8D4EAA2C5A21C000F84C41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB97BC052C75B85D007970CD /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		DBA0677D2CB97250001B76FD /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
-		E7C41A002F4E4B0100A1C001 /* RestClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClockView.swift; sourceTree = "<group>"; };
 		DBA8624D2CC3D52B0052E651 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreator.swift; sourceTree = "<group>"; };
@@ -104,6 +132,17 @@
 		DBD70C4A2D744D9E000955EC /* ExperienceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceSystem.swift; sourceTree = "<group>"; };
 		DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WorkoutView-ViewModel.swift"; sourceTree = "<group>"; };
 		DBFBD5B62D2C2869008ACC6C /* No Game No GainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "No Game No GainTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7C41A002F4E4B0100A1C001 /* RestClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClockView.swift; sourceTree = "<group>"; };
+		E7C41A102F4E4C0100A1C101 /* WorkoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCoordinator.swift; sourceTree = "<group>"; };
+		E7C41A202F4E4C0200A1C201 /* UPGRADE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = UPGRADE.md; sourceTree = "<group>"; };
+		E7C41A302F4E4D0100A1C301 /* WorkoutCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletion.swift; sourceTree = "<group>"; };
+		E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHealthRecorder.swift; sourceTree = "<group>"; };
+		E7C41A502F4E4C0300A1C501 /* FEATURES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FEATURES.md; sourceTree = "<group>"; };
+		E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Game No Gain Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveWorkoutMirror.swift; sourceTree = "<group>"; };
+		E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWorkoutSession.swift; sourceTree = "<group>"; };
+		E7C41B132F4E510100A1D713 /* WorkoutLiveMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLiveMetricsView.swift; sourceTree = "<group>"; };
+		E7C41B152F4E520100A1D715 /* WorkoutWatchLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutWatchLink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -114,12 +153,20 @@
 			);
 			target = DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */;
 		};
+		E7C41B0E2F4E500100A1D70E /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E7C41B012F4E500100A1D701 /* No Game No Gain Watch App */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DB3ACD002D33DEBF00E624B6 /* History & Stats */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (DB5B19E92D3537DC0060B940 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "History & Stats"; sourceTree = "<group>"; };
 		DB4352302D2E657600D1D64F /* NoGameNoGainUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NoGameNoGainUITests; sourceTree = "<group>"; };
 		DBFBD5B72D2C2869008ACC6C /* No Game No GainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "No Game No GainTests"; sourceTree = "<group>"; };
+		E7C41B072F4E500100A1D707 /* No Game No Gain Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E7C41B0E2F4E500100A1D70E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "No Game No Gain Watch App"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +185,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DBFBD5B32D2C2869008ACC6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7C41B092F4E500100A1D709 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -177,10 +231,13 @@
 		DB8D4E972C5A21BF00F84C41 = {
 			isa = PBXGroup;
 			children = (
+				E7C41A202F4E4C0200A1C201 /* UPGRADE.md */,
+				E7C41A502F4E4C0300A1C501 /* FEATURES.md */,
 				DB4352482D2E844B00D1D64F /* No Game No Gain.xctestplan */,
 				DB8D4EA22C5A21C000F84C41 /* No Game No Gain */,
 				DBFBD5B72D2C2869008ACC6C /* No Game No GainTests */,
 				DB4352302D2E657600D1D64F /* NoGameNoGainUITests */,
+				E7C41B072F4E500100A1D707 /* No Game No Gain Watch App */,
 				DB8D4EA12C5A21C000F84C41 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -191,6 +248,7 @@
 				DB8D4EA02C5A21C000F84C41 /* No Game No Gain.app */,
 				DBFBD5B62D2C2869008ACC6C /* No Game No GainTests.xctest */,
 				DB43522F2D2E657600D1D64F /* NoGameNoGainUITests.xctest */,
+				E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,6 +286,13 @@
 				DBDBF34C2C7F028F00D8CE7A /* WorkoutView-ViewModel.swift */,
 				DB5B19E72D3530150060B940 /* AddExerciseView.swift */,
 				DBA0677D2CB97250001B76FD /* StopwatchView.swift */,
+				E7C41A102F4E4C0100A1C101 /* WorkoutCoordinator.swift */,
+				E7C41A302F4E4D0100A1C301 /* WorkoutCompletion.swift */,
+				E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */,
+				E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */,
+				E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */,
+				E7C41B152F4E520100A1D715 /* WorkoutWatchLink.swift */,
+				E7C41B132F4E510100A1D713 /* WorkoutLiveMetricsView.swift */,
 				E7C41A002F4E4B0100A1C001 /* RestClockView.swift */,
 				DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */,
 				DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */,
@@ -294,10 +359,12 @@
 				DB8D4E9C2C5A21BF00F84C41 /* Sources */,
 				DB8D4E9D2C5A21BF00F84C41 /* Frameworks */,
 				DB8D4E9E2C5A21BF00F84C41 /* Resources */,
+				E7C41B062F4E500100A1D706 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E7C41B042F4E500100A1D704 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				DB3ACD002D33DEBF00E624B6 /* History & Stats */,
@@ -330,6 +397,28 @@
 			productReference = DBFBD5B62D2C2869008ACC6C /* No Game No GainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		E7C41B012F4E500100A1D701 /* No Game No Gain Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7C41B0B2F4E500100A1D70B /* Build configuration list for PBXNativeTarget "No Game No Gain Watch App" */;
+			buildPhases = (
+				E7C41B082F4E500100A1D708 /* Sources */,
+				E7C41B092F4E500100A1D709 /* Frameworks */,
+				E7C41B0A2F4E500100A1D70A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E7C41B072F4E500100A1D707 /* No Game No Gain Watch App */,
+			);
+			name = "No Game No Gain Watch App";
+			packageProductDependencies = (
+			);
+			productName = "No Game No Gain Watch App";
+			productReference = E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -351,6 +440,9 @@
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = DB8D4E9F2C5A21BF00F84C41;
 					};
+					E7C41B012F4E500100A1D701 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 				};
 			};
 			buildConfigurationList = DB8D4E9B2C5A21BF00F84C41 /* Build configuration list for PBXProject "No Game No Gain" */;
@@ -369,6 +461,7 @@
 				DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */,
 				DBFBD5B52D2C2869008ACC6C /* No Game No GainTests */,
 				DB43522E2D2E657600D1D64F /* NoGameNoGainUITests */,
+				E7C41B012F4E500100A1D701 /* No Game No Gain Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -391,6 +484,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DBFBD5B42D2C2869008ACC6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7C41B0A2F4E500100A1D70A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -431,6 +531,13 @@
 				DB7F6E952C63A506001C9D59 /* TodayActivitiesView.swift in Sources */,
 				DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */,
 				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,
+				E7C41A112F4E4C0100A1C101 /* WorkoutCoordinator.swift in Sources */,
+				E7C41A312F4E4D0100A1C301 /* WorkoutCompletion.swift in Sources */,
+				E7C41A412F4E4E0100A1C401 /* WorkoutHealthRecorder.swift in Sources */,
+				E7C41B122F4E510100A1D712 /* LiveWorkoutMirror.swift in Sources */,
+				E7C41C222F4E530100A1D802 /* PhoneWorkoutSession.swift in Sources */,
+				E7C41B162F4E520100A1D716 /* WorkoutWatchLink.swift in Sources */,
+				E7C41B142F4E510100A1D714 /* WorkoutLiveMetricsView.swift in Sources */,
 				E7C41A012F4E4B0100A1C001 /* RestClockView.swift in Sources */,
 				DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */,
 				DB0938E72C98352700BC3505 /* Extension.swift in Sources */,
@@ -455,6 +562,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E7C41B082F4E500100A1D708 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -467,6 +581,11 @@
 			isa = PBXTargetDependency;
 			target = DB8D4E9F2C5A21BF00F84C41 /* No Game No Gain */;
 			targetProxy = DBFBD5BA2D2C2869008ACC6C /* PBXContainerItemProxy */;
+		};
+		E7C41B042F4E500100A1D704 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E7C41B012F4E500100A1D701 /* No Game No Gain Watch App */;
+			targetProxy = E7C41B032F4E500100A1D703 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -638,10 +757,11 @@
 				DEVELOPMENT_TEAM = FC3RG2JLGW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "\"Your Health data will be shown in app\"";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "\"Your training data will be saved in Aplle Health\"";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Your Health data will be shown in app";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your training data will be saved in Apple Health.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "workout-processing";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -671,10 +791,11 @@
 				DEVELOPMENT_TEAM = FC3RG2JLGW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "\"Your Health data will be shown in app\"";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "\"Your training data will be saved in Aplle Health\"";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Your Health data will be shown in app";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your training data will be saved in Apple Health.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "workout-processing";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -730,6 +851,66 @@
 			};
 			name = Release;
 		};
+		E7C41B0C2F4E500100A1D70C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "No Game No Gain Watch App/No Game No Gain Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC3RG2JLGW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "No Game No Gain Watch App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "No Game No Gain";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Your heart rate and active energy will be shown during the workout.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your strength training workout will be saved in Apple Health.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Boost.No-Game-No-Gain.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Debug;
+		};
+		E7C41B0D2F4E500100A1D70D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "No Game No Gain Watch App/No Game No Gain Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FC3RG2JLGW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "No Game No Gain Watch App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "No Game No Gain";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Your heart rate and active energy will be shown during the workout.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Your strength training workout will be saved in Apple Health.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Boost.No-Game-No-Gain.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -765,6 +946,15 @@
 			buildConfigurations = (
 				DBFBD5BD2D2C2869008ACC6C /* Debug */,
 				DBFBD5BE2D2C2869008ACC6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7C41B0B2F4E500100A1D70B /* Build configuration list for PBXNativeTarget "No Game No Gain Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7C41B0C2F4E500100A1D70C /* Debug */,
+				E7C41B0D2F4E500100A1D70D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

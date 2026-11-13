@@ -104,6 +104,12 @@ struct WorkoutSessionCard: View {
                 Text(formatDuration(session.duration))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                if session.averageHeartRateBPM != nil || session.maximumHeartRateBPM != nil {
+                    Text(heartRateSummary)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .accessibilityLabel(heartRateAccessibility)
+                }
                 
                 Text("\(exerciseGroups.count) exercises • \(session.doneSets.count) sets")
                     .font(.subheadline)
@@ -143,6 +149,24 @@ struct WorkoutSessionCard: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
+    private var heartRateSummary: String {
+        "avg \(bpmText(session.averageHeartRateBPM)) bpm · max \(bpmText(session.maximumHeartRateBPM)) bpm"
+    }
+
+    private var heartRateAccessibility: String {
+        "Average heart rate \(spokenBPM(session.averageHeartRateBPM)). Highest heart rate \(spokenBPM(session.maximumHeartRateBPM))."
+    }
+
+    private func bpmText(_ value: Double?) -> String {
+        guard let value else { return "—" }
+        return "\(Int(value.rounded()))"
+    }
+
+    private func spokenBPM(_ value: Double?) -> String {
+        guard let value else { return "unavailable" }
+        return "\(Int(value.rounded())) beats per minute"
+    }
+
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d, yyyy"

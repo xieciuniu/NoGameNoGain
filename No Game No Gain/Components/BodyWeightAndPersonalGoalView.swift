@@ -9,7 +9,7 @@ import SwiftUI
 import HealthKit
 
 struct BodyWeightAndPersonalGoalView: View {
-    private let healthKitManager = HealthKitManager()
+    private let healthKitManager = HealthKitManager.shared
     @State var bodyMass: Double = 0.0
     @State var changeWeight: Bool = false
     @State var addWeight: Int = 500

@@ -10,8 +10,7 @@ import Charts
 import HealthKit
 
 struct TodayActivitiesView: View {
-    let healthStore = HKHealthStore()
-    let healthKitManager = HealthKitManager()
+    let healthKitManager = HealthKitManager.shared
     @State private var stepsToday: Double = 0
     @State private var burnedCalories: Double = 0
     @State private var sleepTime: Double = 0
@@ -133,7 +132,7 @@ struct TodayActivitiesView: View {
     }
     
     func fetchHealthData() {
-        HealthKitManager().fetchStepCount(date: Date()) { steps, error in
+        healthKitManager.fetchStepCount(date: Date()) { steps, error in
             if let error = error {
                 print("Błąd podczas pobierania liczby kroków: \(error)")
                 return
@@ -141,7 +140,7 @@ struct TodayActivitiesView: View {
             stepsToday = steps ?? 0
         }
         
-        HealthKitManager().fetchCaloriesBurned(date: Date.now) { calories, error in
+        healthKitManager.fetchCaloriesBurned(date: Date.now) { calories, error in
             if let error = error {
                 print("Błąd podczas pobierania liczby kalorii: \(error)")
                 return
@@ -151,7 +150,7 @@ struct TodayActivitiesView: View {
         
         Task {
             //            burnedCalories = burned
-            sleepTime = try await HealthKitManager().fetchLastSleepDuration()
+            sleepTime = try await healthKitManager.fetchLastSleepDuration()
             //            sleepTime = sleepTimeMin
         }
         

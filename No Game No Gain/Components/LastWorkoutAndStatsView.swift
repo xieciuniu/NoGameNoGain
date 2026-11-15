@@ -9,33 +9,36 @@ struct LastWorkoutAndStatsView: View {
         workoutSessions.sorted { $0.startTime > $1.startTime }.first
     }
     
+    private var sessionInputs: [TrainingStatsMath.SessionInput] {
+        workoutSessions.map(TrainingStatsMath.SessionInput.init)
+    }
+
     private var weeklyWorkouts: Int {
-        let calendar = Calendar.current
-        let oneWeekAgo = calendar.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-        
-        return workoutSessions.filter { session in
-            session.startTime >= oneWeekAgo
-        }.count
+        TrainingStatsMath.endedCount(
+            sessions: sessionInputs,
+            range: .week,
+            now: Date(),
+            calendar: .current
+        )
     }
-    
+
     private var monthlyAverage: Double {
-        let calendar = Calendar.current
-        let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: Date()) ?? Date()
-        
-        let monthlyWorkouts = workoutSessions.filter { session in
-            session.startTime >= oneMonthAgo
-        }.count
-        
-        return Double(monthlyWorkouts) / 4.0 // Average per week
+        let monthlyWorkouts = TrainingStatsMath.endedCount(
+            sessions: sessionInputs,
+            range: .month,
+            now: Date(),
+            calendar: .current
+        )
+        return Double(monthlyWorkouts) / 4.0
     }
-    
+
     private var monthlyVolume: Double {
-        let calendar = Calendar.current
-        let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: Date()) ?? Date()
-        
-        return workoutSessions
-            .filter { $0.startTime >= oneMonthAgo }
-            .reduce(0) { $0 + $1.totalWeight() }
+        TrainingStatsMath.volume(
+            sessions: sessionInputs,
+            range: .month,
+            now: Date(),
+            calendar: .current
+        )
     }
     
     var body: some View {
@@ -69,7 +72,7 @@ struct LastWorkoutAndStatsView: View {
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         Spacer()
-                        Text("\(Int(lastWorkout.totalWeight())) kg")
+                        Text("\(Int(TrainingStatsMath.volume(sets: TrainingStatsMath.SessionInput(lastWorkout).sets))) kg")
                             .font(.caption)
                             .bold()
                     }

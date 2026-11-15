@@ -197,13 +197,14 @@ Seed the previous goal from the active goal’s target when the user has one, ot
 
 ### F7. Training stats from real sessions
 
-**Status:** not started
+**Status:** done
 **Scope:** Medium (1–2 days)
 **Depends on:** F6
-**Session:**
-**Report:**
+**Session:** The stats screen charts ended workouts for the week, month, or year. Volume is weight times reps, and the other metrics are sets, reps, and duration in minutes. Records show an exercise name with its best weight and reps only after a workout has ended. Effort from a finished session in the selected range is listed. The home card uses that same volume, and an open session does not count toward the week, the weekly average, or the month.
+**Report:** An empty history has no points and no records. Ending a session adds the point and shows Bench at 100 kg and 8 reps. 100 kg × 5 and 40 kg × 10 is 900, with 2 sets and 15 reps. A session 8 days ago is outside the week, 40 days ago is outside the month, and 400 days ago is outside the year. An open session is left out of the points, the volume, and the effort list. Effort 7 is listed and a missing effort is not. The mock generator and the sample lift names are gone. totalWeight() is unchanged. Unit tests passed on the iPhone 17 simulator, 122 tests and 0 failures.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — Training stats will chart ended sessions, and the home card will use weight times reps.
+- 2026-11-15 — done — The chart, records, and effort read finished workouts, and the home volume is weight times reps.
 
 `TrainingStatsView` reads ended `WorkoutSession` rows. Week, month, and year limit the chart. The metrics are volume (weight times reps), set count, rep count, and duration. Personal records come from `Exercise.personalBestWeight` and `personalBestReps`, with the exercise name and no sample Polish lifts.
 

@@ -12,6 +12,7 @@ struct SetMetrics {
     let reps: Int
     let restTime: TimeInterval
     let rpe: Int?
+    var weightUnset: Bool = false
 }
 
 /// Stored-set, personal-record, load-progression, and experience rules.
@@ -34,10 +35,13 @@ struct WorkoutCompletion {
             reps: metrics.reps,
             restTime: metrics.restTime,
             isDone: isDone,
-            rpe: metrics.rpe
+            rpe: metrics.rpe,
+            weightUnset: metrics.weightUnset
         )
         session.doneSets.append(setDone)
-        updatePersonalBests(session: session, account: account, exerciseName: exerciseName, metrics: metrics)
+        if !metrics.weightUnset {
+            updatePersonalBests(session: session, account: account, exerciseName: exerciseName, metrics: metrics)
+        }
     }
 
     func finish(
@@ -80,18 +84,29 @@ struct WorkoutCompletion {
 
     private func updateProgressWeight(_ session: WorkoutSession) {
         for exercise in session.workout.exercises {
-            let exerciseSets = session.doneSets.filter { $0.exerciseName == exercise.name }
-            let allSetsCompleted = exerciseSets.count == exercise.sets.count
+            let logged = session.doneSets.filter { $0.exerciseName == exercise.name }
+            guard logged.count == exercise.sets.count else { continue }
 
-            if allSetsCompleted {
-                let allSetsWithProperWeight = exerciseSets.enumerated().allSatisfy { index, doneSet in
-                    doneSet.isDone && doneSet.weight >= exercise.sets[index].weight
-                }
+            let required = exercise.sets.enumerated().filter { _, set in
+                set.progress && !set.weightUnset
+            }
+            let succeeded = required.allSatisfy { index, set in
+                let done = logged[index]
+                return done.isDone
+                    && !done.weightUnset
+                    && done.weight >= set.weight
+                    && done.reps >= set.reps
+            }
+            guard succeeded else { continue }
 
-                if allSetsWithProperWeight {
-                    for (index, set) in exercise.sets.enumerated() where set.progress {
-                        exercise.sets[index].weight += exercise.progressPerWorkout
-                    }
+            for (index, set) in required {
+                let floor = exercise.repFloor ?? set.reps
+                let ceiling = exercise.repCeiling ?? set.reps
+                if set.reps < ceiling {
+                    exercise.sets[index].reps += 1
+                } else {
+                    exercise.sets[index].weight += exercise.progressPerWorkout
+                    exercise.sets[index].reps = floor
                 }
             }
         }

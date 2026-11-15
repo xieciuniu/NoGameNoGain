@@ -72,16 +72,27 @@ struct WorkoutCompletionTests {
         reps: Int = 5,
         rest: TimeInterval = 40,
         rpe: Int? = 8,
-        isDone: Bool
+        isDone: Bool,
+        weightUnset: Bool = false
     ) {
         completion.logSet(
             session: session,
             account: account,
             exerciseName: exerciseName,
             setNumber: setNumber,
-            metrics: SetMetrics(weight: weight, reps: reps, restTime: rest, rpe: rpe),
+            metrics: SetMetrics(
+                weight: weightUnset ? 0 : weight,
+                reps: reps,
+                restTime: rest,
+                rpe: rpe,
+                weightUnset: weightUnset
+            ),
             isDone: isDone
         )
+    }
+
+    private func plannedReps(_ session: WorkoutSession, name: String = "Bench") -> [Int] {
+        session.workout.exercises.first { $0.name == name }?.sets.map(\.reps) ?? []
     }
 
     private func plannedWeights(_ session: WorkoutSession, name: String = "Bench") -> [Double] {
@@ -292,5 +303,99 @@ struct WorkoutCompletionTests {
         #expect(saves == 1)
         #expect(session.endTime == endTime)
         #expect(session.duration == duration)
+    }
+
+    @Test("Success below the rep ceiling adds one rep and leaves the weight")
+    func testRepsIncreaseBelowTheCeiling() throws {
+        let exercise = makeExercise(weights: [100], progress: [true])
+        exercise.repFloor = 5
+        exercise.repCeiling = 8
+        let (container, session) = try makeSession(exercise)
+        _ = container
+        let completion = WorkoutCompletion(save: { _ in })
+
+        log(session, account: UserAccount(), completion: completion, setNumber: 1, weight: 100, reps: 5, isDone: true)
+        completion.finish(session: session, account: UserAccount(), duration: 60)
+
+        #expect(plannedWeights(session) == [100])
+        #expect(plannedReps(session) == [6])
+    }
+
+    @Test("Success at the rep ceiling adds weight and resets reps to the floor")
+    func testWeightIncreasesAtTheCeiling() throws {
+        let exercise = makeExercise(weights: [100], progress: [true])
+        exercise.sets[0].reps = 8
+        exercise.repFloor = 5
+        exercise.repCeiling = 8
+        let (container, session) = try makeSession(exercise)
+        _ = container
+        let completion = WorkoutCompletion(save: { _ in })
+
+        log(session, account: UserAccount(), completion: completion, setNumber: 1, weight: 100, reps: 8, isDone: true)
+        completion.finish(session: session, account: UserAccount(), duration: 60)
+
+        #expect(plannedWeights(session) == [102.5])
+        #expect(plannedReps(session) == [5])
+    }
+
+    @Test("A set under the planned reps does not change the plan")
+    func testShortSetDoesNotProgress() throws {
+        let exercise = makeExercise(weights: [100], progress: [true])
+        exercise.repFloor = 5
+        exercise.repCeiling = 8
+        let (container, session) = try makeSession(exercise)
+        _ = container
+        let completion = WorkoutCompletion(save: { _ in })
+
+        log(session, account: UserAccount(), completion: completion, setNumber: 1, weight: 100, reps: 4, isDone: true)
+        completion.finish(session: session, account: UserAccount(), duration: 60)
+
+        #expect(plannedWeights(session) == [100])
+        #expect(plannedReps(session) == [5])
+    }
+
+    @Test("A plan with no stored rep range still adds weight after the planned reps")
+    func testMissingRangeStillAddsWeight() throws {
+        let exercise = makeExercise(weights: [80], progress: [true])
+        let (container, session) = try makeSession(exercise)
+        _ = container
+        let completion = WorkoutCompletion(save: { _ in })
+
+        log(session, account: UserAccount(), completion: completion, setNumber: 1, weight: 80, reps: 5, isDone: true)
+        completion.finish(session: session, account: UserAccount(), duration: 60)
+
+        #expect(exercise.repFloor == nil)
+        #expect(exercise.repCeiling == nil)
+        #expect(plannedWeights(session) == [82.5])
+        #expect(plannedReps(session) == [5])
+    }
+
+    @Test("A set with no weight yet stays empty and does not progress")
+    func testNoWeightYetStaysEmpty() throws {
+        let exercise = makeExercise(weights: [60, 100], progress: [true, true])
+        exercise.sets[0].weightUnset = true
+        exercise.repFloor = 5
+        exercise.repCeiling = 8
+        let (container, session) = try makeSession(exercise)
+        _ = container
+        let account = UserAccount()
+        account.strengthGoalExercise = "Bench"
+        account.goalProgress = 40
+        let completion = WorkoutCompletion(save: { _ in })
+
+        log(session, account: account, completion: completion, setNumber: 1, weight: 0, reps: 5, isDone: true, weightUnset: true)
+        log(session, account: account, completion: completion, setNumber: 2, weight: 100, reps: 5, isDone: true)
+        completion.finish(session: session, account: account, duration: 60)
+
+        #expect(exercise.sets[0].weightUnset == true)
+        #expect(exercise.sets[0].weight == 60)
+        #expect(exercise.sets[0].reps == 5)
+        #expect(plannedWeights(session) == [60, 100])
+        #expect(plannedReps(session) == [5, 6])
+        #expect(session.doneSets[0].weightUnset == true)
+        #expect(session.doneSets[0].weight == 0)
+        #expect(session.totalWeight() == 100)
+        #expect(account.goalProgress == 100)
+        #expect(exercise.personalBestWeight == 100)
     }
 }

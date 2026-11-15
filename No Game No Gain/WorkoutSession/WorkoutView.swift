@@ -166,10 +166,18 @@ struct WorkoutView: View {
                             
                             
                             Text("Weight:")
-                            TextField("Weight", value: $viewModel.currentWeight, format: .number)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .keyboardType(.decimalPad)
-                                .frame(width: 60)
+                            if viewModel.currentWeightUnset {
+                                Text(" ")
+                                    .frame(width: 60)
+                                    .accessibilityLabel("No weight yet")
+                            } else {
+                                TextField("Weight", value: $viewModel.currentWeight, format: .number)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .keyboardType(.decimalPad)
+                                    .frame(width: 60)
+                            }
+                            Button(viewModel.currentWeightUnset ? "Add weight" : "No weight yet", action: viewModel.toggleNoWeightYet)
+                                .font(.caption)
                             //                        .padding(.trailing)
                             
                             Text("Reps:")

@@ -60,6 +60,18 @@ struct CreateExerciseView: View {
                                 //                        .padding(.leading)
                             }
                             .padding([.leading, .trailing])
+
+                            HStack {
+                                Text("Rep floor")
+                                TextField("Planned", value: $exercise.repFloor, format: .number)
+                                    .textFieldStyle(.roundedBorder)
+                                    .keyboardType(.numberPad)
+                                Text("Rep ceiling")
+                                TextField("Planned", value: $exercise.repCeiling, format: .number)
+                                    .textFieldStyle(.roundedBorder)
+                                    .keyboardType(.numberPad)
+                            }
+                            .padding([.leading, .trailing])
                             
                             Stepper("Number of sets: \(exercise.numberOfSets)", value: $exercise.numberOfSets, in: 1...100, onEditingChanged: { _ in
                                 updateSeries()
@@ -77,10 +89,15 @@ struct CreateExerciseView: View {
                                             HStack {
                                                 Text("Weight: ")
                                                 Spacer()
-                                                
-                                                DecimalTextField(value: $oneSet.weight)
-                                                
+                                                if oneSet.weightUnset {
+                                                    Text(" ")
+                                                        .accessibilityLabel("No weight yet")
+                                                } else {
+                                                    DecimalTextField(value: $oneSet.weight)
+                                                }
                                             }
+
+                                            Toggle("No weight yet", isOn: $oneSet.weightUnset)
                                             
                                             Toggle(isOn: $oneSet.progress, label: {
                                                 Text("Progress per session")

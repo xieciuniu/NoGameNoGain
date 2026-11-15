@@ -165,13 +165,11 @@ struct WorkoutView: View {
                     
                     VStack {
                         // następna seria
-                        HStack {
-                            
+                        HStack(alignment: .firstTextBaseline) {
                             Text(viewModel.exerciseName)
-                                .lineLimit(1)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .padding(.leading)
-                            
-                            Spacer()
                             
                             Text("Weight:")
                             if viewModel.currentWeightUnset {

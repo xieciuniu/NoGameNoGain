@@ -34,27 +34,43 @@ struct MyWorkoutsView: View {
                 
                 // TODO: ustawienie kolejnosc treningow
                 
-                HStack {
-                    Text("Your Workouts")
-                        .bold()
-                        .font(.title2)
-                    Spacer()
-                }
-                .padding(.leading)
-                
-                List{
-                    ForEach(workouts) { workout in
-                        Button(action: { path.append(workout)}) {
-                            Text(workout.name)
-                                .foregroundStyle(.white)
-                                .bold()
+                List {
+                    Section {
+                        ForEach(workouts) { workout in
+                            Button(action: { path.append(workout)}) {
+                                Text(workout.name)
+                                    .foregroundStyle(.white)
+                                    .bold()
+                            }
                         }
+                        .onDelete { offsets in
+                            for index in offsets {
+                                let workoutToRemove = workouts[index]
+                                modelContext.delete(workoutToRemove)
+                            }
+                        }
+                    } header: {
+                        Text("Your Workouts")
+                            .font(.title2)
+                            .bold()
+                            .foregroundStyle(.white)
+                            .textCase(nil)
                     }
-                    .onDelete { offsets in
-                        for index in offsets {
-                            let workoutToRemove = workouts[index]
-                            modelContext.delete(workoutToRemove)
+
+                    Section {
+                        ForEach(WorkoutTemplates.catalog) { template in
+                            NavigationLink(value: template) {
+                                Text(template.name)
+                                    .foregroundStyle(.white)
+                                    .bold()
+                            }
                         }
+                    } header: {
+                        Text("Templates")
+                            .font(.title2)
+                            .bold()
+                            .foregroundStyle(.white)
+                            .textCase(nil)
                     }
                 }
                 

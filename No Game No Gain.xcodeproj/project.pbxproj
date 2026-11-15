@@ -42,6 +42,8 @@
 		DBD1E8282C9C221800D419C6 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */; };
 		DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */; };
 		DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */; };
+		F10A7C012F6B110100A1C102 /* WorkoutTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10A7C012F6B110100A1C101 /* WorkoutTemplates.swift */; };
+		F10A7C012F6B110100A1C104 /* TemplateOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10A7C012F6B110100A1C103 /* TemplateOnboardingView.swift */; };
 		DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */; };
 		DBD4FE6A2D3F783F0082EECE /* LastWorkoutAndStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */; };
 		DBD70C4B2D744D9E000955EC /* ExperienceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD70C4A2D744D9E000955EC /* ExperienceSystem.swift */; };
@@ -137,6 +139,8 @@
 		DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
 		DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsView.swift; sourceTree = "<group>"; };
 		DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
+		F10A7C012F6B110100A1C101 /* WorkoutTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplates.swift; sourceTree = "<group>"; };
+		F10A7C012F6B110100A1C103 /* TemplateOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateOnboardingView.swift; sourceTree = "<group>"; };
 		DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
 		DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastWorkoutAndStatsView.swift; sourceTree = "<group>"; };
 		DBD70C4A2D744D9E000955EC /* ExperienceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceSystem.swift; sourceTree = "<group>"; };
@@ -339,6 +343,8 @@
 			children = (
 				DBD1E82C2C9C23E200D419C6 /* MyWorkoutsView.swift */,
 				DBD1E82E2C9C284B00D419C6 /* CreateWorkoutView.swift */,
+				F10A7C012F6B110100A1C101 /* WorkoutTemplates.swift */,
+				F10A7C012F6B110100A1C103 /* TemplateOnboardingView.swift */,
 				DBD1E8302C9C285B00D419C6 /* CreateExerciseView.swift */,
 			);
 			path = WorkoutsCreator;
@@ -569,6 +575,8 @@
 				DBD1E8312C9C285B00D419C6 /* CreateExerciseView.swift in Sources */,
 				DBD1E82D2C9C23E200D419C6 /* MyWorkoutsView.swift in Sources */,
 				DBD1E82F2C9C284B00D419C6 /* CreateWorkoutView.swift in Sources */,
+				F10A7C012F6B110100A1C102 /* WorkoutTemplates.swift in Sources */,
+				F10A7C012F6B110100A1C104 /* TemplateOnboardingView.swift in Sources */,
 				DB05B5E42CBA93DA001D6465 /* SceneDelegate.swift in Sources */,
 				DB8D4EA42C5A21C000F84C41 /* No_Game_No_GainApp.swift in Sources */,
 				DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */,

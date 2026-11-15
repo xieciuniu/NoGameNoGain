@@ -18,16 +18,32 @@ struct SelectWorkoutView: View {
     
     var body: some View {
         VStack{
-            List {
-                ForEach(workouts) { workout in
-                    Button(action: {
-                        if !workout.exercises.isEmpty {
-                            selectedWorkout(workout)
-                        } else {
-                            showingAlert = true
+            if workouts.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("You have no workouts yet.")
+                        .padding(.horizontal)
+                    Text("Set one up from a template.")
+                        .padding(.horizontal)
+                }
+                List {
+                    ForEach(WorkoutTemplates.catalog) { template in
+                        NavigationLink(value: template) {
+                            Text(template.name)
                         }
-                    }) {
-                        Text(workout.name)
+                    }
+                }
+            } else {
+                List {
+                    ForEach(workouts) { workout in
+                        Button(action: {
+                            if !workout.exercises.isEmpty {
+                                selectedWorkout(workout)
+                            } else {
+                                showingAlert = true
+                            }
+                        }) {
+                            Text(workout.name)
+                        }
                     }
                 }
             }

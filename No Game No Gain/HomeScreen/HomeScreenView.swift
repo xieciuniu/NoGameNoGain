@@ -131,6 +131,9 @@ struct HomeScreenView: View {
             .navigationDestination(for: Workout.self) { workout in
                 CreateWorkoutView(workout: workout, path: $path)
             }
+            .navigationDestination(for: WorkoutTemplate.self) { template in
+                TemplateOnboardingView(template: template)
+            }
             .navigationDestination(for: Exercise.self) { exercise in
                 CreateExerciseView(exercise: exercise)
             }

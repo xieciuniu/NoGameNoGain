@@ -265,13 +265,14 @@ Steps keep 18000 as the default goal. Calories and sleep have no goal until the 
 
 ### F10. Template workouts and onboarding
 
-**Status:** not started
+**Status:** done
 **Scope:** Large (3–5 days)
 **Depends on:** F9
-**Session:**
-**Report:**
+**Session:** The workout creator lists Full Body, Push, and Pull next to Your Workouts. The plans stay out of the store until onboarding saves a copy. Each exercise asks for a weight or “No weight yet”. Confirm saves one editable workout and does not start it. Start uses the existing coordinator, and Leave it in the list goes back. Start Workout offers the same three plans only when there are no workouts.
+**Report:** The catalog is Full Body, Push, and Pull. Full Body’s Back Squat is 3 sets, reps 5 to 8, rest 180, and progress 2.5. A no-weight copy has weightUnset, weight 0, and the rep floor, not the 60 kg default. A typed 80 is the planned weight, with weightUnset false, on every set of that exercise. Inserting the copy leaves the session count at 0. Deleting the copy leaves the catalog at 3. Unit tests passed on the iPhone 17 simulator, 142 tests and 0 failures.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — Full Body, Push, and Pull will copy into an editable workout after each exercise gets a weight or no weight yet.
+- 2026-11-15 — done — Full Body, Push, and Pull copy into an editable workout after each exercise gets a weight or no weight yet.
 
 Add a templates place next to “Your Workouts” in the workout creator. Ship three built-in plans as data, not as rows already in the store: a full-body session, a push session, and a pull session. Each exercise has a rep floor, a rep ceiling, rest, and `progressPerWorkout`. Choosing one copies it into a normal `Workout` the user can edit and delete. The copy is what they start. The catalog itself is not a live session.
 

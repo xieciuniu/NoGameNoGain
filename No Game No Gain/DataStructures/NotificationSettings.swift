@@ -16,9 +16,10 @@ class NotificationSettings: ObservableObject {
     @Published var soundType: SoundType = .default
     @Published var customSoundURL: URL?
     
-    private let userDefaults = UserDefaults.standard
+    private let userDefaults: UserDefaults
     
-    init() {
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
         loadSettings()
     }
     

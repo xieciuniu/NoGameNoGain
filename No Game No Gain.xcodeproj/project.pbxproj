@@ -17,6 +17,7 @@
 		DB68B7282CB293E100727C44 /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */; };
 		DB7A5DD42D3682AB0055B923 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */; };
 		DB7A5DD62D36836D0055B923 /* NotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */; };
+		E7C41D022F4E540100A1E002 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41D012F4E540100A1E001 /* SettingsView.swift */; };
 		DB7A5DD82D3683D60055B923 /* WorkoutNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7A5DD72D3683D60055B923 /* WorkoutNotificationManager.swift */; };
 		DB7F6E902C635842001C9D59 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */; };
 		DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F6E922C635971001C9D59 /* ProgressBarView.swift */; };
@@ -104,6 +105,7 @@
 		DB68B7272CB293E100727C44 /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
 		DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
 		DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsView.swift; sourceTree = "<group>"; };
+		E7C41D012F4E540100A1E001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		DB7A5DD72D3683D60055B923 /* WorkoutNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutNotificationManager.swift; sourceTree = "<group>"; };
 		DB7F6E8F2C635842001C9D59 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		DB7F6E922C635971001C9D59 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				DB8AA4F72CF34E12005681B4 /* PersonalGoalView.swift */,
 				DB894FCB2CF4714C0068059D /* ChallengeView.swift */,
 				DB7A5DD52D36836D0055B923 /* NotificationSettingsView.swift */,
+				E7C41D012F4E540100A1E001 /* SettingsView.swift */,
 				DBD4FE692D3F783F0082EECE /* LastWorkoutAndStatsView.swift */,
 			);
 			path = Components;
@@ -551,6 +554,7 @@
 				DB13E7C52C8DA489002A5EED /* StatsView.swift in Sources */,
 				DB5B19E82D3530150060B940 /* AddExerciseView.swift in Sources */,
 				DB7A5DD62D36836D0055B923 /* NotificationSettingsView.swift in Sources */,
+				E7C41D022F4E540100A1E002 /* SettingsView.swift in Sources */,
 				DB7A5DD42D3682AB0055B923 /* NotificationSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

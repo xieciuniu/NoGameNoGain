@@ -141,15 +141,13 @@ final class NoGameNoGainUITests: XCTestCase {
     }
     
     func testPersonalGoalSetting() throws {
-        // Test ustawiania celów personalnych
         let goalView = app.scrollViews.firstMatch
             .descendants(matching: .any)
-            .element(matching: .any, identifier: "Weight Goal")
-        
+            .element(matching: .any, identifier: "Personal Goal")
+
         XCTAssertTrue(goalView.exists)
         goalView.tap()
-        
-        // Sprawdź czy są dostępne oba typy celów
+
         XCTAssertTrue(app.buttons["Weight Goal"].exists)
         XCTAssertTrue(app.buttons["Strength Goal"].exists)
     }

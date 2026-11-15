@@ -148,13 +148,14 @@ A Watch-driven end still ends the session without waiting on this sheet. Effort 
 
 ### F5. Rebuild goals
 
-**Status:** not started
+**Status:** done
 **Scope:** Medium (1–2 days)
 **Depends on:** F4
-**Session:**
-**Report:**
+**Session:** One typed goal replaces the wheel. The home card shows the direction, one bar from the value when the goal was set, and the current value. With no goal it says to set one. Reaching the target says it is done, and clearing returns to the empty card. Body weight and a heavier set still move the active goal.
+**Report:** A fresh account and the old 65 default are not shown as a goal. Losing 2.5 kg from 80 is halfway at 78.75 and done at 77.5. Gaining 10 kg from 70 is halfway at 75. A strength goal reads “Bench Press to 80 kg” and starts from that exercise’s best. Set, edit, and clear survive a JSON round trip. “Lose 5kg” is gone. Goal and completion tests passed on the iPhone 17 simulator.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — The goal wheel and the “Lose 5kg” card will become one typed goal with a single bar.
+- 2026-11-15 — done — The home card shows one typed goal, and an empty account no longer presents 65.
 
 Replace the wheel and the branched progress view with one goal flow. The user picks body weight or one exercise, sees the current value (latest body mass, or that exercise’s best), and types a target. The screen states the direction in one line, such as “Lose 2.5 kg” or “Bench Press to 80 kg”. One bar runs from the value at the time the goal was set to the target.
 

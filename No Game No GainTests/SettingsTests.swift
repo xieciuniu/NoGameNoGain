@@ -7,6 +7,8 @@ import Foundation
 import Testing
 @testable import No_Game_No_Gain
 
+// These tests share userAccount.json, so they cannot run at the same time.
+@Suite(.serialized)
 struct SettingsTests {
     @Test("A saved display name survives a reload and does not change XP")
     func testNameSurvivesReload() throws {

@@ -65,7 +65,7 @@ struct HomeScreenView: View {
                     
                     HStack {
                         Button(action: {
-                            path.append("StatsView")} ) {
+                            path.append("SettingsView")} ) {
                             Text("Settings")
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
@@ -116,9 +116,8 @@ struct HomeScreenView: View {
                     MyWorkoutsView(path: $path)
                 case "SelectWorkoutView":
                     SelectWorkoutView()
-                case "StatsView":
-                    //History(endedSession: workouts)
-                    TrainingStatsView()
+                case "SettingsView":
+                    SettingsView()
                 case "LevelsView":
                     LevelsView(level: userAccount.exp)
                 case "PersonalGoalView":

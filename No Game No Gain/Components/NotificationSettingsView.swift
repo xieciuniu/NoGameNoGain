@@ -12,24 +12,25 @@ struct NotificationSettingsView: View {
     @State private var showingDocumentPicker = false
     
     var body: some View {
-        Form {
-            Section(header: Text("Sound Settings")) {
-                Picker("Sound Type", selection: $settings.soundType) {
-                    Text("Default").tag(NotificationSettings.SoundType.default)
-                    Text("Custom").tag(NotificationSettings.SoundType.custom)
-                }
-                
-                if settings.soundType == .custom {
-                    Button(action: {
-                        showingDocumentPicker = true
-                    }) {
-                        HStack {
-                            Text("Select Sound File")
-                            Spacer()
-                            if settings.customSoundURL != nil {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                            }
+        Section(header: Text("Sound Settings")) {
+            Picker("Sound Type", selection: $settings.soundType) {
+                Text("Default").tag(NotificationSettings.SoundType.default)
+                Text("Custom").tag(NotificationSettings.SoundType.custom)
+            }
+            .onChange(of: settings.soundType) {
+                settings.saveSettings()
+            }
+
+            if settings.soundType == .custom {
+                Button(action: {
+                    showingDocumentPicker = true
+                }) {
+                    HStack {
+                        Text("Select Sound File")
+                        Spacer()
+                        if settings.customSoundURL != nil {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
                         }
                     }
                 }
@@ -54,5 +55,7 @@ struct NotificationSettingsView: View {
 }
 
 #Preview {
-    NotificationSettingsView()
+    Form {
+        NotificationSettingsView()
+    }
 }

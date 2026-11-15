@@ -74,13 +74,14 @@ The home rank bar and the rank list must use the XP already stored on `UserAccou
 
 ### F2. Make Settings a settings screen
 
-**Status:** not started
+**Status:** done
 **Scope:** Small (about 1 day)
 **Depends on:** F1
-**Session:**
-**Report:**
+**Session:** The home Settings button opens `SettingsView`. That screen edits the display name on the account file and shows the existing notification sound controls. The sound choice is saved when it changes. Training stats stay on the home stats card. The screen does not add XP and has no pounds switch.
+**Report:** Saving the name “Ada” reloads as “Ada” and leaves XP unchanged. A custom sound reloads from a fresh settings object. Settings and notification tests passed on the iPhone 17 simulator.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — Settings will edit the account name and the existing notification sound, and it will stop opening the stats screen.
+- 2026-11-15 — done — Settings edits the saved name and the notification sound. The home button no longer opens training stats.
 
 Settings currently opens the stats screen. `NotificationSettingsView` already edits the rest-alert sound and is not linked from home. `UserAccount.name` has no editor.
 

@@ -82,7 +82,8 @@ struct WorkoutCompletion {
         }
     }
 
-    private func updateProgressWeight(_ session: WorkoutSession) {
+    func progressionChanges(for session: WorkoutSession) -> [SetProgression] {
+        var changes: [SetProgression] = []
         for exercise in session.workout.exercises {
             let logged = session.doneSets.filter { $0.exerciseName == exercise.name }
             guard logged.count == exercise.sets.count else { continue }
@@ -102,13 +103,56 @@ struct WorkoutCompletion {
             for (index, set) in required {
                 let floor = exercise.repFloor ?? set.reps
                 let ceiling = exercise.repCeiling ?? set.reps
+                var reps = set.reps
+                var weight = set.weight
                 if set.reps < ceiling {
-                    exercise.sets[index].reps += 1
+                    reps += 1
                 } else {
-                    exercise.sets[index].weight += exercise.progressPerWorkout
-                    exercise.sets[index].reps = floor
+                    weight += exercise.progressPerWorkout
+                    reps = floor
+                }
+                if reps != set.reps || weight != set.weight {
+                    changes.append(SetProgression(
+                        exerciseName: exercise.name,
+                        setIndex: index,
+                        reps: reps,
+                        weight: weight,
+                        previousReps: set.reps,
+                        previousWeight: set.weight
+                    ))
                 }
             }
         }
+        return changes
+    }
+
+    private func updateProgressWeight(_ session: WorkoutSession) {
+        for change in progressionChanges(for: session) {
+            guard let exercise = session.workout.exercises.first(where: { $0.name == change.exerciseName }),
+                  exercise.sets.indices.contains(change.setIndex) else { continue }
+            exercise.sets[change.setIndex].reps = change.reps
+            exercise.sets[change.setIndex].weight = change.weight
+        }
+    }
+}
+
+struct SetProgression: Equatable {
+    var exerciseName: String
+    var setIndex: Int
+    var reps: Int
+    var weight: Double
+    var previousReps: Int
+    var previousWeight: Double
+
+    var line: String {
+        let weightChanged = weight != previousWeight
+        let repsChanged = reps != previousReps
+        if weightChanged && repsChanged {
+            return "\(exerciseName): weight \(previousWeight.formatted()) → \(weight.formatted()), reps \(previousReps) → \(reps)"
+        }
+        if repsChanged {
+            return "\(exerciseName): reps \(previousReps) → \(reps)"
+        }
+        return "\(exerciseName): weight \(previousWeight.formatted()) → \(weight.formatted())"
     }
 }

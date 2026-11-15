@@ -122,13 +122,14 @@ A set can be marked “no weight yet”. Those sets show an empty weight, store 
 
 ### F4. End-of-workout summary and effort
 
-**Status:** not started
+**Status:** done
 **Scope:** Medium (1–2 days)
 **Depends on:** F3
-**Session:**
-**Report:**
+**Session:** Phone End opens a summary and leaves the workout open. Confirm stores effort from 1 to 10 and then ends the session once. Dismiss does not end it. The summary shows the name, duration, exercises, done and failed sets, volume as weight times reps, personal records, the XP this ending will add, and the rep or load change, or that the plan did not change. The preview does not keep the weekly-workout increment. A Watch end still saves with empty effort.
+**Report:** Summary tests passed on the iPhone 17 simulator. The preview leaves XP and the week unchanged and lists a rep change before it is saved. Confirm stores effort 7, awards that previewed XP once, and a second end does not award again. Ending without the summary leaves effort empty.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — Phone End will open a summary and store effort before the session closes. A Watch end still saves without effort.
+- 2026-11-15 — done — Phone End shows a summary, stores effort, and awards XP once. A Watch end still saves with no effort.
 
 End Workout on the phone opens a summary before the session is closed. The summary shows the workout name, duration, exercises, done and failed sets, volume as weight times reps, personal records from this session, and the XP this ending will add. The XP preview uses the existing formula and does not increment `weeklyWorkouts`.
 

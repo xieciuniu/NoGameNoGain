@@ -88,6 +88,8 @@ class WorkoutSession {
     var currentExerciseIndex: Int = 0
     var duration: TimeInterval = 0
     var personalRecords: Int = 0
+    /// Effort from 1 to 10 chosen on the phone summary. Nil when the Watch ends the session.
+    var effort: Int? = nil
     /// Session average and highest heart rate, in beats per minute. Nil when the Watch sent no samples.
     var averageHeartRateBPM: Double? = nil
     var maximumHeartRateBPM: Double? = nil

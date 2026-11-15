@@ -15,6 +15,9 @@ struct WorkoutView: View {
     
     
     @State private var showEnded = true
+    @State private var showingSummary = false
+    @State private var summary: WorkoutEndPreview?
+    @State private var summaryEffort = 5
 
     @Environment(WorkoutCoordinator.self) private var coordinator
 
@@ -24,6 +27,13 @@ struct WorkoutView: View {
     
     init(workoutSession: WorkoutSession, notifications: WorkoutNotificationManager) {
         _viewModel = StateObject(wrappedValue: WorkoutViewModel(workoutSession: workoutSession, notifications: notifications))
+    }
+
+    private func confirmSummary() {
+        guard (1...10).contains(summaryEffort) else { return }
+        viewModel.workoutSession.effort = summaryEffort
+        coordinator.end(viewModel.workoutSession, account: viewModel.userAccount)
+        showingSummary = false
     }
 
     var body: some View {
@@ -260,8 +270,12 @@ struct WorkoutView: View {
                             .frame(maxHeight: 60)
                         
                         Button(action: {
-                            print("end")
-                            coordinator.end(viewModel.workoutSession, account: viewModel.userAccount)
+                            summary = WorkoutEndPreview.make(
+                                session: viewModel.workoutSession,
+                                account: viewModel.userAccount,
+                                duration: coordinator.stopwatch.workoutElapsed
+                            )
+                            showingSummary = true
                         }) {
                             Text("End Workout")
                                 .font(.subheadline)
@@ -335,6 +349,11 @@ struct WorkoutView: View {
                 
             }
             
+        }
+        .sheet(isPresented: $showingSummary) {
+            if let summary {
+                WorkoutSummaryView(preview: summary, effort: $summaryEffort, confirm: confirmSummary)
+            }
         }
         .onChange(of: coordinator.companionEnded) {
             if coordinator.companionEnded {

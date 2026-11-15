@@ -46,6 +46,7 @@
 		E7C41A012F4E4B0100A1C001 /* RestClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A002F4E4B0100A1C001 /* RestClockView.swift */; };
 		E7C41A112F4E4C0100A1C101 /* WorkoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A102F4E4C0100A1C101 /* WorkoutCoordinator.swift */; };
 		E7C41A312F4E4D0100A1C301 /* WorkoutCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A302F4E4D0100A1C301 /* WorkoutCompletion.swift */; };
+		E7C41E022F4E550100A1E102 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41E012F4E550100A1E101 /* WorkoutSummary.swift */; };
 		E7C41A412F4E4E0100A1C401 /* WorkoutHealthRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */; };
 		E7C41B052F4E500100A1D705 /* No Game No Gain Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E7C41B122F4E510100A1D712 /* LiveWorkoutMirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */; };
@@ -138,6 +139,7 @@
 		E7C41A102F4E4C0100A1C101 /* WorkoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCoordinator.swift; sourceTree = "<group>"; };
 		E7C41A202F4E4C0200A1C201 /* UPGRADE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = UPGRADE.md; sourceTree = "<group>"; };
 		E7C41A302F4E4D0100A1C301 /* WorkoutCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletion.swift; sourceTree = "<group>"; };
+		E7C41E012F4E550100A1E101 /* WorkoutSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummary.swift; sourceTree = "<group>"; };
 		E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHealthRecorder.swift; sourceTree = "<group>"; };
 		E7C41A502F4E4C0300A1C501 /* FEATURES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FEATURES.md; sourceTree = "<group>"; };
 		E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Game No Gain Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +293,7 @@
 				DBA0677D2CB97250001B76FD /* StopwatchView.swift */,
 				E7C41A102F4E4C0100A1C101 /* WorkoutCoordinator.swift */,
 				E7C41A302F4E4D0100A1C301 /* WorkoutCompletion.swift */,
+				E7C41E012F4E550100A1E101 /* WorkoutSummary.swift */,
 				E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */,
 				E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */,
 				E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */,
@@ -536,6 +539,7 @@
 				DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */,
 				E7C41A112F4E4C0100A1C101 /* WorkoutCoordinator.swift in Sources */,
 				E7C41A312F4E4D0100A1C301 /* WorkoutCompletion.swift in Sources */,
+				E7C41E022F4E550100A1E102 /* WorkoutSummary.swift in Sources */,
 				E7C41A412F4E4E0100A1C401 /* WorkoutHealthRecorder.swift in Sources */,
 				E7C41B122F4E510100A1D712 /* LiveWorkoutMirror.swift in Sources */,
 				E7C41C222F4E530100A1D802 /* PhoneWorkoutSession.swift in Sources */,

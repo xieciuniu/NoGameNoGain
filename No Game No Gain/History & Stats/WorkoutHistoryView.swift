@@ -13,13 +13,25 @@ struct WorkoutHistoryView: View {
     @Query(sort: \WorkoutSession.startTime, order: .reverse) var workoutSessions: [WorkoutSession]
     @State private var expandedSession: WorkoutSession?
     @State private var expandedExercise: String?
+    @State private var selectedRange: HistoryRange = .all
+    @State private var selectedName: String?
     
     var body: some View {
+        let now = Date()
+        let calendar = Calendar.current
+        let sessions = filteredSessions(now: now, calendar: calendar)
+        let names = endedWorkoutNames(now: now, calendar: calendar)
+
         VStack(spacing: 0) {
+            rangeFilters
+            if !names.isEmpty {
+                nameFilters(names)
+            }
+
             // Workouts List
             ScrollView {
                 LazyVStack(spacing: 12) {
-                    ForEach(workoutSessions) { session in
+                    ForEach(sessions) { session in
                         WorkoutSessionCard(
                             session: session,
                             isExpanded: session == expandedSession,
@@ -55,6 +67,75 @@ struct WorkoutHistoryView: View {
         .background(Color.black)
         .navigationTitle("Training History")
         .statusBarHidden()
+    }
+
+    private var rangeFilters: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(HistoryRange.allCases) { range in
+                    FilterButton(
+                        title: range.title,
+                        isSelected: selectedRange == range
+                    ) {
+                        selectedRange = range
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 12)
+            .padding(.bottom, 4)
+        }
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private func nameFilters(_ names: [String]) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(names, id: \.self) { name in
+                    FilterButton(
+                        title: name,
+                        isSelected: selectedName == name
+                    ) {
+                        selectedName = selectedName == name ? nil : name
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+        }
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private func historyInputs() -> [HistorySession] {
+        workoutSessions.map {
+            HistorySession(workoutName: $0.workout.name, endTime: $0.endTime)
+        }
+    }
+
+    private func endedWorkoutNames(now: Date, calendar: Calendar) -> [String] {
+        let ended = HistoryFilter.filtered(
+            sessions: historyInputs(),
+            name: nil,
+            range: .all,
+            now: now,
+            calendar: calendar
+        )
+        return Array(Set(ended.map(\.workoutName))).sorted()
+    }
+
+    private func filteredSessions(now: Date, calendar: Calendar) -> [WorkoutSession] {
+        workoutSessions.filter { session in
+            let match = HistoryFilter.filtered(
+                sessions: [
+                    HistorySession(workoutName: session.workout.name, endTime: session.endTime)
+                ],
+                name: selectedName,
+                range: selectedRange,
+                now: now,
+                calendar: calendar
+            )
+            return !match.isEmpty
+        }
     }
     
     private func exportToPDF() {

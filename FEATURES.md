@@ -220,13 +220,14 @@ The home stats card uses the same volume definition for the month, and it does n
 
 ### F8. History filters
 
-**Status:** not started
+**Status:** done
 **Scope:** Small (about 1 day)
 **Depends on:** F7
-**Session:**
-**Report:**
+**Session:** The history list shows ended sessions only. Filter buttons choose the workout name and a range of week, month, year, or all. All is the default. Tapping the selected name clears it. Week, month, and year use the same bounds as the stats screen. Expanding a session still lists its sets. Export stays the empty button.
+**Report:** An open session stays off the list even when the range is all and the name matches. Push hides Pull, and clearing the name shows both ended sessions. Week hides a session from 8 days ago and keeps one from 1 day ago. All keeps sessions from 8 days ago and 400 days ago. Month hides a session from 40 days ago. A Push session from 8 days ago stays hidden on week, and clearing the range to all shows that Push session and still hides Pull. Export is still the unimplemented button. Unit tests passed on the iPhone 17 simulator, 130 tests and 0 failures.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — The history list will show ended sessions and filter them by workout name and by week, month, year, or all.
+- 2026-11-15 — done — History lists ended sessions and filters them by name and by week, month, year, or all.
 
 This is the “importing workouts with filters” item: the history list that brings sessions in, using the unused `FilterButton`. It is not a file import and not a Health import. If that reading is wrong, mark this task `blocked` and add a replacement task instead of building an importer.
 

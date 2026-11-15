@@ -6,210 +6,145 @@
 //
 
 import SwiftUI
-import Charts
 import HealthKit
 
 struct TodayActivitiesView: View {
-    let healthKitManager = HealthKitManager.shared
-    @State private var stepsToday: Double = 0
-    @State private var burnedCalories: Double = 0
-    @State private var sleepTime: Double = 0
-    
-    @State private var showChart: Bool = false
-    @State private var chartName: String = ""
-    @State private var chartColor: Color = .red
-    @State private var chartData: [(date: Date, data: Double)] = []
-    @State private var isLoading = false
+    @Binding var userAccount: UserAccount
+
+    private let healthKitManager = HealthKitManager.shared
+    @State private var stepsToday: Double?
+    @State private var burnedCalories: Double?
+    @State private var sleepTime: Double?
+    @State private var stepsFailed = false
+    @State private var caloriesFailed = false
+    @State private var sleepFailed = false
+
     var body: some View {
-        if !showChart{
-            HStack(alignment: .center, spacing: 10) {
-                
-                VStack {
-                    Text("\(stepsToday.formatted())")
-                        .font(.title3)
-                        .padding(.vertical)
-                        .lineLimit(1)
-                    Text("Steps")
-                        .font(.headline)
-                    Text("Goal: 18000")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    
-                }
-                .frame(minWidth: 60, maxWidth: .infinity,minHeight: 150, maxHeight: 160)
-                .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .onTapGesture {
-                    showChart = true
-                    loadChartData(type: .stepCount)
-                    chartName = "Steps"
-                    chartColor = .green
-                }
-                
-                
-                VStack{
-                    Text("Calories")
-                        .font(.headline)
-                    HStack {
-                        Image(systemName: "flame.fill")
-                            .foregroundStyle(.red)
-                        Text("\(burnedCalories, specifier: "%.0f")")
-                    }
-                }
-                .frame(minWidth: 60, maxWidth: .infinity, minHeight: 150, maxHeight: 160)
-                .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .onTapGesture {
-                    showChart = true
-                    loadChartData(type: .activeEnergyBurned)
-                    chartName = "Calories"
-                    chartColor = .red
-                }
-                
-                VStack{
-                    Text("Sleep")
-                    HStack{
-                        Image(systemName: "moon.fill")
-                        Text("\(sleepTimeFormatted(minutes: sleepTime))")
-                    }
-                }
-                .frame(minWidth: 60, maxWidth: .infinity)
-                .frame(height: 150)
-                .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .onTapGesture {
-                    chartName = "Sleep duration"
-                    loadChartDataSleep()
-                    showChart = true
-                    chartColor = .blue
-                }
+        HStack(alignment: .center, spacing: 10) {
+            NavigationLink(value: ActivityKind.steps) {
+                card(
+                    kind: .steps,
+                    value: readingText(value: stepsToday, failed: stepsFailed, kind: .steps),
+                    icon: nil,
+                    iconColor: .green
+                )
             }
-            .frame(height: 150)
-            .onAppear {
-                fetchHealthData()
+            .buttonStyle(.plain)
+
+            NavigationLink(value: ActivityKind.calories) {
+                card(
+                    kind: .calories,
+                    value: readingText(value: burnedCalories, failed: caloriesFailed, kind: .calories),
+                    icon: "flame.fill",
+                    iconColor: .red
+                )
             }
-        } else {
-            VStack {
-                if isLoading {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .frame(height: 150)
-                } else {
-                    VStack{
-                        Text(chartName)
-                            .font(.title)
-                            .padding(.vertical, -8)
-                        Chart {
-                            ForEach(chartData, id: \.date) { data in
-                                BarMark(
-                                    x: .value("Date", data.date, unit: .day),
-                                    y: .value("Data", data.data)
-                                )
-                            }
-                            if let average = calculateAverage(for: chartData) {
-                                RuleMark(y: .value("Average", average))
-                                    .foregroundStyle(.white)
-                                    .lineStyle(StrokeStyle(lineWidth: 2, dash: [5]))
-                                    .annotation(position: .top, alignment: .leading) {
-                                        Text("Average: \(chartName == "Sleep duration" ? sleepTimeFormattedHours(hours: average)  : "\(Int(average))")")
-                                            .font(.caption)
-                                            .foregroundColor(.primary)
-                                    }
-                            }
-                        }
-                        .foregroundColor(chartColor)
-                    }
-                    .padding(4)
-                    .frame(height: 150)
-                    .background(Color(red: 26/255, green: 26/255, blue: 26/255))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            .buttonStyle(.plain)
+
+            NavigationLink(value: ActivityKind.sleep) {
+                card(
+                    kind: .sleep,
+                    value: readingText(value: sleepTime, failed: sleepFailed, kind: .sleep),
+                    icon: "moon.fill",
+                    iconColor: .blue
+                )
+            }
+            .buttonStyle(.plain)
+        }
+        .onAppear(perform: fetchHealthData)
+    }
+
+    private func card(kind: ActivityKind, value: String, icon: String?, iconColor: Color) -> some View {
+        VStack(spacing: 6) {
+            HStack(spacing: 4) {
+                if let icon {
+                    Image(systemName: icon)
+                        .foregroundStyle(iconColor)
                 }
+                Text(value)
+                    .font(.title3)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
             }
-            .onTapGesture {
-                showChart = false
+            Text(kind.title)
+                .font(.headline)
+                .lineLimit(1)
+            if let goal = ActivityGoals.goalLabel(kind, account: userAccount) {
+                Text(goal)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
             }
         }
+        .padding(.horizontal, 4)
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, minHeight: 150)
+        .background(Color(red: 26/255, green: 26/255, blue: 26/255))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .foregroundStyle(.primary)
     }
-    
-    func fetchHealthData() {
+
+    private func readingText(value: Double?, failed: Bool, kind: ActivityKind) -> String {
+        guard let value, !failed else { return "—" }
+        if kind == .sleep {
+            return ActivityGoals.clock(minutes: value)
+        }
+        return ActivityGoals.numberText(value)
+    }
+
+    private func fetchHealthData() {
+        guard HKHealthStore.isHealthDataAvailable() else {
+            stepsToday = nil
+            burnedCalories = nil
+            sleepTime = nil
+            stepsFailed = true
+            caloriesFailed = true
+            sleepFailed = true
+            return
+        }
+
         healthKitManager.fetchStepCount(date: Date()) { steps, error in
-            if let error = error {
-                print("Błąd podczas pobierania liczby kroków: \(error)")
-                return
+            DispatchQueue.main.async {
+                if error != nil {
+                    stepsFailed = true
+                    stepsToday = nil
+                } else {
+                    stepsFailed = false
+                    stepsToday = steps ?? 0
+                }
             }
-            stepsToday = steps ?? 0
         }
-        
+
         healthKitManager.fetchCaloriesBurned(date: Date.now) { calories, error in
-            if let error = error {
-                print("Błąd podczas pobierania liczby kalorii: \(error)")
-                return
+            DispatchQueue.main.async {
+                if error != nil {
+                    caloriesFailed = true
+                    burnedCalories = nil
+                } else {
+                    caloriesFailed = false
+                    burnedCalories = calories ?? 0
+                }
             }
-            burnedCalories = calories ?? 0
         }
-        
+
         Task {
-            //            burnedCalories = burned
-            sleepTime = try await healthKitManager.fetchLastSleepDuration()
-            //            sleepTime = sleepTimeMin
-        }
-        
-//        print("kroki: \(stepsToday), kcal: \(burnedCalories.formatted()), sleep: \(sleepTime.formatted())")
-    }
-    
-    func sleepTimeFormatted(minutes: Double) -> String {
-        let hours = Int(minutes / 60)
-        let minute = Int(Int(minutes) % 60)
-        return "\(hours):\(minute)"
-    }
-    func sleepTimeFormattedHours(hours: Double) -> String {
-        let hour = Int(hours)
-        var minute: Int {
-            return Int((hours - Double(hour)) * 60)
-        }
-        return "\(hour):\(minute)"
-    }
-    
-    func loadChartData(type: HKQuantityTypeIdentifier) {
-        isLoading = true
-//        healthKitManager.fetchCaloriesBurnedForLastMonth { data, error in
-        healthKitManager.fetchDataForChart(title: "", type: type) { data, error in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                if let error = error {
-                    print("Błąd podczas pobierania danych: \(error.localizedDescription)")
-                } else  {
-                    self.chartData = data.map { (date, data) in
-                        return (date: date, data: data)
-                    }
-                }
+            do {
+                let minutes = try await healthKitManager.fetchLastSleepDuration()
+                sleepFailed = false
+                sleepTime = minutes
+            } catch {
+                sleepFailed = true
+                sleepTime = nil
             }
         }
-    }
-    
-    func loadChartDataSleep() {
-        healthKitManager.fetchSleepDataForChart { data, error in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                if let error = error {
-                    print("Błąd podczas pobierania danych: \(error.localizedDescription)")
-                } else  {
-                    self.chartData = data.map { (date, data) in
-                        return (date: date, data: data)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func calculateAverage(for data: [(Date, Double)]) -> Double? {
-        guard !data.isEmpty else { return nil }
-        let total = data.reduce(0) { $0 + $1.1 }
-        return total / Double(data.count)
     }
 }
 
 #Preview {
-    TodayActivitiesView()
-        .preferredColorScheme(.dark)
+    @Previewable @State var userAccount = UserAccount()
+    NavigationStack {
+        TodayActivitiesView(userAccount: $userAccount)
+    }
+    .preferredColorScheme(.dark)
 }

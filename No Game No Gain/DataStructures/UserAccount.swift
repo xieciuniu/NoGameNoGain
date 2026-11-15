@@ -19,7 +19,54 @@ class UserAccount: Codable {
     var goalEnd: Double = 0
     var goalProgress: Double = 0
     var weeklyWorkouts: [String: Int]? = [:]
-    
+    var stepGoal: Double = 18000
+    var calorieGoal: Double? = nil
+    var sleepGoalMinutes: Double? = nil
+
+    init() {}
+
+    enum CodingKeys: String, CodingKey {
+        case notes, name, exp, expMultiplier, weight, goal, strengthGoalExercise
+        case goalStart, goalEnd, goalProgress, weeklyWorkouts
+        case stepGoal, calorieGoal, sleepGoalMinutes
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        exp = try container.decodeIfPresent(Double.self, forKey: .exp) ?? 0
+        expMultiplier = try container.decodeIfPresent(Double.self, forKey: .expMultiplier) ?? 1
+        weight = try container.decodeIfPresent(Double.self, forKey: .weight) ?? 0
+        goal = try container.decodeIfPresent(String.self, forKey: .goal) ?? ""
+        strengthGoalExercise = try container.decodeIfPresent(String.self, forKey: .strengthGoalExercise)
+        goalStart = try container.decodeIfPresent(Double.self, forKey: .goalStart) ?? 0
+        goalEnd = try container.decodeIfPresent(Double.self, forKey: .goalEnd) ?? 0
+        goalProgress = try container.decodeIfPresent(Double.self, forKey: .goalProgress) ?? 0
+        weeklyWorkouts = try container.decodeIfPresent([String: Int].self, forKey: .weeklyWorkouts) ?? [:]
+        stepGoal = try container.decodeIfPresent(Double.self, forKey: .stepGoal) ?? 18000
+        calorieGoal = try container.decodeIfPresent(Double.self, forKey: .calorieGoal)
+        sleepGoalMinutes = try container.decodeIfPresent(Double.self, forKey: .sleepGoalMinutes)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(name, forKey: .name)
+        try container.encode(exp, forKey: .exp)
+        try container.encode(expMultiplier, forKey: .expMultiplier)
+        try container.encode(weight, forKey: .weight)
+        try container.encode(goal, forKey: .goal)
+        try container.encodeIfPresent(strengthGoalExercise, forKey: .strengthGoalExercise)
+        try container.encode(goalStart, forKey: .goalStart)
+        try container.encode(goalEnd, forKey: .goalEnd)
+        try container.encode(goalProgress, forKey: .goalProgress)
+        try container.encode(weeklyWorkouts ?? [:], forKey: .weeklyWorkouts)
+        try container.encode(stepGoal, forKey: .stepGoal)
+        try container.encodeIfPresent(calorieGoal, forKey: .calorieGoal)
+        try container.encodeIfPresent(sleepGoalMinutes, forKey: .sleepGoalMinutes)
+    }
+
     func getWorkoutsInCurrentWeek() -> Int {
             let calendar = Calendar.current
             let date = Date()

@@ -33,6 +33,8 @@
 		DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8624D2CC3D52B0052E651 /* UserAccount.swift */; };
 		A5F5C0DE2F4E560100B1F502 /* GoalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F5C0DE2F4E560100B1F501 /* GoalProgress.swift */; };
 		A6F6C0DE2F4E561100C2B702 /* ChallengeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F6C0DE2F4E561100C2B701 /* ChallengeCycle.swift */; };
+		B1C4E8A12F6A100100D4E102 /* ActivityGoals.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C4E8A12F6A100100D4E101 /* ActivityGoals.swift */; };
+		B1C4E8A12F6A100100D4E104 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C4E8A12F6A100100D4E103 /* ActivityDetailView.swift */; };
 		DBAF8A7E2D292F7E00D5ED67 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */; };
 		DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */; };
 		DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */; };
@@ -125,6 +127,8 @@
 		DBA8624D2CC3D52B0052E651 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		A5F5C0DE2F4E560100B1F501 /* GoalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgress.swift; sourceTree = "<group>"; };
 		A6F6C0DE2F4E561100C2B701 /* ChallengeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCycle.swift; sourceTree = "<group>"; };
+		B1C4E8A12F6A100100D4E101 /* ActivityGoals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityGoals.swift; sourceTree = "<group>"; };
+		B1C4E8A12F6A100100D4E103 /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreator.swift; sourceTree = "<group>"; };
 		DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 				DB63AF152CD4C1D6000F41B2 /* LevelsView.swift */,
 				DB7F6E922C635971001C9D59 /* ProgressBarView.swift */,
 				DB7F6E942C63A506001C9D59 /* TodayActivitiesView.swift */,
+				B1C4E8A12F6A100100D4E103 /* ActivityDetailView.swift */,
 				DB13E7C42C8DA489002A5EED /* StatsView.swift */,
 				DB0938E62C98352700BC3505 /* Extension.swift */,
 				DB05B5E32CBA93DA001D6465 /* SceneDelegate.swift */,
@@ -321,6 +326,7 @@
 				DBA8624D2CC3D52B0052E651 /* UserAccount.swift */,
 				A5F5C0DE2F4E560100B1F501 /* GoalProgress.swift */,
 				A6F6C0DE2F4E561100C2B701 /* ChallengeCycle.swift */,
+				B1C4E8A12F6A100100D4E101 /* ActivityGoals.swift */,
 				DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */,
 				DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */,
 				DBD70C4A2D744D9E000955EC /* ExperienceSystem.swift */,
@@ -537,6 +543,8 @@
 				DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */,
 				A5F5C0DE2F4E560100B1F502 /* GoalProgress.swift in Sources */,
 				A6F6C0DE2F4E561100C2B702 /* ChallengeCycle.swift in Sources */,
+				B1C4E8A12F6A100100D4E102 /* ActivityGoals.swift in Sources */,
+				B1C4E8A12F6A100100D4E104 /* ActivityDetailView.swift in Sources */,
 				DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */,
 				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,
 				DB0469D42CD606EC0082CCF8 /* LevelRanks.swift in Sources */,

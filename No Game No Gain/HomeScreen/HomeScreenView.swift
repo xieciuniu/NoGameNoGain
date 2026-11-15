@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import HealthKit
 
 struct HomeScreenView: View {
     @State var path = NavigationPath()
@@ -35,11 +34,9 @@ struct HomeScreenView: View {
                                     
                         Spacer()
                         
-                        if HKHealthStore.isHealthDataAvailable() {
-                            TodayActivitiesView()
-                                .padding([.bottom])
-                                .padding(.horizontal)
-                        }
+                        TodayActivitiesView(userAccount: $userAccount)
+                            .padding([.bottom])
+                            .padding(.horizontal)
                         
                         ChallengeView(userAccount: userAccount)
                             .padding([.horizontal, .bottom])
@@ -136,6 +133,9 @@ struct HomeScreenView: View {
             }
             .navigationDestination(for: Exercise.self) { exercise in
                 CreateExerciseView(exercise: exercise)
+            }
+            .navigationDestination(for: ActivityKind.self) { kind in
+                ActivityDetailView(kind: kind, userAccount: $userAccount)
             }
         }
         .tint(.white)

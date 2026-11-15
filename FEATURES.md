@@ -396,6 +396,22 @@ The experience already stored from earlier workouts stays. A Debug settings cont
 - The summary starts with levels 1...10, the selected level’s description, and the last saved effort for this workout when one exists. Statistics follow that chart.
 - The XP formulas and the weekly-workout copy-then-assign stay as they are.
 
+### F16. Show the whole exercise name
+
+**Status:** done
+**Scope:** Small (under a day)
+**Depends on:** F15
+**Session:** The exercise name on the workout row wraps onto as many lines as it needs. The weight and reps stay beside the first line.
+**Report:** The one-line limit and the trailing ellipsis are gone. A long name stays fully visible.
+**Log:**
+- 2026-11-15 — in progress — The exercise name will wrap so the whole name stays visible.
+- 2026-11-15 — done — A long exercise name wraps onto multiple lines instead of ending in an ellipsis.
+
+**Done when:**
+
+- A long exercise name on the workout row is fully visible on more than one line.
+- The weight and reps stay on that row.
+
 ## What finished looks like
 
 The home bar, ranks, and stats use the account and the ended sessions. Settings edits the name and the alert sound. A finished phone workout asks for effort, shows what was lifted, and then applies the rep-then-weight step. One goal reads clearly on the home card. The challenge target steps by 1.4. Steps, calories, and sleep open a detail with an optional goal. A new user can take one built-in workout and try it before choosing weights. From the Watch, confirming a set logs it on the phone. Heart rate shows the current, average, and highest rate from the Watch. The iPhone Lock Screen can show the elapsed time, exercise, weight, and reps, and that card has one switch. AirPods heart rate waits until that queue is finished.

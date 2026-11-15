@@ -19,8 +19,6 @@ struct HomeScreenView: View {
     
     @State var userAccount: UserAccount = loadUserAccountFromFile() ?? UserAccount()
     
-    @State var expToTextUI: Double = 400
-    
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
@@ -29,7 +27,7 @@ struct HomeScreenView: View {
                 VStack{
 
                     ScrollView{
-                        ProgressBarView(exp: expToTextUI)
+                        ProgressBarView(exp: userAccount.exp)
                             .padding([.horizontal, .bottom])
                             .onTapGesture {
                                 path.append("LevelsView")
@@ -67,7 +65,6 @@ struct HomeScreenView: View {
                     
                     HStack {
                         Button(action: {
-                            userAccount.exp += 100
                             path.append("StatsView")} ) {
                             Text("Settings")
                                 .frame(maxWidth: .infinity)
@@ -104,6 +101,7 @@ struct HomeScreenView: View {
                 }
             }
             .onAppear(perform: {
+                userAccount = loadUserAccountFromFile() ?? UserAccount()
                 HealthKitManager.shared.requestAuthorizationIfNeeded { success, error in
                     if success {
                         print("Authorization gained")

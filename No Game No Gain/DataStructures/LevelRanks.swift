@@ -14,6 +14,10 @@ struct Ranks: Identifiable {
     let expStart: Double
     let expRange: Range<Double>
     let level: Int
+
+    func isUnlocked(at exp: Double) -> Bool {
+        exp >= expStart
+    }
 }
 
 var ranks: [Ranks] = [

@@ -44,6 +44,19 @@ struct RankSystemTests {
         }
     }
     
+    @Test("A known XP value shows on the bar with its rank title")
+    func testKnownExperienceOnTheBar() {
+        let exp = 400.0
+        let bar = ProgressBarView(exp: exp)
+        let rank = ranks.first { $0.expRange.contains(exp) }
+
+        #expect(bar.expCurrent == exp)
+        #expect(rank?.title == "Gym Bro")
+        #expect(bar.userRank == "Gym\nBro")
+        #expect(rank?.isUnlocked(at: exp) == true)
+        #expect(ranks.first { $0.title == "Iron Warrior" }?.isUnlocked(at: exp) == false)
+    }
+
     @Test("First rank should start from zero")
     func testFirstRank() throws {
         let firstRank = ranks.first

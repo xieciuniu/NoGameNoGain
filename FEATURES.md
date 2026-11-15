@@ -53,13 +53,14 @@ New Swift files under `WorkoutSession/`, `WorkoutsCreator/`, `Components/`, or `
 
 ### F1. Show the real experience
 
-**Status:** not started
+**Status:** done
 **Scope:** Small (under a day)
 **Depends on:** none
-**Session:**
-**Report:**
+**Session:** The home bar reads `userAccount.exp` after the account file loads, and home reloads that file when it appears, including after a finished workout replaces the home screen. `LevelsView` unlocks a rank when that same XP has reached the rank’s start. The Settings button no longer adds XP.
+**Report:** `ProgressBarView(exp: 400)` shows Gym Bro. 400 unlocks Gym Bro and leaves Iron Warrior locked. The fixed 400 and 5000 values are gone, and the Settings +100 write is gone. Rank and completion tests passed on the iPhone 17 simulator.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — The home bar and rank list will read the XP stored on the account, and Settings will stop adding 100 XP.
+- 2026-11-15 — done — The home bar and the rank list use the account XP. Opening Settings no longer adds 100 XP.
 
 The home rank bar and the rank list must use the XP already stored on `UserAccount`. Ending a workout already adds XP through `WorkoutCompletion.finish`. This task does not change that formula.
 

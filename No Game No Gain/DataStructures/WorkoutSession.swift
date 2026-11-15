@@ -17,7 +17,60 @@ struct DoneSets: Codable, Comparable, Identifiable {
     var restTime: Double
     var isDone: Bool
     var rpe: Int?
-    
+    var weightUnset: Bool = false
+
+    enum CodingKeys: String, CodingKey {
+        case id, exerciseName, numberOfSet, weight, reps, restTime, isDone, rpe, weightUnset
+    }
+
+    init(
+        id: UUID = UUID(),
+        exerciseName: String,
+        numberOfSet: Int,
+        weight: Double,
+        reps: Int,
+        restTime: Double,
+        isDone: Bool,
+        rpe: Int?,
+        weightUnset: Bool = false
+    ) {
+        self.id = id
+        self.exerciseName = exerciseName
+        self.numberOfSet = numberOfSet
+        self.weight = weight
+        self.reps = reps
+        self.restTime = restTime
+        self.isDone = isDone
+        self.rpe = rpe
+        self.weightUnset = weightUnset
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        exerciseName = try container.decode(String.self, forKey: .exerciseName)
+        numberOfSet = try container.decode(Int.self, forKey: .numberOfSet)
+        weight = try container.decode(Double.self, forKey: .weight)
+        reps = try container.decode(Int.self, forKey: .reps)
+        restTime = try container.decode(Double.self, forKey: .restTime)
+        isDone = try container.decode(Bool.self, forKey: .isDone)
+        rpe = try container.decodeIfPresent(Int.self, forKey: .rpe)
+        weightUnset = try container.decodeIfPresent(Bool.self, forKey: .weightUnset) ?? false
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(exerciseName, forKey: .exerciseName)
+        try container.encode(numberOfSet, forKey: .numberOfSet)
+        try container.encode(weight, forKey: .weight)
+        try container.encode(reps, forKey: .reps)
+        try container.encode(restTime, forKey: .restTime)
+        try container.encode(isDone, forKey: .isDone)
+        try container.encodeIfPresent(rpe, forKey: .rpe)
+        try container.encode(weightUnset, forKey: .weightUnset)
+    }
+
     static func < (lhs: DoneSets, rhs: DoneSets) -> Bool {
         return (lhs.exerciseName, lhs.numberOfSet) < (rhs.exerciseName, rhs.numberOfSet)
     }

@@ -95,13 +95,14 @@ Settings currently opens the stats screen. `NotificationSettingsView` already ed
 
 ### F3. Progress reps, then weight
 
-**Status:** not started
+**Status:** done
 **Scope:** Medium (1–2 days)
 **Depends on:** F2
-**Session:**
-**Report:**
+**Session:** A successful exercise adds one rep while the planned reps are below the ceiling. At the ceiling it adds `progressPerWorkout` and sets the reps back to the floor. With no stored range, the planned reps are both the floor and the ceiling, so the load still moves. A set marked “no weight yet” stores no load, stays empty, and is skipped. `totalWeight()` still adds the stored loads.
+**Report:** Completion, session, and restore tests passed on the iPhone 17 simulator. Below the ceiling, 5 reps become 6 and the weight stays. At the ceiling, the weight rises by 2.5 and the reps return to 5. A short set, a failed set, and a light set do not change the plan. An empty-weight set stays empty and does not take a personal record.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — A successful exercise will add a rep until the ceiling, then add weight and return to the rep floor. A set can stay without a weight.
+- 2026-11-15 — done — Reps progress until the ceiling, then the load moves and the reps return to the floor. A set can stay without a weight.
 
 A successful exercise is one where every set with progress enabled was logged done, at or above the planned weight, and at or above the planned reps. Failed or lighter sets do not progress that exercise.
 

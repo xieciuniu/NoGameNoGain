@@ -41,6 +41,7 @@ extension WorkoutView {
         
         
         @Published var currentWeight = 0.0
+        @Published var currentWeightUnset = false
         @Published var currentReps: Int = 0
         var restTime: TimeInterval = 50
         
@@ -98,7 +99,8 @@ extension WorkoutView {
             if !exercise.sets.isEmpty {
                 let fieldIndex = completed < exercise.sets.count ? completed : exercise.sets.count - 1
                 currentReps = exercise.sets[fieldIndex].reps
-                currentWeight = exercise.sets[fieldIndex].weight
+                currentWeightUnset = exercise.sets[fieldIndex].weightUnset
+                currentWeight = currentWeightUnset ? 0 : exercise.sets[fieldIndex].weight
             }
             appliedWeight = currentWeight
             appliedReps = currentReps
@@ -110,7 +112,30 @@ extension WorkoutView {
         func noteWeightEdit() {
             guard currentWeight != appliedWeight else { return }
             appliedWeight = currentWeight
+            currentWeightUnset = false
+            setCurrentPlanWeightUnset(false)
             notificationManager.userDidAct()
+        }
+
+        func toggleNoWeightYet() {
+            let completed = workoutSession.doneSets.filter { $0.exerciseName == exerciseName }.count
+            guard !exercise.sets.isEmpty else { return }
+            let fieldIndex = completed < exercise.sets.count ? completed : exercise.sets.count - 1
+            let unset = !exercise.sets[fieldIndex].weightUnset
+            exercise.sets[fieldIndex].weightUnset = unset
+            currentWeightUnset = unset
+            if unset {
+                currentWeight = 0
+                appliedWeight = 0
+            }
+            notificationManager.userDidAct()
+        }
+
+        private func setCurrentPlanWeightUnset(_ unset: Bool) {
+            let completed = workoutSession.doneSets.filter { $0.exerciseName == exerciseName }.count
+            guard !exercise.sets.isEmpty else { return }
+            let fieldIndex = completed < exercise.sets.count ? completed : exercise.sets.count - 1
+            exercise.sets[fieldIndex].weightUnset = unset
         }
 
         func noteRepsEdit() {
@@ -139,10 +164,11 @@ extension WorkoutView {
         
         func setComplete(isDone: Bool, restTime: TimeInterval) {
             let metrics = SetMetrics(
-                weight: currentWeight,
+                weight: currentWeightUnset ? 0 : currentWeight,
                 reps: currentReps,
                 restTime: restTime,
-                rpe: rpe
+                rpe: rpe,
+                weightUnset: currentWeightUnset
             )
 
             notificationManager.scheduleRest(after: self.restTime)

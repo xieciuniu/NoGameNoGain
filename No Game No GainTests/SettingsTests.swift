@@ -30,6 +30,27 @@ struct SettingsTests {
         #expect(loaded.exp == exp)
     }
 
+    @Test("A whole experience value survives a reload")
+    func testExperienceSurvivesReload() throws {
+        let url = getDocumentsDirectory().appendingPathComponent("userAccount.json")
+        let backup = try? Data(contentsOf: url)
+        defer {
+            if let backup {
+                try? backup.write(to: url)
+            } else {
+                try? FileManager.default.removeItem(at: url)
+            }
+        }
+
+        let account = loadUserAccountFromFile() ?? UserAccount()
+        account.exp = 250
+        saveUserAccountToFile(account)
+
+        let loaded = try #require(loadUserAccountFromFile())
+        #expect(loaded.exp == 250)
+        #expect(loaded.exp == loaded.exp.rounded())
+    }
+
     @Test("The notification sound survives a new settings object")
     func testSoundSurvivesReload() {
         let suite = "f2-settings-\(UUID().uuidString)"

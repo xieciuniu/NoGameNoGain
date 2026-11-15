@@ -47,7 +47,7 @@ struct ProgressBarView: View {
                         .frame(minWidth: 200, maxWidth: .infinity)
                         .scaleEffect(x: 1,y: 3.5, anchor: .center)
                     
-                    Text("\(value.formatted()) / \(total.formatted()) XP")
+                    Text("\(Int(value.rounded())) / \(Int(total.rounded())) XP")
                         .font(.footnote)
                     Spacer()
                 }

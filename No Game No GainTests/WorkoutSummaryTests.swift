@@ -64,6 +64,7 @@ struct WorkoutSummaryTests {
         #expect(preview.volume == 100 * 5 + 90 * 3)
         #expect(preview.personalRecords == 1)
         #expect(preview.experience > 0)
+        #expect(preview.experience == preview.experience.rounded())
         #expect(preview.planLines == ["The plan did not change."])
         #expect(account.exp == 10)
         #expect(account.weeklyWorkouts == [:])
@@ -152,5 +153,27 @@ struct WorkoutSummaryTests {
         #expect(session.endTime != nil)
         #expect(session.effort == nil)
         #expect(account.exp > 0)
+        #expect(account.exp == account.exp.rounded())
+    }
+
+    @Test("The last effort is the newest ended session of the same workout")
+    func testLastEffortForTheSameWorkout() {
+        let older = endedSession(name: "Push", effort: 4, ended: Date(timeIntervalSince1970: 1_700_000_100))
+        let newer = endedSession(name: "Push", effort: 8, ended: Date(timeIntervalSince1970: 1_700_000_500))
+        let other = endedSession(name: "Pull", effort: 10, ended: Date(timeIntervalSince1970: 1_700_000_900))
+        let open = endedSession(name: "Push", effort: 2, ended: nil)
+
+        #expect(EffortLevel.lastEffort(in: [older, other, newer, open], workoutName: "Push") == 8)
+        #expect(EffortLevel.all.count == 10)
+        #expect(EffortLevel.all.allSatisfy { !$0.title.isEmpty && !$0.detail.isEmpty })
+    }
+
+    private func endedSession(name: String, effort: Int, ended: Date?) -> WorkoutSession {
+        let exercise = Exercise(name: "Bench Press", order: 1)
+        let workout = Workout(name: name, exercise: [exercise])
+        let session = WorkoutSession(workout: workout, startTime: Date(timeIntervalSince1970: 1_700_000_000))
+        session.endTime = ended
+        session.effort = effort
+        return session
     }
 }

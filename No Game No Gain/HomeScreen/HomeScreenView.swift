@@ -27,7 +27,7 @@ struct HomeScreenView: View {
                 VStack{
 
                     ScrollView{
-                        ProgressBarView(exp: userAccount.exp)
+                        ProgressBarView(exp: userAccount.exp.rounded())
                             .padding([.horizontal, .bottom])
                             .onTapGesture {
                                 path.append("LevelsView")
@@ -119,7 +119,7 @@ struct HomeScreenView: View {
                 case "SettingsView":
                     SettingsView()
                 case "LevelsView":
-                    LevelsView(level: userAccount.exp)
+                    LevelsView(level: userAccount.exp.rounded())
                 case "PersonalGoalView":
                     PersonalGoalView(userAccount: $userAccount)
                 case "WorkoutHistory":

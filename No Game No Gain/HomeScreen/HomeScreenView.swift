@@ -41,7 +41,7 @@ struct HomeScreenView: View {
                                 .padding(.horizontal)
                         }
                         
-                        ChallengeView()
+                        ChallengeView(userAccount: userAccount)
                             .padding([.horizontal, .bottom])
                         
                         BodyWeightAndPersonalGoalView(path: $path, userAccount: $userAccount )

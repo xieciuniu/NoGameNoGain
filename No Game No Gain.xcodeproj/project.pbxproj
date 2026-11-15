@@ -32,6 +32,7 @@
 		DBA0677E2CB97250001B76FD /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0677D2CB97250001B76FD /* StopwatchView.swift */; };
 		DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8624D2CC3D52B0052E651 /* UserAccount.swift */; };
 		A5F5C0DE2F4E560100B1F502 /* GoalProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F5C0DE2F4E560100B1F501 /* GoalProgress.swift */; };
+		A6F6C0DE2F4E561100C2B702 /* ChallengeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F6C0DE2F4E561100C2B701 /* ChallengeCycle.swift */; };
 		DBAF8A7E2D292F7E00D5ED67 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */; };
 		DBCEE1AC2C9B15C400808BC0 /* WorkoutCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */; };
 		DBCEE1AE2C9B15FE00808BC0 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */; };
@@ -123,6 +124,7 @@
 		DBA0677D2CB97250001B76FD /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		DBA8624D2CC3D52B0052E651 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		A5F5C0DE2F4E560100B1F501 /* GoalProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgress.swift; sourceTree = "<group>"; };
+		A6F6C0DE2F4E561100C2B701 /* ChallengeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCycle.swift; sourceTree = "<group>"; };
 		DBAF8A7D2D292F7E00D5ED67 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		DBCEE1AB2C9B15C400808BC0 /* WorkoutCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreator.swift; sourceTree = "<group>"; };
 		DBCEE1AD2C9B15FE00808BC0 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				DBD1E8272C9C221800D419C6 /* WorkoutHistory.swift */,
 				DBA8624D2CC3D52B0052E651 /* UserAccount.swift */,
 				A5F5C0DE2F4E560100B1F501 /* GoalProgress.swift */,
+				A6F6C0DE2F4E561100C2B701 /* ChallengeCycle.swift */,
 				DB0469D32CD606EC0082CCF8 /* LevelRanks.swift */,
 				DB7A5DD32D3682AB0055B923 /* NotificationSettings.swift */,
 				DBD70C4A2D744D9E000955EC /* ExperienceSystem.swift */,
@@ -533,6 +536,7 @@
 				DB8AA4F62CF30ECC005681B4 /* BodyWeightAndPersonalGoalView.swift in Sources */,
 				DBA8624E2CC3D52B0052E651 /* UserAccount.swift in Sources */,
 				A5F5C0DE2F4E560100B1F502 /* GoalProgress.swift in Sources */,
+				A6F6C0DE2F4E561100C2B702 /* ChallengeCycle.swift in Sources */,
 				DB7F6E932C635971001C9D59 /* ProgressBarView.swift in Sources */,
 				DB8D4EA62C5A21C000F84C41 /* ContentView.swift in Sources */,
 				DB0469D42CD606EC0082CCF8 /* LevelRanks.swift in Sources */,

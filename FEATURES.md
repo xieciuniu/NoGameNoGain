@@ -174,13 +174,14 @@ Body-weight progress still follows the mass the user saves. Strength progress st
 
 ### F6. Dummy challenge at 1.4×
 
-**Status:** not started
+**Status:** done
 **Scope:** Small (about 1 day)
 **Depends on:** F5
-**Session:**
-**Report:**
+**Session:** One home challenge steps the weight target by 1.4 times the last one. With no active goal it starts from 5000 kg, so the card shows 7000 kg. The countdown and the bar use a stored 7 day window, and the bar is the volume of sessions that ended inside it. When the window ends, the finished target becomes the previous goal and the next one is 1.4 times that.
+**Report:** No goal and the old empty weight goal seed 5000 and show 7000. An active goal of 100 shows 140. After one week, 5000 becomes a previous goal of 7000 and a target of 9800. Six days and four hours left reads “6d 4h” from the date, not from a fixed label. Volume is weight times reps, and an open or earlier session does not count. The strings “2365”, “6d 4h”, and “Lift a total of 5t” are gone from the card. Challenge tests passed on the iPhone 17 simulator.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — The home challenge will show 1.4 times the last target and this window’s volume.
+- 2026-11-15 — done — The home card steps the challenge by 1.4 and counts this window’s volume.
 
 Keep a single home challenge. Do not use `generateWeeklyChallenge`. The weight target is the previous goal multiplied by 1.4.
 

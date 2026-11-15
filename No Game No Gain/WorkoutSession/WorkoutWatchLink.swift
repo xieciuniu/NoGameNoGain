@@ -8,6 +8,33 @@
 import Foundation
 import WatchConnectivity
 
+/// A Watch heart-rate payload for one phone workout.
+/// `WCSession` keeps the last application context until the Watch replaces it, so a payload
+/// without this workout's id is the previous session and must not be shown.
+enum WatchLinkMetrics {
+    static func liveMetrics(from message: [String: Any], workoutID: String) -> WorkoutLiveMetrics? {
+        guard (message["kind"] as? String) == "metrics" else { return nil }
+        guard (message["id"] as? String) == workoutID else { return nil }
+        let metrics = WorkoutLiveMetrics(
+            heartRateBPM: number(message["hr"]),
+            averageHeartRateBPM: number(message["hrAvg"]),
+            maximumHeartRateBPM: number(message["hrMax"]),
+            activeEnergyKilocalories: number(message["kcal"])
+        )
+        guard metrics.heartRateBPM != nil
+            || metrics.averageHeartRateBPM != nil
+            || metrics.maximumHeartRateBPM != nil
+            || metrics.activeEnergyKilocalories != nil else { return nil }
+        return metrics
+    }
+
+    static func number(_ value: Any?) -> Double? {
+        if let value = value as? Double { return value }
+        if let value = value as? NSNumber { return value.doubleValue }
+        return nil
+    }
+}
+
 /// Sends the phone workout clock to the Watch and receives live heart rate and energy.
 /// The Watch app reads the same keys in WatchPhoneLink.
 @MainActor
@@ -131,15 +158,9 @@ final class WorkoutWatchLink: NSObject, WCSessionDelegate {
     }
 
     nonisolated private func deliverMetrics(_ message: [String: Any]) {
-        guard (message["kind"] as? String) == "metrics" else { return }
-        let metrics = WorkoutLiveMetrics(
-            heartRateBPM: Self.number(message["hr"]),
-            averageHeartRateBPM: Self.number(message["hrAvg"]),
-            maximumHeartRateBPM: Self.number(message["hrMax"]),
-            activeEnergyKilocalories: Self.number(message["kcal"])
-        )
         Task { @MainActor in
             guard !self.ended, self.readClock != nil else { return }
+            guard let metrics = WatchLinkMetrics.liveMetrics(from: message, workoutID: self.workoutID.uuidString) else { return }
             self.onMetrics?(metrics)
         }
     }
@@ -150,12 +171,6 @@ final class WorkoutWatchLink: NSObject, WCSessionDelegate {
             || environment["XCTestBundlePath"] != nil
             || environment["XCTestSessionIdentifier"] != nil
         return !underTest && WCSession.isSupported()
-    }
-
-    private nonisolated static func number(_ value: Any?) -> Double? {
-        if let value = value as? Double { return value }
-        if let value = value as? NSNumber { return value.doubleValue }
-        return nil
     }
 
     private func activate() {

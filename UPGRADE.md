@@ -43,7 +43,7 @@ Do these in order. W5 touches different files, so it may run beside W1–W4. Eve
 | 7 | W7. Watch session and heart rate | W1, W6 | — |
 | 8 | W8. iPhone session for AirPods | W6, W7 | — |
 
-Phase A is W1–W4. Phase B is W5–W6. Phase C is W7–W8. Start a later phase only after the earlier phase’s tasks are `done`.
+Phase A is W1–W4. Phase B is W5–W6. Phase C is W7–W8. Start a later phase only after the earlier phase’s tasks are `done`. W8 is blocked. AirPods heart rate continues as `FEATURES.md` F14. Do not set W8 back to `in progress` from this file.
 
 ## Leave these as they are
 
@@ -209,11 +209,11 @@ Pause on the phone pauses the Health session. Resume resumes it. Rest does not p
 
 ### W8. iPhone session for AirPods
 
-**Status:** in progress
+**Status:** blocked
 **Scope:** Large (2–4 days, needs iOS 26 and AirPods Pro 3 or a Bluetooth heart-rate monitor)
 **Depends on:** W6, W7
 **Session:** When the Watch app does not launch, iOS 26 starts one indoor strength session on the phone. HealthKit supplies heart rate from AirPods or a Bluetooth monitor. The phone does not read those devices itself. End saves that session’s workout instead of the hand-built sample. iOS 17 and 18, and a phone session that cannot start, still use the W6 save. A Watch session still owns the workout. The workout screen shows heart rate and calories only while a Watch is in the session or a heart-rate sample has arrived.
-**Report:** WorkoutHealthTests passed on the iPhone 17 simulator, including the phone session, the Watch path, and the save-on-end fallback. Live heart rate from AirPods or a Bluetooth monitor still needs a device check before this can be marked done.
+**Report:** Parked. AirPods heart rate is not part of this upgrade. It continues as `FEATURES.md` F14 and waits until F13 is done. Do not resume W8 from this file, and do not mark it done. The phone session still starts only when the Watch app does not launch. A worn Watch keeps the workout. A live AirPods or Bluetooth-monitor check has not been done.
 
 iOS 26 can run `HKWorkoutSession` on the iPhone. The phone has no optical heart-rate sensor. During that session, AirPods Pro 3 (and a paired Bluetooth heart-rate monitor) can supply heart rate after the user allows heart-rate read and workout read/write. Keep the app’s deployment target. Gate this path with `if #available(iOS 26, *)`.
 
@@ -232,4 +232,4 @@ Phase A: start, pause, resume, end, and relaunch go through one owner. W2 shows 
 
 Phase B: End writes one Traditional Strength Training workout to Health, and the home screen’s existing Health reads still work.
 
-Phase C: the same workout collects heart rate from the Watch, and on iOS 26 from AirPods or a Bluetooth monitor when no Watch is in the session.
+Phase C: the same workout collects heart rate from the Watch. AirPods heart rate is parked as `FEATURES.md` F14.

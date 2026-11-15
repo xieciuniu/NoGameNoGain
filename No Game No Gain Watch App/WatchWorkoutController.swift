@@ -31,6 +31,7 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
     private var session: HKWorkoutSession?
     private var builder: HKLiveWorkoutBuilder?
     private var didRequestFinish = false
+    private var isStartingSession = false
     private var isMirroring = false
     private var relayTask: Task<Void, Never>?
     private var elapsedAnchor: TimeInterval = 0
@@ -46,6 +47,8 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
     private var phoneWorkoutID: String?
     private var phoneCommandSeq = 0
     private var phoneRequestsEnd = false
+    /// False after this Watch session has ended. A new `beginCollection` turns it back on.
+    private var acceptsLiveSamples = false
 
     override init() {
         super.init()
@@ -118,7 +121,8 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
     }
 
     func start(_ configuration: HKWorkoutConfiguration) async {
-        guard session == nil || session?.state == .ended else { return }
+        guard session == nil || session?.state == .ended || session?.state == .stopped else { return }
+        phoneRequestsEnd = false
         await authorize()
         let created: HKWorkoutSession
         do {
@@ -157,6 +161,7 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
         isPaused = holdForPhone
         created.startActivity(with: activityStart)
         try? await liveBuilder.beginCollection(at: activityStart)
+        acceptsLiveSamples = true
         await mirrorIfNeeded()
         startMetricRelay()
         if phoneRequestsEnd {
@@ -186,6 +191,7 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
         didRequestFinish = false
         isSessionActive = true
         isMirroring = false
+        acceptsLiveSamples = true
         let paused = recovered.state == .paused
         isPaused = paused
         resetElapsed(to: liveBuilder.elapsedTime, at: Date(), paused: paused)
@@ -255,7 +261,7 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
         let payloadHeart = heart
         let payloadEnergy = energy
         Task { @MainActor in
-            guard !self.phoneRequestsEnd else { return }
+            guard self.acceptsLiveSamples, !self.phoneRequestsEnd else { return }
             if let current = payloadHeart.current {
                 heartRateBPM = current
             }
@@ -381,6 +387,12 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
             self.phoneWorkoutID = id
             phoneCommandSeq = 0
             phoneRequestsEnd = false
+            // Forget the previous workout's last sample so the relay does not publish it under this id.
+            // A session that is still collecting sends the next sensor callback as usual.
+            clearLiveMetrics()
+            if session == nil || session?.state == .ended || session?.state == .stopped {
+                acceptsLiveSamples = false
+            }
         }
         if phoneWorkoutID == nil {
             phoneWorkoutID = id
@@ -406,7 +418,36 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
             return
         }
         isSessionActive = true
-        syncHealthSession(running: running)
+        if hasLiveSession {
+            syncHealthSession(running: running)
+        } else {
+            startSessionForOpenPhoneWorkout()
+        }
+    }
+
+    private var hasLiveSession: Bool {
+        guard let session else { return false }
+        switch session.state {
+        case .ended, .stopped:
+            return false
+        default:
+            return true
+        }
+    }
+
+    /// The phone workout is already running. Opening this app, or a later clock, still needs a session.
+    private func startSessionForOpenPhoneWorkout() {
+        guard !isStartingSession, !hasLiveSession else { return }
+        isStartingSession = true
+        phoneRequestsEnd = false
+        didRequestFinish = false
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .traditionalStrengthTraining
+        configuration.locationType = .indoor
+        Task { [weak self] in
+            await self?.start(configuration)
+            self?.isStartingSession = false
+        }
     }
 
     private static func boolValue(_ value: Any?) -> Bool {
@@ -470,9 +511,17 @@ final class WatchWorkoutController: NSObject, HKWorkoutSessionDelegate, HKLiveWo
         }
     }
 
+    private func clearLiveMetrics() {
+        heartRateBPM = nil
+        averageHeartRateBPM = nil
+        maximumHeartRateBPM = nil
+        activeEnergyKilocalories = nil
+    }
+
     private func sendMetrics() {
-        guard !phoneRequestsEnd else { return }
+        guard acceptsLiveSamples, !phoneRequestsEnd, let workoutID = phoneWorkoutID else { return }
         phoneLink.sendMetrics(
+            workoutID: workoutID,
             heartRateBPM: heartRateBPM,
             averageHeartRateBPM: averageHeartRateBPM,
             maximumHeartRateBPM: maximumHeartRateBPM,

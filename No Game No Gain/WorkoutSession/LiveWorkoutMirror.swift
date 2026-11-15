@@ -127,7 +127,8 @@ final class LiveWorkoutMirror: NSObject, HKWorkoutSessionDelegate {
         for payload in data {
             guard let message = try? JSONDecoder().decode(LiveWorkoutMetricsMessage.self, from: payload) else { continue }
             onMain { [weak self] in
-                self?.onMetrics?(WorkoutLiveMetrics(
+                guard let self else { return }
+                self.onMetrics?(WorkoutLiveMetrics(
                     heartRateBPM: message.heartRateBPM,
                     averageHeartRateBPM: message.averageHeartRateBPM,
                     maximumHeartRateBPM: message.maximumHeartRateBPM,
@@ -156,7 +157,8 @@ final class LiveWorkoutMirror: NSObject, HKWorkoutSessionDelegate {
         if #available(iOS 26, *) {
             let collector = LiveWorkoutMetricsCollector(session: mirrored, healthStore: healthStore) { [weak self] metrics in
                 self?.onMain {
-                    self?.onMetrics?(metrics)
+                    guard let self else { return }
+                    self.onMetrics?(metrics)
                 }
             }
             metricsCollector = collector

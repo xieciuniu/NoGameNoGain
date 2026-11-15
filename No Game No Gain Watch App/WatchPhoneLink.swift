@@ -33,6 +33,7 @@ final class WatchPhoneLink: NSObject, WCSessionDelegate {
     }
 
     func sendMetrics(
+        workoutID: String,
         heartRateBPM: Double?,
         averageHeartRateBPM: Double?,
         maximumHeartRateBPM: Double?,
@@ -42,7 +43,7 @@ final class WatchPhoneLink: NSObject, WCSessionDelegate {
         guard WCSession.isSupported() else { return }
         let session = WCSession.default
         guard session.activationState == .activated else { return }
-        var message: [String: Any] = ["kind": "metrics"]
+        var message: [String: Any] = ["kind": "metrics", "id": workoutID]
         if let heartRateBPM {
             message["hr"] = heartRateBPM
         }

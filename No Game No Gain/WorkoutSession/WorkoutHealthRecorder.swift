@@ -38,6 +38,8 @@ final class WorkoutHealthRecorder {
     private var recoveryApplied = false
     private var pauseWhenMirrored = false
     private var deferredSave: (start: Date, duration: TimeInterval)?
+    /// `startWatchApp` already returned. End must not leave the link waiting for that result.
+    private var watchLaunchSucceeded = false
 
     var onMetrics: ((WorkoutLiveMetrics) -> Void)?
     var onCompanionEnded: (() -> Void)?
@@ -65,11 +67,17 @@ final class WorkoutHealthRecorder {
         switch link {
         case .idle, .unavailable, .ended:
             break
-        case .launching, .mirrored, .phone, .endWhileLaunching:
+        case .endWhileLaunching:
+            // The launch already succeeded and the mirror never arrived. The next workout can start.
+            guard watchLaunchSucceeded else { return }
+            link = .ended
+            deferredSave = nil
+        case .launching, .mirrored, .phone:
             return
         }
         didEndOrphan = false
         pauseWhenMirrored = false
+        watchLaunchSucceeded = false
         userDidStartCompanion = true
         link = .launching
         health.requestAuthorizationIfNeeded { [weak self] _, _ in
@@ -129,8 +137,13 @@ final class WorkoutHealthRecorder {
                 }
             }
         case .launching:
-            link = .endWhileLaunching
-            deferredSave = (session.startTime, session.duration)
+            if watchLaunchSucceeded {
+                link = .ended
+                deferredSave = nil
+            } else {
+                link = .endWhileLaunching
+                deferredSave = (session.startTime, session.duration)
+            }
         case .endWhileLaunching, .ended:
             break
         case .idle, .unavailable:
@@ -155,12 +168,15 @@ final class WorkoutHealthRecorder {
         switch link {
         case .launching:
             if success {
+                watchLaunchSucceeded = true
                 onTrackingDevice?()
             } else {
                 startPhoneSessionAfterWatchFailure()
             }
         case .endWhileLaunching:
-            if !success {
+            if success {
+                watchLaunchSucceeded = true
+            } else {
                 startPhoneSessionAfterWatchFailure()
             }
         case .idle, .mirrored, .phone, .unavailable, .ended:
@@ -169,6 +185,7 @@ final class WorkoutHealthRecorder {
     }
 
     private func startPhoneSessionAfterWatchFailure() {
+        guard link == .launching || link == .endWhileLaunching else { return }
         health.startPhoneSession(configuration: TraditionalStrengthWorkout.configuration()) { [weak self] started in
             MainActor.assumeIsolated {
                 guard let self else { return }

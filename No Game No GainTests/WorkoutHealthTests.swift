@@ -15,6 +15,7 @@ final class RecordingWorkoutHealthStore: WorkoutHealthRecording {
     enum Launch {
         case fail
         case hold
+        case succeed
         case succeedAndMirror
     }
 
@@ -84,6 +85,8 @@ final class RecordingWorkoutHealthStore: WorkoutHealthRecording {
             completion(false)
         case .hold:
             heldCompletion = completion
+        case .succeed:
+            completion(true)
         case .succeedAndMirror:
             completion(true)
             onMirrored?()
@@ -556,6 +559,32 @@ struct WorkoutHealthTests {
         #expect(health.phoneStartCount == 0)
     }
 
+    @Test("The next workout starts after a Watch launch that never mirrors")
+    func testSecondWorkoutAfterUnmirroredWatchLaunch() throws {
+        let clock = DateClock()
+        let health = RecordingWorkoutHealthStore()
+        health.launch = .succeed
+        let coordinator = makeCoordinator(clock: clock, health: health)
+        defer { coordinator.stopwatch.reset() }
+        let container = try makeContainer()
+        let context = container.mainContext
+        let workout = Workout(name: "Test Workout", exercise: [Exercise(name: "Bench Press", order: 1)])
+        context.insert(workout)
+
+        guard let first = coordinator.start(workout: workout, in: context) else {
+            Issue.record("Start should insert a session")
+            return
+        }
+        coordinator.end(first, account: UserAccount(), completion: WorkoutCompletion(save: { _ in }))
+
+        guard coordinator.start(workout: workout, in: context) != nil else {
+            Issue.record("The next workout should insert a session")
+            return
+        }
+        #expect(health.configurations.count == 2)
+        #expect(health.phoneStartCount == 0)
+    }
+
     @Test("A phone session shows heart rate and saves through that session")
     func testPhoneSessionShowsHeartRateAndSkipsHandBuiltSave() throws {
         let clock = DateClock()
@@ -580,6 +609,7 @@ struct WorkoutHealthTests {
         #expect(health.saved.isEmpty)
 
         health.deliverMetrics(heartRateBPM: nil, activeEnergyKilocalories: 12)
+        #expect(coordinator.heartRateBPM == nil)
         #expect(coordinator.hasTrackingDevice == false)
         #expect(coordinator.activeEnergyKilocalories == 12)
 
@@ -759,5 +789,42 @@ struct WorkoutHealthTests {
         #expect(health.phoneEndCount == 0)
         #expect(health.saved.count == 1)
         #expect(health.saved[0].duration == 6)
+    }
+
+    @Test("A failed Watch launch starts one phone session and does not start another")
+    func testFailedLaunchStartsPhoneSessionOnce() {
+        let health = RecordingWorkoutHealthStore()
+        health.launch = .fail
+        health.phoneSessionAvailable = true
+        let recorder = WorkoutHealthRecorder(health: health)
+        recorder.prepare()
+        recorder.startCompanion()
+
+        #expect(health.phoneStartCount == 1)
+        recorder.startCompanion()
+        #expect(health.phoneStartCount == 1)
+        #expect(health.configurations.count == 1)
+    }
+
+    @Test("The next workout starts after an end that landed before the Watch launch returned")
+    func testNextStartAfterEndDuringUnmirroredLaunch() {
+        let health = RecordingWorkoutHealthStore()
+        health.launch = .hold
+        let recorder = WorkoutHealthRecorder(health: health)
+        recorder.prepare()
+        recorder.startCompanion()
+
+        let workout = Workout(name: "Test Workout", exercise: [Exercise(name: "Bench Press", order: 1)])
+        let session = WorkoutSession(workout: workout, startTime: Date(timeIntervalSince1970: 1_700_000_000))
+        session.endTime = Date(timeIntervalSince1970: 1_700_000_004)
+        session.duration = 4
+        recorder.recordEndedSession(session)
+        health.finishHeldLaunch(success: true, mirror: false)
+
+        #expect(health.saved.isEmpty)
+        #expect(health.endCount == 0)
+        recorder.startCompanion()
+        #expect(health.configurations.count == 2)
+        #expect(health.phoneStartCount == 0)
     }
 }

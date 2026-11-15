@@ -12,6 +12,16 @@ Allowed status values: `not started`, `in progress`, `done`, `blocked`.
 
 Log line shape: `- YYYY-MM-DD — <status> — <one sentence of what changed or why it stopped>`.
 
+## Branches and pull requests
+
+Each feature task is one branch from current `main` and one pull request back to `main`. This applies to every task in this file.
+
+- Branch name: `f<id>-<short-slug>`, for example `f1-real-experience`.
+- Do the task only on that branch. Do not commit feature work straight to `main`.
+- When **Done when** is met, open a pull request to `main`. The title includes the task id. The body says what changed and how it was checked.
+- Merge that pull request before starting the next task, so the next branch contains its dependencies.
+- One task per pull request. A follow-up is a new task id and a new branch.
+
 New Swift files under `WorkoutSession/`, `WorkoutsCreator/`, `Components/`, or `DataStructures/` must be added to `No Game No Gain.xcodeproj/project.pbxproj` (file reference, build file, group, and Sources phase). The test target, `History & Stats`, and `No Game No Gain Watch App` already sync from disk. A new widget extension target must be added to the project and the scheme.
 
 ## Leave these as they are
@@ -339,6 +349,28 @@ This is not a Watch face complication and not a Home Screen widget. The Live Act
 - The switch is on the settings screen and on the workout screen, and both edit the same stored value.
 - A locked phone with no open workout does not show the card.
 
+### F14. AirPods heart rate
+
+**Status:** not started
+**Scope:** Large (2–4 days, needs iOS 26 and AirPods or a Bluetooth heart-rate monitor)
+**Depends on:** F13
+**Session:**
+**Report:**
+**Log:**
+- (none yet)
+
+A worn Apple Watch keeps the workout and its heart rate. AirPods heart rate is later, after the tasks above. Do not take a launched or mirrored Watch session away so the phone can collect AirPods samples. That handoff blocked normal Watch heart-rate monitoring.
+
+When this task starts, the phone session stays the path from `UPGRADE.md` W8: iOS 26 starts one indoor strength session only when the Watch app does not launch. HealthKit supplies heart rate from AirPods or a Bluetooth monitor. The app does not read those devices itself. A Watch that joins later discards the phone session and saves the workout. This task does not mark W8 done.
+
+**Done when:**
+
+- A worn Watch keeps measuring heart rate for the whole workout. The phone does not release that session or replace its samples.
+- On iOS 26, when the Watch app does not launch, one phone session shows live heart rate from AirPods or a Bluetooth monitor and saves that workout.
+- A Watch that joins after the phone session discards the phone session and owns the save.
+- iOS 17 and 18 still use the hand-built save when no Watch session is running.
+- Heart Rate stays an AirPods setting. The app does not read earbuds over a private protocol.
+
 ## What finished looks like
 
-The home bar, ranks, and stats use the account and the ended sessions. Settings edits the name and the alert sound. A finished phone workout asks for effort, shows what was lifted, and then applies the rep-then-weight step. One goal reads clearly on the home card. The challenge target steps by 1.4. Steps, calories, and sleep open a detail with an optional goal. A new user can take one built-in workout and try it before choosing weights. From the Watch, confirming a set logs it on the phone. Heart rate shows the current, average, and highest rate. The iPhone Lock Screen can show the elapsed time, exercise, weight, and reps, and that card has one switch.
+The home bar, ranks, and stats use the account and the ended sessions. Settings edits the name and the alert sound. A finished phone workout asks for effort, shows what was lifted, and then applies the rep-then-weight step. One goal reads clearly on the home card. The challenge target steps by 1.4. Steps, calories, and sleep open a detail with an optional goal. A new user can take one built-in workout and try it before choosing weights. From the Watch, confirming a set logs it on the phone. Heart rate shows the current, average, and highest rate from the Watch. The iPhone Lock Screen can show the elapsed time, exercise, weight, and reps, and that card has one switch. AirPods heart rate waits until that queue is finished.

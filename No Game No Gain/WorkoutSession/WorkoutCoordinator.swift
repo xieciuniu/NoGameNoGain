@@ -60,6 +60,11 @@ final class WorkoutCoordinator {
         }
 
         companionEnded = false
+        heartRateBPM = nil
+        averageHeartRateBPM = nil
+        maximumHeartRateBPM = nil
+        activeEnergyKilocalories = nil
+        hasTrackingDevice = false
         let session = WorkoutSession(workout: workout, startTime: stopwatch.currentDate())
         context.insert(session)
         save(context)

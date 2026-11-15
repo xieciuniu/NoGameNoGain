@@ -48,9 +48,9 @@
 		E7C41A412F4E4E0100A1C401 /* WorkoutHealthRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41A402F4E4E0100A1C401 /* WorkoutHealthRecorder.swift */; };
 		E7C41B052F4E500100A1D705 /* No Game No Gain Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E7C41B122F4E510100A1D712 /* LiveWorkoutMirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */; };
-		E7C41C222F4E530100A1D802 /* PhoneWorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */; };
 		E7C41B142F4E510100A1D714 /* WorkoutLiveMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B132F4E510100A1D713 /* WorkoutLiveMetricsView.swift */; };
 		E7C41B162F4E520100A1D716 /* WorkoutWatchLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41B152F4E520100A1D715 /* WorkoutWatchLink.swift */; };
+		E7C41C222F4E530100A1D802 /* PhoneWorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,9 +140,9 @@
 		E7C41A502F4E4C0300A1C501 /* FEATURES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FEATURES.md; sourceTree = "<group>"; };
 		E7C41B022F4E500100A1D702 /* No Game No Gain Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Game No Gain Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C41B112F4E510100A1D711 /* LiveWorkoutMirror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveWorkoutMirror.swift; sourceTree = "<group>"; };
-		E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWorkoutSession.swift; sourceTree = "<group>"; };
 		E7C41B132F4E510100A1D713 /* WorkoutLiveMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLiveMetricsView.swift; sourceTree = "<group>"; };
 		E7C41B152F4E520100A1D715 /* WorkoutWatchLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutWatchLink.swift; sourceTree = "<group>"; };
+		E7C41C212F4E530100A1D801 /* PhoneWorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWorkoutSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */

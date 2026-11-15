@@ -128,7 +128,7 @@ class HealthKitManager: WorkoutHealthRecording {
     func discardPhoneSession() {
         phoneSessions.discard()
     }
-    
+
     func requestAuthorizationIfNeeded(completion: @escaping (Bool, Error?) -> Void) {
         let readTypes: Set<HKObjectType> = [
             HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,

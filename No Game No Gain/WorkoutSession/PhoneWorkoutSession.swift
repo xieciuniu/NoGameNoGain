@@ -85,6 +85,8 @@ private final class PhoneWorkoutSession: NSObject, HKWorkoutSessionDelegate, HKL
     private var finishOnEnd = true
     private var didFinish = false
     private var acceptsMetrics = false
+    private var didBeginActivity = false
+    private var startCompletion: ((Bool) -> Void)?
     private var endCompletion: ((Bool) -> Void)?
 
     init(
@@ -102,7 +104,7 @@ private final class PhoneWorkoutSession: NSObject, HKWorkoutSessionDelegate, HKL
     }
 
     func start(configuration: HKWorkoutConfiguration, completion: @escaping (Bool) -> Void) {
-        if session != nil {
+        if let session, session.state != .ended, session.state != .stopped {
             completion(true)
             return
         }
@@ -122,22 +124,39 @@ private final class PhoneWorkoutSession: NSObject, HKWorkoutSessionDelegate, HKL
         didFinish = false
         finishOnEnd = true
         acceptsMetrics = true
-        let start = Date()
+        didBeginActivity = false
+        startCompletion = completion
+        // Prepare first so AirPods or a Bluetooth monitor can attach before the activity starts.
         created.prepare()
-        created.startActivity(with: start)
+        Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            self?.onMain { self?.beginActivityIfNeeded() }
+        }
+    }
+
+    /// Starts the activity once, either when the session is prepared or after the prepare wait.
+    private func beginActivityIfNeeded() {
+        guard !didBeginActivity, let session, let liveBuilder = builder else { return }
+        didBeginActivity = true
+        let start = Date()
+        if session.state != .running && session.state != .paused {
+            session.startActivity(with: start)
+        }
+        let completion = startCompletion
+        startCompletion = nil
         Task { [weak self] in
             do {
                 try await liveBuilder.beginCollection(at: start)
                 self?.onMain {
                     self?.startPolling()
-                    completion(true)
+                    completion?(true)
                 }
             } catch {
                 self?.onMain {
                     self?.finishOnEnd = false
                     self?.acceptsMetrics = false
-                    created.end()
-                    completion(false)
+                    session.end()
+                    completion?(false)
                 }
             }
         }
@@ -159,6 +178,7 @@ private final class PhoneWorkoutSession: NSObject, HKWorkoutSessionDelegate, HKL
         didFinish = false
         finishOnEnd = true
         acceptsMetrics = true
+        didBeginActivity = true
         startPolling()
         publish()
     }
@@ -210,9 +230,13 @@ private final class PhoneWorkoutSession: NSObject, HKWorkoutSessionDelegate, HKL
         from fromState: HKWorkoutSessionState,
         date: Date
     ) {
-        guard toState == .ended else { return }
         onMain { [weak self] in
-            self?.finish(at: date)
+            guard let self, workoutSession === self.session else { return }
+            if toState == .prepared || toState == .running {
+                self.beginActivityIfNeeded()
+            }
+            guard toState == .ended else { return }
+            self.finish(at: date)
         }
     }
 

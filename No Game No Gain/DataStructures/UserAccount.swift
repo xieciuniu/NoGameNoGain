@@ -13,11 +13,11 @@ class UserAccount: Codable {
     var exp: Double = 0
     var expMultiplier: Double = 1 // To usunąć
     var weight: Double = 0
-    var goal: String = "Weight Goal"
+    var goal: String = ""
     var strengthGoalExercise: String? = nil
     var goalStart: Double = 0
     var goalEnd: Double = 0
-    var goalProgress: Double = 65
+    var goalProgress: Double = 0
     var weeklyWorkouts: [String: Int]? = [:]
     
     func getWorkoutsInCurrentWeek() -> Int {

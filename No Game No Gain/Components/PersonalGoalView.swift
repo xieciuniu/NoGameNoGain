@@ -10,19 +10,14 @@ import SwiftData
 
 struct PersonalGoalView: View {
     private let possibleGoals = ["Weight Goal", "Strength Goal"]
-    @State var goal: String = "Weight Goal"
     @Binding var userAccount: UserAccount
-    //= loadUserAccountFromFile() ?? UserAccount()
-    
     @Query var exercises: [Exercise]
-    @State var chosenExercise: Exercise?
-    @State var strengthGoal: Double = 0
-    @State var strengthGoalInt: Int = 0
-    @State var strengthGoalPicker: [Int] = []
-    @State var weightGoalPicker = Array(stride(from: 300, through: 2000, by: 1))
-    @State var weightGoalInt: Int = 20
-    @State var weightGoal: Double = 0
-    
+
+    @State private var goal = "Weight Goal"
+    @State private var chosenExercise: Exercise?
+    @State private var targetText = ""
+    @State private var didRestore = false
+
     var body: some View {
         VStack {
             Picker("Choose goal", selection: $goal) {
@@ -32,33 +27,23 @@ struct PersonalGoalView: View {
             }
             .pickerStyle(.segmented)
             .padding(.bottom)
-//            .onTapGesture(perform: { print(userAccount.goal)})
+
             Form {
+                if GoalProgress.hasActiveGoal(userAccount) && GoalProgress.isReached(userAccount) {
+                    Text("Done. Set the next target.")
+                }
+
                 if goal == "Weight Goal" {
                     HStack {
-                        Text("Current weight:")
+                        Text("Current weight")
                         Spacer()
-                        Text("\(userAccount.weight.formatted())")
+                        Text("\(GoalProgress.formatKilograms(userAccount.weight)) kg")
                     }
-                        
-                    Section("Goal"){
-                        Picker("Goal", selection: $weightGoalInt) {
-                            ForEach(weightGoalPicker, id: \.self) {
-                                Text("\((Double($0)/10).formatted())")
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                    }
-                    //Text("\(weightGoal.formatted())")
-                    Button("Set goal") {
-                        setGoal()
-                    }
-                    
-                } else if goal == "Strength Goal"{
+                    targetSection(start: userAccount.weight, kind: .weight)
+                } else if goal == "Strength Goal" {
                     HStack {
                         Text("Choose exercise")
                         Spacer()
-                        
                         Picker("", selection: $chosenExercise) {
                             Text("").tag(nil as Exercise?)
                             ForEach(exercises) { exercise in
@@ -67,70 +52,97 @@ struct PersonalGoalView: View {
                         }
                     }
                     .padding(.vertical, 5)
-                    
+
                     if let exercise = chosenExercise {
                         HStack {
-                            Text("Exercise best:")
+                            Text("Exercise best")
                             Spacer()
-                            Text("\((exercise.personalBestWeight ?? 0).formatted())kg")
+                            Text("\(GoalProgress.formatKilograms(exercise.personalBestWeight ?? 0)) kg")
                         }
-                        
-                        Section("Goal"){
-                            Picker("", selection: $strengthGoalInt) {
-                                ForEach(strengthGoalPicker.sorted(), id: \.self) {
-                                    Text("\((Double($0)/10).formatted())")
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                        }
-                        
-                        //Testing
-//                        Text("New goal: \(strengthGoal.formatted())kg")
-                        
+                        targetSection(
+                            start: exercise.personalBestWeight ?? 0,
+                            kind: .strength(exerciseName: exercise.name)
+                        )
                     }
-                    
-                    
-                    Button("Set goal") {
-                        setGoal()
+                }
+
+                Button("Set goal") {
+                    setGoal()
+                }
+
+                if GoalProgress.hasActiveGoal(userAccount) {
+                    Button("Clear goal", role: .destructive) {
+                        clearGoal()
                     }
                 }
             }
-            
+
             Spacer()
         }
-        .onAppear(perform: {
-            goal = userAccount.goal
-            chosenExercise = exercises.first(where: {$0.name == userAccount.strengthGoalExercise })
-            strengthGoalInt = Int((chosenExercise?.personalBestWeight ?? 0) * 10)
-            strengthGoalPicker = Array(stride(from: 0 , through: 10000, by: 25)).filter({ $0 > strengthGoalInt})
-            weightGoalInt = Int((userAccount.weight) * 10)
-            
-        })
-        .onChange(of: chosenExercise) {
-            userAccount.strengthGoalExercise = chosenExercise?.name
-            strengthGoalInt = Int((chosenExercise?.personalBestWeight ?? 0) * 10)
-            strengthGoalPicker = Array(stride(from: 0 , through: 10000, by: 25)).filter({ $0 > strengthGoalInt})
-        }
-        .onChange(of: strengthGoalInt) {old, new in
-            strengthGoal = Double(new) / 10
-        }
-        .onChange(of: weightGoalInt) { old, new in
-            weightGoal = Double(new) / 10
+        .onAppear(perform: restoreEditor)
+        .onChange(of: exercises.count) {
+            restoreEditor()
         }
     }
-    
-    func setGoal() {
-        if goal == "Strength Goal" {
-            userAccount.goalStart = chosenExercise?.personalBestWeight ?? 0
-            userAccount.goalProgress = chosenExercise?.personalBestWeight ?? 0
-            userAccount.goalEnd = strengthGoal
-        } else if goal == "Weight Goal" {
-            userAccount.goalStart = userAccount.weight
-            userAccount.goalEnd = weightGoal
-            userAccount.goalProgress = userAccount.weight
+
+    @ViewBuilder
+    private func targetSection(start: Double, kind: GoalKind) -> some View {
+        Section("Target") {
+            TextField("Target", text: $targetText)
+                .keyboardType(.decimalPad)
         }
-        userAccount.goal = goal
+        if let target = GoalProgress.parseTarget(targetText) {
+            Text(GoalProgress.directionSentence(kind: kind, start: start, target: target))
+        }
+    }
+
+    private func restoreEditor() {
+        if !didRestore {
+            if userAccount.goal == "Strength Goal" {
+                goal = "Strength Goal"
+            }
+            if GoalProgress.hasActiveGoal(userAccount) {
+                targetText = GoalProgress.formatKilograms(userAccount.goalEnd)
+            }
+            didRestore = true
+        }
+        if chosenExercise == nil {
+            chosenExercise = exercises.first { $0.name == userAccount.strengthGoalExercise }
+        }
+    }
+
+    private func setGoal() {
+        guard let target = GoalProgress.parseTarget(targetText) else { return }
+        if goal == "Strength Goal" {
+            guard let exercise = chosenExercise else { return }
+            GoalProgress.applySet(
+                userAccount,
+                kind: .strength(exerciseName: exercise.name),
+                current: exercise.personalBestWeight ?? 0,
+                target: target
+            )
+        } else {
+            GoalProgress.applySet(
+                userAccount,
+                kind: .weight,
+                current: userAccount.weight,
+                target: target
+            )
+        }
+        saveAccount()
+    }
+
+    private func clearGoal() {
+        GoalProgress.applyClear(userAccount)
+        targetText = ""
+        saveAccount()
+    }
+
+    private func saveAccount() {
         saveUserAccountToFile(userAccount)
+        if let saved = loadUserAccountFromFile() {
+            userAccount = saved
+        }
     }
 }
 

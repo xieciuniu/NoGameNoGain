@@ -375,6 +375,27 @@ When this task starts, the phone session stays the path from `UPGRADE.md` W8: iO
 - iOS 17 and 18 still use the hand-built save when no Watch session is running.
 - Heart Rate stays an AirPods setting. The app does not read earbuds over a private protocol.
 
+### F15. Whole experience, a test control, and an effort chart
+
+**Status:** done
+**Scope:** Small (under a day)
+**Depends on:** F4
+**Session:** Debug settings can replace the stored experience. Awarded experience is rounded to a whole number, and the home bar and summary show that whole number. The workout row keeps previous sets visible, and “No weight yet” sits where the arrow was. The summary opens with levels 1...10, the selected description, and the last effort for the same workout when one is saved.
+**Report:** Summary, completion, settings, and rank tests passed on the iPhone 17 simulator. A saved experience of 250 reloads as 250. The previewed and awarded experience have no fraction. The last effort for a workout is the newest ended session with that name.
+**Log:**
+- 2026-11-15 — in progress — Settings will be able to set the account experience while testing. Experience will show as a whole number. The summary will lead with an effort chart.
+- 2026-11-15 — done — Debug settings can set experience. Experience shows as a whole number, and the summary leads with an effort chart.
+
+The experience already stored from earlier workouts stays. A Debug settings control can replace it. Awarded and shown experience is a whole number. The workout row drops the arrow that hid previous sets, and “No weight yet” takes that spot. The end summary leads with an effort chart, a description of the selected level, and the last effort for the same workout. The other statistics stay below that chart.
+
+**Done when:**
+
+- A Debug build’s settings screen can set the account experience, and that value is still there after a relaunch.
+- The home bar, the summary, and a newly awarded total show no decimal places.
+- The workout row no longer has the show-or-hide arrow. “No weight yet” is on that second line, and previous sets stay listed.
+- The summary starts with levels 1...10, the selected level’s description, and the last saved effort for this workout when one exists. Statistics follow that chart.
+- The XP formulas and the weekly-workout copy-then-assign stay as they are.
+
 ## What finished looks like
 
 The home bar, ranks, and stats use the account and the ended sessions. Settings edits the name and the alert sound. A finished phone workout asks for effort, shows what was lifted, and then applies the rep-then-weight step. One goal reads clearly on the home card. The challenge target steps by 1.4. Steps, calories, and sleep open a detail with an optional goal. A new user can take one built-in workout and try it before choosing weights. From the Watch, confirming a set logs it on the phone. Heart rate shows the current, average, and highest rate from the Watch. The iPhone Lock Screen can show the elapsed time, exercise, weight, and reps, and that card has one switch. AirPods heart rate waits until that queue is finished.

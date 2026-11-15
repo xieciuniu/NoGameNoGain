@@ -14,7 +14,6 @@ struct WorkoutView: View {
     @StateObject private var viewModel: WorkoutViewModel
     
     
-    @State private var showEnded = true
     @State private var showingSummary = false
     @State private var summary: WorkoutEndPreview?
     @State private var summaryEffort = 5
@@ -169,11 +168,10 @@ struct WorkoutView: View {
                         HStack {
                             
                             Text(viewModel.exerciseName)
+                                .lineLimit(1)
                                 .padding(.leading)
                             
                             Spacer()
-                            
-                            
                             
                             Text("Weight:")
                             if viewModel.currentWeightUnset {
@@ -186,9 +184,6 @@ struct WorkoutView: View {
                                     .keyboardType(.decimalPad)
                                     .frame(width: 60)
                             }
-                            Button(viewModel.currentWeightUnset ? "Add weight" : "No weight yet", action: viewModel.toggleNoWeightYet)
-                                .font(.caption)
-                            //                        .padding(.trailing)
                             
                             Text("Reps:")
                             TextField("Reps", value: $viewModel.currentReps, format: .number)
@@ -209,17 +204,14 @@ struct WorkoutView: View {
                                     .frame(height: 15)
                                     .padding(.trailing)
                                 
-                                Button(action: { showEnded.toggle() }) {
-                                    Image(systemName: showEnded ? "arrowshape.down" : "arrowshape.up" )
-                                        .foregroundStyle(.white)
-                                        .padding(.bottom)
-                                }
+                                Button(viewModel.currentWeightUnset ? "Add weight" : "No weight yet", action: viewModel.toggleNoWeightYet)
+                                    .font(.subheadline)
+                                    .frame(minHeight: 44)
                             }
                             .padding(.trailing)
                         }
                         
-                        if showEnded {
-                            ScrollView {
+                        ScrollView {
                                 
                                 ForEach(viewModel.workoutSession.doneSets.filter({ $0.exerciseName == viewModel.exerciseName }).sorted(by: { $0.numberOfSet > $1.numberOfSet })) { doneSet in
                                     HStack {
@@ -230,7 +222,7 @@ struct WorkoutView: View {
                                         }
                                         Text("\(doneSet.numberOfSet).")
                                         Spacer()
-                                        Text("Weight: \(doneSet.weight.formatted())")
+                                        Text(doneSet.weightUnset ? "Weight: —" : "Weight: \(doneSet.weight.formatted())")
                                         Text("Reps: \(doneSet.reps)")
                                         Text("Time: " + time)
 //                                        Text("RPE: ")
@@ -239,7 +231,6 @@ struct WorkoutView: View {
                                 }
                                 .padding([.leading, .trailing])
                                 
-                            }
                         }
                     }
                     

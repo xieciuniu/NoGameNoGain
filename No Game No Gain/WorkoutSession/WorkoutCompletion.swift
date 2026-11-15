@@ -58,7 +58,7 @@ struct WorkoutCompletion {
         let expMultiplier = experienceSystem.calculateXPMultiplier(userAccount: account)
         gainedExp *= expMultiplier
         updateProgressWeight(session)
-        account.exp += gainedExp
+        account.exp = (account.exp + gainedExp).rounded()
         save(account)
     }
 

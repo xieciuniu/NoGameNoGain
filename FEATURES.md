@@ -242,13 +242,14 @@ The list shows ended sessions only. Filters are the workout name and a range of 
 
 ### F9. Steps, calories, and sleep detail
 
-**Status:** not started
+**Status:** done
 **Scope:** Medium (1–2 days)
 **Depends on:** F8
-**Session:**
-**Report:**
+**Session:** The three home cards stay on screen. Steps, calories, and sleep each open a detail, and going back shows all three again. The detail shows today’s value, a goal, progress when that goal is set, and the recent bars from the existing chart methods. Steps keep 18000 until it is changed. Calories and sleep have no goal until one is saved. Sleep reads as hours and zero-padded minutes. A saved goal is stored on the account and shows on the home card.
+**Report:** 425 minutes reads 7:05, 9 minutes reads 0:09, and 60 minutes reads 1:00. A fraction truncates, so 425.9 is still 7:05. A fresh account’s step goal is 18000, and calorie and sleep goals are nil, so those cards do not show a goal. 9000 of 18000 is progress 0.5, and a nil calorie goal has no progress fraction. Encoding keeps a calorie goal of 400, a sleep goal of 425 minutes, and the name and experience. An older account file with only name, exp, goal, and goalProgress still loads, with the step goal at 18000 and the other activity goals nil. When Health is unavailable or the fetch fails, the detail says Health data is not available and does not show 0. HealthKit query math was not edited. Unit tests passed on the iPhone 17 simulator, 136 tests and 0 failures.
 **Log:**
-- (none yet)
+- 2026-11-15 — in progress — Each home card will open its own detail, with goals stored on the account.
+- 2026-11-15 — done — Steps, calories, and sleep each open a detail, and a saved goal stays on the account.
 
 Keep the three home cards. Each opens its own detail instead of replacing the row. Detail shows today’s value, an optional goal, progress toward that goal, and the recent bars from the existing HealthKit chart methods. Do not change those query methods.
 
